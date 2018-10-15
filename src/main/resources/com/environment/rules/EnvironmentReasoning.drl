@@ -1,0 +1,59 @@
+package com.environment.reasoning
+
+// list import classes
+import com.iotbpm.model.Devices;
+import com.iotbpm.model.ServerEvent;
+
+// default dialect for the semantic code will be MVEL
+dialect "mvel"
+
+rule "IoT Device Environment Conditions Readings"
+	when
+        $event : ServerEvent( $eventId : id, $temp : temp, $ir_temp : ir_temp, $humidity : humidity, $mbar : mbar, $light : light )
+      	$device : Devices( $deviceId : id, $eventId == id )
+	then
+		$device.action = $event.getEvent();
+		String result = ($temp == "0.0") ? "Mbar " + $mbar : "Temp " + $temp; 
+		$device.status = result;
+		String results = $event.getName() + " Temp:" + $temp + "  IR_Temp:" + $ir_temp + "  Humidity:" + $humidity + "  Mbar:" + $mbar + "  Light:" + $light
+		com.iotbpm.ui.MainWindow.getInstance().log(results);
+		modify( $device )
+end
+
+rule "IoT Device Event Readings"
+	when
+        $event : ServerEvent( $eventId : id )
+      	$device : Devices( $deviceId : id, $eventId == id )
+	then
+		String results = $event.getName() + " Device Time " + $event.getDeviceTime() + " " + $event.getEvent();
+		com.iotbpm.ui.MainWindow.getInstance().log(results);
+		modify( $device )
+end
+
+//declare rule to fire when Temp is over 75
+rule "Temp Raise alarm - Too Warm at Location"
+	when
+        $event : ServerEvent( $eventId : id, $temp : temp, $temp > "75" )
+      	$device : Devices( $deviceId : id,  $eventId == id )
+	then
+		$device.action = "Alert"; 
+		$device.status = "Temp " + $temp;
+		com.iotbpm.ui.MainWindow.getInstance().log(">>Raise Temp Alarm " + $event.getName() + " Temperature:" + $temp);
+		modify( $device );
+end
+
+rule "IoT Device Sent Text Message"
+	when
+        $event : ServerEvent( $eventId : id, $textMessage : textMessage, $textMessage != null )
+      	$device : Devices( $deviceId : id,  $eventId == id )
+	then
+		com.iotbpm.ui.MainWindow.getInstance().log($event.getName() + " Text Message: " + $textMessage);
+end
+
+rule "IoT Device Sent Alarm"
+	when
+        $event : ServerEvent( $eventId : id, $alarm : alarm, $alarm != null )
+      	$device : Devices( $deviceId : id,  $eventId == id )
+	then
+		com.iotbpm.ui.MainWindow.getInstance().log($event.getName() + " Sent Alarm: " + $alarm);
+end

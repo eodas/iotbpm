@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- origin at X=0.0 Y=0.0 -->
+<bpmn2:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:java="http://www.java.com/javaTypes" xmlns:tns="http://www.jboss.org/drools" xmlns="http://www.jboss.org/drools" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd http://www.jboss.org/drools drools.xsd http://www.bpsim.org/schemas/1.0 bpsim.xsd" id="Definition" exporter="org.eclipse.bpmn2.modeler.core" exporterVersion="1.5.0.Final-v20180515-1642-B1" expressionLanguage="http://www.mvel.org/2.0" targetNamespace="http://www.jboss.org/drools" typeLanguage="http://www.java.com/javaTypes">
+  <bpmn2:itemDefinition id="ItemDefinition_19" isCollection="false" structureRef="java.lang.String"/>
+  <bpmn2:itemDefinition id="ItemDefinition_8" isCollection="false" structureRef="java.lang.Double"/>
+  <bpmn2:process id="com.Light" tns:packageName="com.LightPackage" name="Arduino Tron Light jBPM" isExecutable="true" processType="Private">
+    <bpmn2:property id="id" itemSubjectRef="ItemDefinition_19" name="id"/>
+    <bpmn2:property id="name" itemSubjectRef="ItemDefinition_19" name="name"/>
+    <bpmn2:property id="event" itemSubjectRef="ItemDefinition_19" name="event"/>
+    <bpmn2:property id="address" itemSubjectRef="ItemDefinition_19" name="address"/>
+    <bpmn2:property id="textMessage" itemSubjectRef="ItemDefinition_19" name="textMessage"/>
+    <bpmn2:property id="temp" itemSubjectRef="ItemDefinition_19" name="temp"/>
+    <bpmn2:property id="light" itemSubjectRef="ItemDefinition_19" name="light"/>
+    <bpmn2:property id="ilight" itemSubjectRef="ItemDefinition_8" name="ilight"/>
+    <bpmn2:property id="keypress" itemSubjectRef="ItemDefinition_19" name="keypress"/>
+    <bpmn2:property id="alarm" itemSubjectRef="ItemDefinition_19" name="alarm"/>
+    <bpmn2:startEvent id="StartEvent_1" name="Start Event">
+      <bpmn2:extensionElements>
+        <tns:metaData name="elementname">
+          <tns:metaValue><![CDATA[Start Event]]></tns:metaValue>
+        </tns:metaData>
+      </bpmn2:extensionElements>
+      <bpmn2:outgoing>SequenceFlow_1</bpmn2:outgoing>
+    </bpmn2:startEvent>
+    <bpmn2:scriptTask id="ScriptTask_1" name="Light Prepare Facts">
+      <bpmn2:extensionElements>
+        <tns:metaData name="elementname">
+          <tns:metaValue><![CDATA[Light Prepare Facts]]></tns:metaValue>
+        </tns:metaData>
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>SequenceFlow_1</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_2</bpmn2:outgoing>
+      <bpmn2:script>kcontext.getKnowledgeRuntime().insert(kcontext.getProcessInstance());
+if (kcontext.getVariable(&quot;light&quot;) == null)  {
+  kcontext.setVariable(&quot;light&quot;,&quot;0.0&quot;);
+}
+Double i = Double.parseDouble(kcontext.getVariable(&quot;light&quot;));
+kcontext.setVariable(&quot;ilight&quot;,i);
+com.iotbpm.server.AgentConnect.getInstance().sendPost(&quot;LightAgent&quot;,&quot;/LED1=OFF&quot;);
+com.iotbpm.server.AgentConnect.getInstance().sendPost(&quot;LightAgent&quot;,&quot;/LED2=OFF&quot;);
+com.iotbpm.server.AgentConnect.getInstance().sendPost(&quot;LightAgent&quot;,&quot;/LED3=OFF&quot;);
+com.iotbpm.server.AgentConnect.getInstance().sendPost(&quot;LightAgent&quot;,&quot;/LED4=OFF&quot;);</bpmn2:script>
+    </bpmn2:scriptTask>
+    <bpmn2:exclusiveGateway id="ExclusiveGateway_1" name="Light Level" gatewayDirection="Diverging">
+      <bpmn2:incoming>SequenceFlow_11</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_3</bpmn2:outgoing>
+      <bpmn2:outgoing>SequenceFlow_4</bpmn2:outgoing>
+      <bpmn2:outgoing>SequenceFlow_5</bpmn2:outgoing>
+      <bpmn2:outgoing>SequenceFlow_10</bpmn2:outgoing>
+    </bpmn2:exclusiveGateway>
+    <bpmn2:scriptTask id="ScriptTask_3" name="Dim 15-50">
+      <bpmn2:extensionElements>
+        <tns:metaData name="elementname">
+          <tns:metaValue><![CDATA[Dim 15-50]]></tns:metaValue>
+        </tns:metaData>
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>SequenceFlow_4</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_8</bpmn2:outgoing>
+      <bpmn2:script>com.iotbpm.ui.MainWindow.getInstance().log(&quot;Dim Light  - IoT Device &quot; +  kcontext.getVariable(&quot;name&quot;) + &quot; Light Value is &quot; + kcontext.getVariable(&quot;light&quot;));
+com.iotbpm.server.AgentConnect.getInstance().sendPost(&quot;LightAgent&quot;,&quot;/LED3=ON&quot;);</bpmn2:script>
+    </bpmn2:scriptTask>
+    <bpmn2:sequenceFlow id="SequenceFlow_1" name="Start" sourceRef="StartEvent_1" targetRef="ScriptTask_1"/>
+    <bpmn2:sequenceFlow id="SequenceFlow_2" name="Rules" sourceRef="ScriptTask_1" targetRef="BusinessRuleTask_1"/>
+    <bpmn2:sequenceFlow id="SequenceFlow_3" name="Dark" sourceRef="ExclusiveGateway_1" targetRef="ScriptTask_6">
+      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression" id="FormalExpression_1" language="http://www.java.com/java">return  KieFunctions.lessThan(ilight, &quot;15&quot;);</bpmn2:conditionExpression>
+    </bpmn2:sequenceFlow>
+    <bpmn2:sequenceFlow id="SequenceFlow_4" tns:priority="1" name="Dim" sourceRef="ExclusiveGateway_1" targetRef="ScriptTask_3">
+      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression" id="FormalExpression_2" language="http://www.java.com/java">return  KieFunctions.between(ilight ,&quot;15&quot;, &quot;50&quot;);</bpmn2:conditionExpression>
+    </bpmn2:sequenceFlow>
+    <bpmn2:endEvent id="EndEvent_3" name="End Dark">
+      <bpmn2:extensionElements>
+        <tns:metaData name="elementname">
+          <tns:metaValue><![CDATA[End Dark]]></tns:metaValue>
+        </tns:metaData>
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>SequenceFlow_7</bpmn2:incoming>
+      <bpmn2:terminateEventDefinition id="TerminateEventDefinition_1"/>
+    </bpmn2:endEvent>
+    <bpmn2:endEvent id="EndEvent_4" name="End Normal">
+      <bpmn2:extensionElements>
+        <tns:metaData name="elementname">
+          <tns:metaValue><![CDATA[End Normal]]></tns:metaValue>
+        </tns:metaData>
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>SequenceFlow_8</bpmn2:incoming>
+      <bpmn2:terminateEventDefinition id="TerminateEventDefinition_2"/>
+    </bpmn2:endEvent>
+    <bpmn2:sequenceFlow id="SequenceFlow_7" tns:priority="1" sourceRef="ScriptTask_6" targetRef="EndEvent_3"/>
+    <bpmn2:sequenceFlow id="SequenceFlow_8" tns:priority="1" sourceRef="ScriptTask_3" targetRef="EndEvent_4"/>
+    <bpmn2:sequenceFlow id="SequenceFlow_5" tns:priority="1" name="Bright" sourceRef="ExclusiveGateway_1" targetRef="ScriptTask_4">
+      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression" id="FormalExpression_3" language="http://www.java.com/java">return  KieFunctions.between(ilight ,&quot;50&quot;, &quot;90&quot;);</bpmn2:conditionExpression>
+    </bpmn2:sequenceFlow>
+    <bpmn2:scriptTask id="ScriptTask_4" name="Bright 50 - 90">
+      <bpmn2:extensionElements>
+        <tns:metaData name="elementname">
+          <tns:metaValue><![CDATA[Bright 50 - 90]]></tns:metaValue>
+        </tns:metaData>
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>SequenceFlow_5</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_6</bpmn2:outgoing>
+      <bpmn2:script>com.iotbpm.ui.MainWindow.getInstance().log(&quot;Bright  Light - IoT Device &quot; +  kcontext.getVariable(&quot;name&quot;) + &quot; Light Value is &quot; + kcontext.getVariable(&quot;light&quot;));
+com.iotbpm.server.AgentConnect.getInstance().sendPost(&quot;LightAgent&quot;,&quot;/LED2=ON&quot;);</bpmn2:script>
+    </bpmn2:scriptTask>
+    <bpmn2:endEvent id="EndEvent_1" name="End Bright">
+      <bpmn2:extensionElements>
+        <tns:metaData name="elementname">
+          <tns:metaValue><![CDATA[End Bright]]></tns:metaValue>
+        </tns:metaData>
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>SequenceFlow_6</bpmn2:incoming>
+      <bpmn2:terminateEventDefinition id="TerminateEventDefinition_3"/>
+    </bpmn2:endEvent>
+    <bpmn2:sequenceFlow id="SequenceFlow_6" tns:priority="1" sourceRef="ScriptTask_4" targetRef="EndEvent_1"/>
+    <bpmn2:businessRuleTask id="BusinessRuleTask_1" tns:ruleFlowGroup="Light Rule Flow" name="Light Business Rule">
+      <bpmn2:extensionElements>
+        <tns:metaData name="elementname">
+          <tns:metaValue><![CDATA[Light Business Rule]]></tns:metaValue>
+        </tns:metaData>
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>SequenceFlow_2</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_11</bpmn2:outgoing>
+    </bpmn2:businessRuleTask>
+    <bpmn2:sequenceFlow id="SequenceFlow_11" tns:priority="1" name="Light" sourceRef="BusinessRuleTask_1" targetRef="ExclusiveGateway_1"/>
+    <bpmn2:scriptTask id="ScriptTask_6" name="Dark &lt; 15" scriptFormat="http://www.java.com/java">
+      <bpmn2:extensionElements>
+        <tns:metaData name="elementname">
+          <tns:metaValue><![CDATA[Dark < 15]]></tns:metaValue>
+        </tns:metaData>
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>SequenceFlow_3</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_7</bpmn2:outgoing>
+      <bpmn2:script>com.iotbpm.ui.MainWindow.getInstance().log(&quot;Dark Light - IoT Device &quot; +  kcontext.getVariable(&quot;name&quot;) + &quot; Light Value is &quot; + kcontext.getVariable(&quot;light&quot;));
+com.iotbpm.server.AgentConnect.getInstance().sendPost(&quot;LightAgent&quot;,&quot;/LED4=ON&quot;);</bpmn2:script>
+    </bpmn2:scriptTask>
+    <bpmn2:scriptTask id="ScriptTask_2" name="Full > 90">
+      <bpmn2:extensionElements>
+        <tns:metaData name="elementname">
+          <tns:metaValue><![CDATA[Full > 90]]></tns:metaValue>
+        </tns:metaData>
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>SequenceFlow_10</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_9</bpmn2:outgoing>
+      <bpmn2:script>com.iotbpm.ui.MainWindow.getInstance().log(&quot;Full  Light - IoT Device &quot; +  kcontext.getVariable(&quot;name&quot;) + &quot; Light Value is &quot; + kcontext.getVariable(&quot;light&quot;));
+com.iotbpm.server.AgentConnect.getInstance().sendPost(&quot;LightAgent&quot;,&quot;/LED1=ON&quot;);</bpmn2:script>
+    </bpmn2:scriptTask>
+    <bpmn2:endEvent id="EndEvent_2" name="End Full">
+      <bpmn2:extensionElements>
+        <tns:metaData name="elementname">
+          <tns:metaValue><![CDATA[End Full]]></tns:metaValue>
+        </tns:metaData>
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>SequenceFlow_9</bpmn2:incoming>
+      <bpmn2:terminateEventDefinition id="TerminateEventDefinition_4"/>
+    </bpmn2:endEvent>
+    <bpmn2:sequenceFlow id="SequenceFlow_9" tns:priority="1" sourceRef="ScriptTask_2" targetRef="EndEvent_2"/>
+    <bpmn2:sequenceFlow id="SequenceFlow_10" tns:priority="1" name="Full" sourceRef="ExclusiveGateway_1" targetRef="ScriptTask_2">
+      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression" id="FormalExpression_4" language="http://www.java.com/java">return  KieFunctions.greaterThan(ilight, &quot;90&quot;);</bpmn2:conditionExpression>
+    </bpmn2:sequenceFlow>
+    <bpmn2:textAnnotation id="TextAnnotation_1">
+      <bpmn2:text>- Trigger Arduino device, analog output pins GPIO on an Arduino chip with HTTP post commands. &#xD;
+</bpmn2:text>
+    </bpmn2:textAnnotation>
+    <bpmn2:textAnnotation id="TextAnnotation_2">
+      <bpmn2:text>- These can be Service Task. But for simplicity Script Tasks work well.</bpmn2:text>
+    </bpmn2:textAnnotation>
+  </bpmn2:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_Process_1" bpmnElement="com.Light">
+      <bpmndi:BPMNShape id="BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds height="36.0" width="36.0" x="22.0" y="151.0"/>
+        <bpmndi:BPMNLabel id="BPMNLabel_1" labelStyle="BPMNLabelStyle_1">
+          <dc:Bounds height="15.0" width="58.0" x="11.0" y="187.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_ScriptTask_2" bpmnElement="ScriptTask_1" isExpanded="true">
+        <dc:Bounds height="50.0" width="110.0" x="113.0" y="144.0"/>
+        <bpmndi:BPMNLabel id="BPMNLabel_2" labelStyle="BPMNLabelStyle_1">
+          <dc:Bounds height="15.0" width="107.0" x="114.0" y="161.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_ExclusiveGateway_1" bpmnElement="ExclusiveGateway_1" isMarkerVisible="true">
+        <dc:Bounds height="50.0" width="50.0" x="460.0" y="144.0"/>
+        <bpmndi:BPMNLabel id="BPMNLabel_3" labelStyle="BPMNLabelStyle_1">
+          <dc:Bounds height="15.0" width="59.0" x="456.0" y="194.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_ScriptTask_4" bpmnElement="ScriptTask_3" isExpanded="true">
+        <dc:Bounds height="50.0" width="110.0" x="570.0" y="114.0"/>
+        <bpmndi:BPMNLabel id="BPMNLabel_5" labelStyle="BPMNLabelStyle_1">
+          <dc:Bounds height="15.0" width="58.0" x="596.0" y="131.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_EndEvent_4" bpmnElement="EndEvent_3">
+        <dc:Bounds height="36.0" width="36.0" x="703.0" y="46.0"/>
+        <bpmndi:BPMNLabel id="BPMNLabel_6" labelStyle="BPMNLabelStyle_1">
+          <dc:Bounds height="15.0" width="51.0" x="696.0" y="82.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_EndEvent_5" bpmnElement="EndEvent_4">
+        <dc:Bounds height="36.0" width="36.0" x="703.0" y="121.0"/>
+        <bpmndi:BPMNLabel id="BPMNLabel_7" labelStyle="BPMNLabelStyle_1">
+          <dc:Bounds height="15.0" width="66.0" x="688.0" y="157.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_ScriptTask_1" bpmnElement="ScriptTask_4" isExpanded="true">
+        <dc:Bounds height="50.0" width="110.0" x="571.0" y="190.0"/>
+        <bpmndi:BPMNLabel id="BPMNLabel_8">
+          <dc:Bounds height="15.0" width="73.0" x="589.0" y="207.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_EndEvent_1" bpmnElement="EndEvent_1">
+        <dc:Bounds height="36.0" width="36.0" x="703.0" y="197.0"/>
+        <bpmndi:BPMNLabel id="BPMNLabel_9">
+          <dc:Bounds height="15.0" width="57.0" x="693.0" y="233.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_BusinessRuleTask_1" bpmnElement="BusinessRuleTask_1" isExpanded="true">
+        <dc:Bounds height="50.0" width="110.0" x="288.0" y="144.0"/>
+        <bpmndi:BPMNLabel id="BPMNLabel_10">
+          <dc:Bounds height="30.0" width="92.0" x="297.0" y="154.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_TextAnnotation_1" bpmnElement="TextAnnotation_1">
+        <dc:Bounds height="85.0" width="175.0" x="288.0" y="47.0"/>
+        <bpmndi:BPMNLabel id="BPMNLabel_11">
+          <dc:Bounds height="79.0" width="163.0" x="294.0" y="47.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_ScriptTask_6" bpmnElement="ScriptTask_6">
+        <dc:Bounds height="50.0" width="110.0" x="570.0" y="39.0"/>
+        <bpmndi:BPMNLabel id="BPMNLabel_4">
+          <dc:Bounds height="15.0" width="53.0" x="598.0" y="56.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_TextAnnotation_2" bpmnElement="TextAnnotation_2">
+        <dc:Bounds height="73.0" width="164.0" x="288.0" y="214.0"/>
+        <bpmndi:BPMNLabel id="BPMNLabel_112">
+          <dc:Bounds height="67.0" width="152.0" x="294.0" y="214.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_ScriptTask_3" bpmnElement="ScriptTask_2" isExpanded="true">
+        <dc:Bounds height="50.0" width="110.0" x="568.0" y="263.0"/>
+        <bpmndi:BPMNLabel id="BPMNLabel_12">
+          <dc:Bounds height="15.0" width="47.0" x="599.0" y="280.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_EndEvent_2" bpmnElement="EndEvent_2">
+        <dc:Bounds height="36.0" width="36.0" x="702.0" y="270.0"/>
+        <bpmndi:BPMNLabel id="BPMNLabel_13">
+          <dc:Bounds height="15.0" width="45.0" x="698.0" y="306.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_3" bpmnElement="SequenceFlow_1" sourceElement="BPMNShape_StartEvent_2" targetElement="BPMNShape_ScriptTask_2">
+        <di:waypoint xsi:type="dc:Point" x="58.0" y="169.0"/>
+        <di:waypoint xsi:type="dc:Point" x="85.0" y="169.0"/>
+        <di:waypoint xsi:type="dc:Point" x="113.0" y="169.0"/>
+        <bpmndi:BPMNLabel id="BPMNLabel_18">
+          <dc:Bounds height="15.0" width="25.0" x="74.0" y="170.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_4" bpmnElement="SequenceFlow_2" sourceElement="BPMNShape_ScriptTask_2" targetElement="BPMNShape_BusinessRuleTask_1">
+        <di:waypoint xsi:type="dc:Point" x="223.0" y="169.0"/>
+        <di:waypoint xsi:type="dc:Point" x="255.0" y="169.0"/>
+        <di:waypoint xsi:type="dc:Point" x="288.0" y="169.0"/>
+        <bpmndi:BPMNLabel id="BPMNLabel_19">
+          <dc:Bounds height="15.0" width="33.0" x="240.0" y="170.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_5" bpmnElement="SequenceFlow_3" sourceElement="BPMNShape_ExclusiveGateway_1" targetElement="BPMNShape_ScriptTask_6">
+        <di:waypoint xsi:type="dc:Point" x="485.0" y="144.0"/>
+        <di:waypoint xsi:type="dc:Point" x="485.0" y="64.0"/>
+        <di:waypoint xsi:type="dc:Point" x="570.0" y="64.0"/>
+        <bpmndi:BPMNLabel id="BPMNLabel_110">
+          <dc:Bounds height="15.0" width="26.0" x="476.0" y="65.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_6" bpmnElement="SequenceFlow_4" sourceElement="BPMNShape_ExclusiveGateway_1" targetElement="BPMNShape_ScriptTask_4">
+        <di:waypoint xsi:type="dc:Point" x="510.0" y="169.0"/>
+        <di:waypoint xsi:type="dc:Point" x="510.0" y="139.0"/>
+        <di:waypoint xsi:type="dc:Point" x="570.0" y="139.0"/>
+        <bpmndi:BPMNLabel id="BPMNLabel_111">
+          <dc:Bounds height="15.0" width="23.0" x="514.0" y="140.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_9" bpmnElement="SequenceFlow_7" sourceElement="BPMNShape_ScriptTask_6" targetElement="BPMNShape_EndEvent_4">
+        <di:waypoint xsi:type="dc:Point" x="680.0" y="64.0"/>
+        <di:waypoint xsi:type="dc:Point" x="691.0" y="64.0"/>
+        <di:waypoint xsi:type="dc:Point" x="703.0" y="64.0"/>
+        <bpmndi:BPMNLabel id="BPMNLabel_120"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_10" bpmnElement="SequenceFlow_8" sourceElement="BPMNShape_ScriptTask_4" targetElement="BPMNShape_EndEvent_5">
+        <di:waypoint xsi:type="dc:Point" x="680.0" y="139.0"/>
+        <di:waypoint xsi:type="dc:Point" x="691.0" y="139.0"/>
+        <di:waypoint xsi:type="dc:Point" x="703.0" y="139.0"/>
+        <bpmndi:BPMNLabel id="BPMNLabel_130"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_1" bpmnElement="SequenceFlow_5" sourceElement="BPMNShape_ExclusiveGateway_1" targetElement="BPMNShape_ScriptTask_1">
+        <di:waypoint xsi:type="dc:Point" x="510.0" y="169.0"/>
+        <di:waypoint xsi:type="dc:Point" x="510.0" y="215.0"/>
+        <di:waypoint xsi:type="dc:Point" x="571.0" y="215.0"/>
+        <bpmndi:BPMNLabel id="BPMNLabel_14">
+          <dc:Bounds height="15.0" width="32.0" x="503.0" y="216.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_2" bpmnElement="SequenceFlow_6" sourceElement="BPMNShape_ScriptTask_1" targetElement="BPMNShape_EndEvent_1">
+        <di:waypoint xsi:type="dc:Point" x="681.0" y="215.0"/>
+        <di:waypoint xsi:type="dc:Point" x="692.0" y="215.0"/>
+        <di:waypoint xsi:type="dc:Point" x="703.0" y="215.0"/>
+        <bpmndi:BPMNLabel id="BPMNLabel_15"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_11" bpmnElement="SequenceFlow_11" sourceElement="BPMNShape_BusinessRuleTask_1" targetElement="BPMNShape_ExclusiveGateway_1">
+        <di:waypoint xsi:type="dc:Point" x="398.0" y="169.0"/>
+        <di:waypoint xsi:type="dc:Point" x="429.0" y="169.0"/>
+        <di:waypoint xsi:type="dc:Point" x="460.0" y="169.0"/>
+        <bpmndi:BPMNLabel id="BPMNLabel_16">
+          <dc:Bounds height="15.0" width="27.0" x="416.0" y="170.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_7" bpmnElement="SequenceFlow_9" sourceElement="BPMNShape_ScriptTask_3" targetElement="BPMNShape_EndEvent_2">
+        <di:waypoint xsi:type="dc:Point" x="678.0" y="288.0"/>
+        <di:waypoint xsi:type="dc:Point" x="690.0" y="288.0"/>
+        <di:waypoint xsi:type="dc:Point" x="702.0" y="288.0"/>
+        <bpmndi:BPMNLabel id="BPMNLabel_17"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_8" bpmnElement="SequenceFlow_10" sourceElement="BPMNShape_ExclusiveGateway_1" targetElement="BPMNShape_ScriptTask_3">
+        <di:waypoint xsi:type="dc:Point" x="485.0" y="194.0"/>
+        <di:waypoint xsi:type="dc:Point" x="485.0" y="288.0"/>
+        <di:waypoint xsi:type="dc:Point" x="568.0" y="288.0"/>
+        <bpmndi:BPMNLabel id="BPMNLabel_20">
+          <dc:Bounds height="15.0" width="20.0" x="476.0" y="284.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+    <bpmndi:BPMNLabelStyle id="BPMNLabelStyle_1">
+      <dc:Font name="arial" size="9.0"/>
+    </bpmndi:BPMNLabelStyle>
+  </bpmndi:BPMNDiagram>
+</bpmn2:definitions>

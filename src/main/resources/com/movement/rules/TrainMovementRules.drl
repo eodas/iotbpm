@@ -1,0 +1,53 @@
+package com.movement
+
+// list import classes
+import com.iotbpm.model.Devices;
+import com.iotbpm.model.ServerEvent;
+
+// default dialect for the semantic code will be MVEL
+dialect "mvel"
+
+rule "Move-Stop Train Motion Rule"
+ 	no-loop
+    when
+    	// event keypress1.0 used to change state Move/Stop
+		$event : ServerEvent( $eventId : id, (event == "keypress1.0" || event == "keypress2.0") )
+      	$device : Devices( $deviceId : id,  $eventId == id )
+    then
+		String result = ($device.status == "Move") ? "Stop" : "Move";
+  		$device.status = result;
+		$device.action = $event.getEvent();
+		com.iotbpm.ui.MainWindow.getInstance().log("Train Device " + $device.getName() + " - " + result);
+		modify( $device );
+		update( $device );
+end
+
+rule "No Trains Are Moving - Quite Rule"
+	when
+		accumulate ( $device : Devices( $deviceId : id, $device.status == "Move" ); $cnt : count(1) ; $cnt == 0 )
+then
+		com.iotbpm.ui.MainWindow.getInstance().log("<Quite> No Trains Are Moving.");
+end
+
+rule "One Train is Moving - Safe Rule"
+	when
+		accumulate ( $device : Devices( $deviceId : id, $device.status == "Move" ); $cnt : count(1); $cnt == 1 )
+then
+		com.iotbpm.ui.MainWindow.getInstance().log("<Safe> Only One Train is Moving.");
+end
+
+rule "More Than One Train is Moving - Slow Rule"
+	when
+		accumulate ( $device : Devices( $deviceId : id, $device.status == "Move" ); $cnt : count(1); $cnt > 1 )
+then
+		com.iotbpm.ui.MainWindow.getInstance().log("<Slow> More Than One Train is Moving.");
+end
+
+//declare rule to fire when Device in Motion
+rule "Device in Motion Rule"
+    when
+        $event : ServerEvent( $eventId : id, $motion : motion, $motion == true )
+      	$device : Devices( $deviceId : id,  $eventId == id )
+    then
+		com.iotbpm.ui.MainWindow.getInstance().log("<Device " + $device.getName() + " in Motion>");
+end

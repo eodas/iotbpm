@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kmodule xmlns="http://jboss.org/kie/6.0.0/kmodule">
+
+	<kbase name="kbaseEnvironment"
+		packages="com.environment.rules, com.environment.process">
+		<ksession name="ksession-environment">
+		</ksession>
+	</kbase>
+
+	<kbase name="kbaseGPSposition"
+		packages="com.gpsposition.rules, com.gpsposition.process">
+		<ksession name="ksession-gpsposition">
+		</ksession>
+	</kbase>
+
+	<kbase name="kbaseGyroscope"
+		packages="com.gyroscope.rules, com.gyroscope.process">
+		<ksession name="ksession-gyroscope">
+		</ksession>
+	</kbase>
+
+	<kbase name="kbaseLight"
+		packages="com.light.rules, com.light.process">
+		<ksession name="ksession-light">
+		</ksession>
+	</kbase>
+
+	<kbase name="kbaseMovement"
+		packages="com.movement.rules, com.movement.process">
+		<ksession name="ksession-movement">
+		</ksession>
+	</kbase>
+</kmodule>

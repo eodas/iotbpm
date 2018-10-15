@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- origin at X=0.0 Y=0.0 -->
+<bpmn2:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:java="http://www.java.com/javaTypes" xmlns:tns="http://www.jboss.org/drools" xmlns="http://www.jboss.org/drools" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd http://www.jboss.org/drools drools.xsd http://www.bpsim.org/schemas/1.0 bpsim.xsd" id="Definition" exporter="org.eclipse.bpmn2.modeler.core" exporterVersion="1.4.2.Final-v20171109-1930-B1" expressionLanguage="http://www.mvel.org/2.0" targetNamespace="http://www.jboss.org/drools" typeLanguage="http://www.java.com/javaTypes">
+  <bpmn2:itemDefinition id="ItemDefinition_19" isCollection="false" structureRef="java.lang.String"/>
+  <bpmn2:process id="com.GPSPosition" tns:packageName="com.GPSPosition" name="GPSPositionjBPM" isExecutable="true" processType="Private">
+    <bpmn2:property id="id" itemSubjectRef="ItemDefinition_19" name="id"/>
+    <bpmn2:property id="name" itemSubjectRef="ItemDefinition_19" name="name"/>
+    <bpmn2:property id="event" itemSubjectRef="ItemDefinition_19" name="event"/>
+    <bpmn2:property id="address" itemSubjectRef="ItemDefinition_19" name="address"/>
+    <bpmn2:property id="textMessage" itemSubjectRef="ItemDefinition_19" name="textMessage"/>
+    <bpmn2:property id="temp" itemSubjectRef="ItemDefinition_19" name="temp"/>
+    <bpmn2:property id="keypress" itemSubjectRef="ItemDefinition_19" name="keypress"/>
+    <bpmn2:property id="light" itemSubjectRef="ItemDefinition_19" name="light"/>
+    <bpmn2:property id="alarm" itemSubjectRef="ItemDefinition_19" name="alarm"/>
+    <bpmn2:startEvent id="StartEvent_1" name="Start Event">
+      <bpmn2:extensionElements>
+        <tns:metaData name="elementname">
+          <tns:metaValue><![CDATA[Start Event]]></tns:metaValue>
+        </tns:metaData>
+      </bpmn2:extensionElements>
+      <bpmn2:outgoing>SequenceFlow_1</bpmn2:outgoing>
+    </bpmn2:startEvent>
+    <bpmn2:scriptTask id="ScriptTask_1" name="Prepare Facts">
+      <bpmn2:extensionElements>
+        <tns:metaData name="elementname">
+          <tns:metaValue><![CDATA[Prepare Facts]]></tns:metaValue>
+        </tns:metaData>
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>SequenceFlow_1</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_2</bpmn2:outgoing>
+      <bpmn2:script>kcontext.getKnowledgeRuntime().insert(kcontext.getProcessInstance());</bpmn2:script>
+    </bpmn2:scriptTask>
+    <bpmn2:exclusiveGateway id="ExclusiveGateway_1" name="GPS Device Event" gatewayDirection="Diverging" default="SequenceFlow_4">
+      <bpmn2:incoming>SequenceFlow_2</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_3</bpmn2:outgoing>
+      <bpmn2:outgoing>SequenceFlow_4</bpmn2:outgoing>
+    </bpmn2:exclusiveGateway>
+    <bpmn2:scriptTask id="ScriptTask_2" name="GPS Device allEvent">
+      <bpmn2:extensionElements>
+        <tns:metaData name="elementname">
+          <tns:metaValue><![CDATA[GPS Device allEvent]]></tns:metaValue>
+        </tns:metaData>
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>SequenceFlow_3</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_7</bpmn2:outgoing>
+      <bpmn2:script>com.iotbpm.ui.MainWindow.getInstance().log(&quot;GPS Device &quot; +  kcontext.getVariable(&quot;name&quot;) + &quot; event is allEvents&quot;);</bpmn2:script>
+    </bpmn2:scriptTask>
+    <bpmn2:scriptTask id="ScriptTask_3" name="GPS Device has Street Address" scriptFormat="http://www.java.com/java">
+      <bpmn2:extensionElements>
+        <tns:metaData name="elementname">
+          <tns:metaValue><![CDATA[GPS Device has Street Address]]></tns:metaValue>
+        </tns:metaData>
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>SequenceFlow_4</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_8</bpmn2:outgoing>
+      <bpmn2:script>if (kcontext.getVariable(&quot;event&quot;).equals(&quot;keypress1.0&quot;)) {
+    com.iotbpm.ui.MainWindow.getInstance().log(&quot;GPS Device &quot; +  kcontext.getVariable(&quot;name&quot;) + &quot; event TYPE_KEYPRESS 1.0&quot;);
+}
+if (kcontext.getVariable(&quot;event&quot;).equals(&quot;keypress2.0&quot;)) {
+    com.iotbpm.ui.MainWindow.getInstance().log(&quot;GPS Device &quot; +  kcontext.getVariable(&quot;name&quot;) + &quot; event TYPE_KEYPRESS 2.0&quot;);
+}
+if (kcontext.getVariable(&quot;event&quot;).equals(&quot;keypress4.0&quot;)) {
+    com.iotbpm.ui.MainWindow.getInstance().log(&quot;GPS Device &quot; +  kcontext.getVariable(&quot;name&quot;) + &quot; event TYPE_REED_RELAY 4.0&quot;);
+}
+if (kcontext.getVariable(&quot;event&quot;).equals(&quot;keypress8.0&quot;)) {
+    com.iotbpm.ui.MainWindow.getInstance().log(&quot;GPS Device &quot; +  kcontext.getVariable(&quot;name&quot;) + &quot; event TYPE_PROXIMITY 8.0&quot;);
+}
+if (kcontext.getVariable(&quot;event&quot;).equals(&quot;keypress16.0&quot;)) {
+    com.iotbpm.ui.MainWindow.getInstance().log(&quot;GPS Device &quot; +  kcontext.getVariable(&quot;name&quot;) + &quot; event TYPE_ARDYINO_KEY 16.0&quot;);
+}
+</bpmn2:script>
+    </bpmn2:scriptTask>
+    <bpmn2:sequenceFlow id="SequenceFlow_1" sourceRef="StartEvent_1" targetRef="ScriptTask_1"/>
+    <bpmn2:sequenceFlow id="SequenceFlow_2" sourceRef="ScriptTask_1" targetRef="ExclusiveGateway_1"/>
+    <bpmn2:sequenceFlow id="SequenceFlow_3" tns:priority="1" name="Device Event is allEvents" sourceRef="ExclusiveGateway_1" targetRef="ScriptTask_2">
+      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression" id="FormalExpression_1" language="http://www.java.com/java">return  KieFunctions.equalsTo(event, &quot;allEvents&quot;);</bpmn2:conditionExpression>
+    </bpmn2:sequenceFlow>
+    <bpmn2:sequenceFlow id="SequenceFlow_4" tns:priority="2" name="Device Other Event" sourceRef="ExclusiveGateway_1" targetRef="ScriptTask_3"/>
+    <bpmn2:endEvent id="EndEvent_3" name="End GPS Device allEvent">
+      <bpmn2:extensionElements>
+        <tns:metaData name="elementname">
+          <tns:metaValue><![CDATA[End GPS Device allEvent]]></tns:metaValue>
+        </tns:metaData>
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>SequenceFlow_7</bpmn2:incoming>
+      <bpmn2:terminateEventDefinition id="TerminateEventDefinition_1"/>
+    </bpmn2:endEvent>
+    <bpmn2:endEvent id="EndEvent_4" name="End GPS Device Other Event">
+      <bpmn2:extensionElements>
+        <tns:metaData name="elementname">
+          <tns:metaValue><![CDATA[End GPS Device Other Event]]></tns:metaValue>
+        </tns:metaData>
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>SequenceFlow_8</bpmn2:incoming>
+      <bpmn2:terminateEventDefinition id="TerminateEventDefinition_2"/>
+    </bpmn2:endEvent>
+    <bpmn2:sequenceFlow id="SequenceFlow_7" tns:priority="1" sourceRef="ScriptTask_2" targetRef="EndEvent_3"/>
+    <bpmn2:sequenceFlow id="SequenceFlow_8" tns:priority="1" sourceRef="ScriptTask_3" targetRef="EndEvent_4"/>
+  </bpmn2:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_Process_1" bpmnElement="com.GPSPosition">
+      <bpmndi:BPMNShape id="BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds height="36.0" width="36.0" x="20.0" y="125.0"/>
+        <bpmndi:BPMNLabel id="BPMNLabel_1" labelStyle="BPMNLabelStyle_1">
+          <dc:Bounds height="15.0" width="58.0" x="9.0" y="161.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_ScriptTask_2" bpmnElement="ScriptTask_1" isExpanded="true">
+        <dc:Bounds height="50.0" width="110.0" x="110.0" y="118.0"/>
+        <bpmndi:BPMNLabel id="BPMNLabel_2" labelStyle="BPMNLabelStyle_1">
+          <dc:Bounds height="15.0" width="77.0" x="126.0" y="135.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_ExclusiveGateway_1" bpmnElement="ExclusiveGateway_1" isMarkerVisible="true">
+        <dc:Bounds height="50.0" width="50.0" x="290.0" y="118.0"/>
+        <bpmndi:BPMNLabel id="BPMNLabel_3" labelStyle="BPMNLabelStyle_1">
+          <dc:Bounds height="30.0" width="77.0" x="277.0" y="168.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_ScriptTask_3" bpmnElement="ScriptTask_2" isExpanded="true">
+        <dc:Bounds height="50.0" width="110.0" x="260.0" y="6.0"/>
+        <bpmndi:BPMNLabel id="BPMNLabel_4" labelStyle="BPMNLabelStyle_1">
+          <dc:Bounds height="30.0" width="90.0" x="270.0" y="16.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_ScriptTask_4" bpmnElement="ScriptTask_3" isExpanded="true">
+        <dc:Bounds height="50.0" width="110.0" x="439.0" y="118.0"/>
+        <bpmndi:BPMNLabel id="BPMNLabel_5" labelStyle="BPMNLabelStyle_1">
+          <dc:Bounds height="30.0" width="103.0" x="442.0" y="128.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_EndEvent_4" bpmnElement="EndEvent_3">
+        <dc:Bounds height="36.0" width="36.0" x="476.0" y="13.0"/>
+        <bpmndi:BPMNLabel id="BPMNLabel_6" labelStyle="BPMNLabelStyle_1">
+          <dc:Bounds height="45.0" width="59.0" x="465.0" y="49.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_EndEvent_5" bpmnElement="EndEvent_4">
+        <dc:Bounds height="36.0" width="36.0" x="610.0" y="125.0"/>
+        <bpmndi:BPMNLabel id="BPMNLabel_7" labelStyle="BPMNLabelStyle_1">
+          <dc:Bounds height="45.0" width="79.0" x="589.0" y="161.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_3" bpmnElement="SequenceFlow_1" sourceElement="BPMNShape_StartEvent_2" targetElement="BPMNShape_ScriptTask_2">
+        <di:waypoint xsi:type="dc:Point" x="56.0" y="143.0"/>
+        <di:waypoint xsi:type="dc:Point" x="83.0" y="143.0"/>
+        <di:waypoint xsi:type="dc:Point" x="110.0" y="143.0"/>
+        <bpmndi:BPMNLabel id="BPMNLabel_8"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_4" bpmnElement="SequenceFlow_2" sourceElement="BPMNShape_ScriptTask_2" targetElement="BPMNShape_ExclusiveGateway_1">
+        <di:waypoint xsi:type="dc:Point" x="220.0" y="143.0"/>
+        <di:waypoint xsi:type="dc:Point" x="255.0" y="143.0"/>
+        <di:waypoint xsi:type="dc:Point" x="290.0" y="143.0"/>
+        <bpmndi:BPMNLabel id="BPMNLabel_9"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_5" bpmnElement="SequenceFlow_3" sourceElement="BPMNShape_ExclusiveGateway_1" targetElement="BPMNShape_ScriptTask_3">
+        <di:waypoint xsi:type="dc:Point" x="315.0" y="118.0"/>
+        <di:waypoint xsi:type="dc:Point" x="315.0" y="87.0"/>
+        <di:waypoint xsi:type="dc:Point" x="315.0" y="56.0"/>
+        <bpmndi:BPMNLabel id="BPMNLabel_10">
+          <dc:Bounds height="30.0" width="76.0" x="278.0" y="88.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_6" bpmnElement="SequenceFlow_4" sourceElement="BPMNShape_ExclusiveGateway_1" targetElement="BPMNShape_ScriptTask_4">
+        <di:waypoint xsi:type="dc:Point" x="340.0" y="143.0"/>
+        <di:waypoint xsi:type="dc:Point" x="389.0" y="143.0"/>
+        <di:waypoint xsi:type="dc:Point" x="439.0" y="143.0"/>
+        <bpmndi:BPMNLabel id="BPMNLabel_11">
+          <dc:Bounds height="30.0" width="79.0" x="351.0" y="144.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_9" bpmnElement="SequenceFlow_7" sourceElement="BPMNShape_ScriptTask_3" targetElement="BPMNShape_EndEvent_4">
+        <di:waypoint xsi:type="dc:Point" x="370.0" y="31.0"/>
+        <di:waypoint xsi:type="dc:Point" x="423.0" y="31.0"/>
+        <di:waypoint xsi:type="dc:Point" x="476.0" y="31.0"/>
+        <bpmndi:BPMNLabel id="BPMNLabel_12"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_10" bpmnElement="SequenceFlow_8" sourceElement="BPMNShape_ScriptTask_4" targetElement="BPMNShape_EndEvent_5">
+        <di:waypoint xsi:type="dc:Point" x="549.0" y="143.0"/>
+        <di:waypoint xsi:type="dc:Point" x="579.0" y="143.0"/>
+        <di:waypoint xsi:type="dc:Point" x="610.0" y="143.0"/>
+        <bpmndi:BPMNLabel id="BPMNLabel_13"/>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+    <bpmndi:BPMNLabelStyle id="BPMNLabelStyle_1">
+      <dc:Font name="arial" size="9.0"/>
+    </bpmndi:BPMNLabelStyle>
+  </bpmndi:BPMNDiagram>
+</bpmn2:definitions>
