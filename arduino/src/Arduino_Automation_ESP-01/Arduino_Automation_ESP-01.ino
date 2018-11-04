@@ -12,31 +12,31 @@
 #include <ESP8266WiFi.h>
 #include <WiFiUdp.h>
 
-#define ADC0 A0 // NodeMCU pin Analog ADC0 (A0)
+//#define ADC0 A0 // NodeMCU pin Analog ADC0 (A0)
 
-#define LED0 D0 // NodeMCU pin GPIO16 (D0)
-#define LED1 D1 // NodeMCU pin GPIO5 (D1)
-#define LED2 D2 // NodeMCU pin GPIO4 (D2)
-#define LED3 D3 // NodeMCU pin GPIO0 (D3)
-#define LED4 D4 // NodeMCU pin GPIO2 (D4-onboard)
-#define LED5 D5 // NodeMCU pin GPIO14 (D5)
-#define LED6 D6 // NodeMCU pin GPIO12 (D6)
-#define LED7 D7 // NodeMCU pin GPIO13 (D7)
-#define LED8 D8 // NodeMCU pin GPIO15 (D8)
-#define LED9 D9 // NodeMCU pin GPIO3 (D9-RXD0)
-#define LED10 D10 // NodeMCU pin GPIO1 (D10-TXD0)
+#define LED0 2 // NodeMCU pin GPIO16 (D0)
+//#define LED1 D1 // NodeMCU pin GPIO5 (D1)
+//#define LED2 D2 // NodeMCU pin GPIO4 (D2)
+//#define LED3 D3 // NodeMCU pin GPIO0 (D3)
+//#define LED4 D4 // NodeMCU pin GPIO2 (D4-onboard)
+//#define LED5 D5 // NodeMCU pin GPIO14 (D5)
+//#define LED6 D6 // NodeMCU pin GPIO12 (D6)
+//#define LED7 D7 // NodeMCU pin GPIO13 (D7)
+//#define LED8 D8 // NodeMCU pin GPIO15 (D8)
+//#define LED9 D9 // NodeMCU pin GPIO3 (D9-RXD0)
+//#define LED10 D10 // NodeMCU pin GPIO1 (D10-TXD0)
 
-#define BUTTON0 D0 // NodeMCU pin GPIO16 (D0)
-#define BUTTON1 D1 // NodeMCU pin GPIO5 (D1)
-#define BUTTON2 D2 // NodeMCU pin GPIO4 (D2)
-#define BUTTON3 D3 // NodeMCU pin GPIO0 (D3)
-#define BUTTON4 D4 // NodeMCU pin GPIO2 (D4)
-#define BUTTON5 D5 // NodeMCU pin GPIO14 (D5)
-#define BUTTON6 D6 // NodeMCU pin GPIO12 (D6)
-#define BUTTON7 D7 // NodeMCU pin GPIO13 (D7)
-#define BUTTON8 D8 // NodeMCU pin GPIO15 (D8)
-#define BUTTON9 D9 // NodeMCU pin GPIO3 (D9-RXD0)
-#define BUTTON10 D10 // NodeMCU pin GPIO1 (D10-TXD0)
+//#define BUTTON0 D0 // NodeMCU pin GPIO16 (D0)
+//#define BUTTON1 D1 // NodeMCU pin GPIO5 (D1)
+//#define BUTTON2 D2 // NodeMCU pin GPIO4 (D2)
+//#define BUTTON3 D3 // NodeMCU pin GPIO0 (D3)
+//#define BUTTON4 D4 // NodeMCU pin GPIO2 (D4)
+//#define BUTTON5 D5 // NodeMCU pin GPIO14 (D5)
+//#define BUTTON6 D6 // NodeMCU pin GPIO12 (D6)
+//#define BUTTON7 D7 // NodeMCU pin GPIO13 (D7)
+//#define BUTTON8 D8 // NodeMCU pin GPIO15 (D8)
+//#define BUTTON9 D9 // NodeMCU pin GPIO3 (D9-RXD0)
+//#define BUTTON10 D10 // NodeMCU pin GPIO1 (D10-TXD0)
 
 // Update these with WiFi network values
 const char* ssid     = "your-ssid"; //  your network SSID (name)
@@ -144,6 +144,19 @@ int actionState = 0; // actionState result received command
 int switchState = 0; // digitalRead value from gpiox button
 char readKeyboard = 0; // read serial command
 
+// TB:IoT-MCU ESP-01S-Relay-v1.0 send digitalWrite(RELAY) to GPIO0
+#define RELAY 0 // relay send digitalWrite(RELAY) to GPIO0
+
+// LC Technology HEX command Serial.write(relay) to serial open/close relay
+byte relay1ON[]  = {0xA0, 0x01, 0x00, 0xA1};
+byte relay1OFF[] = {0xA0, 0x01, 0x01, 0xA2};
+byte relay2ON[]  = {0xA0, 0x02, 0x00, 0xA3};
+byte relay2OFF[] = {0xA0, 0x02, 0x01, 0xA3};
+
+// Relay open/close current state
+bool stateRelay1 = false;
+bool stateRelay2 = false;
+
 // Arduino Time Sync from NTP Server using ESP8266 WiFi module
 unsigned int localPort = 2390; // local port to listen for UDP packets
 IPAddress timeServerIP;
@@ -165,7 +178,7 @@ int photocellChange = 10; // LDR and 10K pulldown resistor are connected to A0
 float photocellLight; // Variable to hold last analog light value
 
 // Arduino values for IR sensor connected to GPIO2
-uint16_t RECV_PIN = D5; // D5 GPIO2
+uint16_t RECV_PIN = 2; // D5 GPIO2
 //IRrecv irrecv(RECV_PIN); // <-- uncommit for IR VS1838
 //decode_results results; // <-- uncommit for IR VS1838
 String irkey = "1.0";
@@ -181,16 +194,19 @@ extern "C" {
 
 void setup(void) {
   pinMode(LED0, OUTPUT); // Declaring Arduino LED pin as output
-  pinMode(LED1, OUTPUT);
-  pinMode(LED2, OUTPUT);
-  pinMode(LED3, OUTPUT);
-  pinMode(LED4, OUTPUT);
+  //pinMode(LED1, OUTPUT);
+  //pinMode(LED2, OUTPUT);
+  //pinMode(LED3, OUTPUT);
+  //pinMode(LED4, OUTPUT);
   digitalWrite(LED0, LOW); // turn the LED off
 
-  pinMode(BUTTON5, INPUT); // Declaring Arduino pins as an inputs
-  pinMode(BUTTON6, INPUT);
-  pinMode(BUTTON7, INPUT);
-  pinMode(BUTTON8, INPUT);
+  //pinMode(BUTTON5, INPUT); // Declaring Arduino pins as an inputs
+  //pinMode(BUTTON6, INPUT);
+  //pinMode(BUTTON7, INPUT);
+  //pinMode(BUTTON8, INPUT);
+
+  pinMode(RELAY, OUTPUT); // TB:IoT-MCU ESP-01S-Relay-v1.0 send digitalWrite(RELAY) to GPIO0
+  digitalWrite(RELAY, LOW);
 
   // Arduino IDE Serial Monitor window to emulate what Arduino Tron sensors are reading
   Serial.begin(115200); // Serial connection from ESP-01 via 3.3v console cable
@@ -198,7 +214,7 @@ void setup(void) {
   // Connect to WiFi network
   Serial.println("Executive Order Corporation - Arduino Tron - Arduino ESP8266 MQTT Telemetry Transport Machine-to-Machine(M2M)/Internet of Things(IoT)");
   Serial.println("Arduino Tron Drools-jBPM :: Executive Order Sensor Processor System - Arduino Tron MQTT AI-IoTBPM Client using AI-IoTBPM Drools-jBPM");
-  Serial.println("- Arduino Tron Web Server Automation ver " + ver);
+  Serial.println("- Arduino Tron Web Automation ESP-01 ver " + ver);
   Serial.println("Copyright © 1978, 2018: Executive Order Corporation, All Rights Reserved");
   Serial.println();
   Serial.print("Connecting to ");
@@ -215,13 +231,18 @@ void setup(void) {
 
   // Start the arduino tron webserver
   webserver.begin();
-  Serial.println("Arduino Tron Web Server Automation started");
+  Serial.println("Arduino Tron Web Automation ESP-01 started");
 
   // Print the IP address
   Serial.print("Use this URL to connect: ");
   Serial.print("http://");
   Serial.print(WiFi.localIP());
   Serial.println("/");
+
+  //Serial.flush(); // LC Technology HEX command Serial.write(relay) to serial
+  //delay(500); // *** NOTE: to use LC Technology HEX commet out Serial.print();
+  //Serial.end();
+  //Serial.begin(9600); // Initialize serial for LC Technology Relay
 }
 
 void loop(void) {
@@ -243,6 +264,7 @@ void loop(void) {
     clientAvail++;
   }
   arduinoWebserver();
+
   if ((irkey.indexOf("HTTP") == -1) && (irkey.length() > 0)) {
     arduinoTronSend();
   }
@@ -289,7 +311,7 @@ void arduinoTronSend()
     client.print("&humidity=" + humidity);
   }
 
-  // digitalRead GPIO15(D8) send values for web server
+  // digitalRead GPIO15(D8) send values for web server ESP-01
   client.print("&textMessage=" + textMessage);
   client.print("&keypress=" + irkey); // keypress=irkey
   client.print("&alarm=" + alarm);
@@ -352,9 +374,29 @@ void arduinoWebserver() {
   Serial.println(request);
   client.flush();
 
-  int ind1 = request.indexOf('='); // find location of first =
-  int ind2 = request.indexOf(' ', ind1); //find location of first &
-  irkey = request.substring(ind1 + 1, ind2); // captures keypress string
+  irkey = "";
+  if (request.indexOf("/DEV0=ON") != -1)  {
+    irkey = "1.0";
+    stateRelay1 = true;
+    //Serial.write(relay1ON, sizeof(relay1ON)); // LC Technology HEX relay1 ON
+    digitalWrite(RELAY, LOW); // TB:IoT-MCU digitalWrite(RELAY) relay1 ON
+  }
+  if (request.indexOf("/DEV0=OFF") != -1)  {
+    irkey = "2.0";
+    stateRelay1 = false;
+    //Serial.write(relay1OFF, sizeof(relay1OFF)); // LC Technology HEX relay1 OFF
+    digitalWrite(RELAY, HIGH); // TB:IoT-MCU digitalWrite(RELAY) relay1 OFF
+  }
+  if (request.indexOf("/DEV1=ON") != -1)  {
+    irkey = "3.0";
+    stateRelay2 = true;
+    //Serial.write(relay2ON, sizeof(relay2ON)); // LC Technology HEX relay2 ON
+  }
+  if (request.indexOf("/DEV1=OFF") != -1)  {
+    irkey = "4.0";
+    stateRelay2 = false;
+    //Serial.write(relay2OFF, sizeof(relay2OFF)); // LC Technology HEX relay2 OFF
+  }
 
   // Return the response
   client.println("HTTP/1.1 200 OK");
@@ -378,20 +420,10 @@ void arduinoWebserver() {
   \
   <body>\
   \
-  <form action=""#"" method=""GET"">\
-    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>\
-    Arduino Tron Automation Command\
-    <select name=""keypress"">\
-      <option value=""1.0"">Lock Office Doors</option>\
-      <option value=""2.0"">Activate Security Alarm</option>\
-      <option value=""3.0"">Turn ON Office Lights</option>\
-      <option value=""4.0"">Lower Office Thermostats</option>\
-      <option value=""5.0"">Open Office Window Shades</option>\
-      <option value=""6.0"">After Hours Answer Service</option>\
-    </select>&nbsp;&nbsp;&nbsp;\
-    <input type=submit value=Send>\
+  <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>\
+  Arduino Tron Automation Device Command \
+  <a href=\"/DEV0=ON\"\"><button>Device ON </button></a> <a href=\"/DEV0=OFF\"\"><button>Device OFF </button></a>\
   \
-  </form>\
   </body>\
   </html>";
   client.println(web);

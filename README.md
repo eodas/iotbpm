@@ -53,6 +53,7 @@ technology becomes interactive with humans. With the Arduino Tron Web Server get
 [] The Arduino Tron AI-IoTBPM Drools-jBPM Expert System provides sophisticated jBPM and drools processing. i.e. On a monitoring application, take an action if the temperature 
 on the server room increases X degrees in Y minutes, where sensor readings are usually denoted by events example drools.drl file:
 
+<pre><code>
 declare TemperatureThreshold 
         windowTime : String = "30s" 
         max : long = 70 
@@ -72,8 +73,10 @@ when
 then 
    // sound the alarm 
 end 
+</code></pre>
+
+For testing messages syntax to the IoTBPM server, use the cURL command line tool for transferring data specified with URL. Read the curl MANUAL document for command syntax, and how to install Curl. <pre><code> c:\curl\bin\curl -X GET "http://localhost:5055/?id=100111&timestamp=1521212240&event=keypress1.0&protocol=osmand&outdated=false&valid=true&textMessage=Message_Sent&light=91.0&alarm=Temperature&motion=false" -H "accept: application/xml"
+</code></pre>
 
 - Executive Order Corporation
 - Copyright - 1978, 2018: Executive Order Corporation, All Rights Reserved
-
-
