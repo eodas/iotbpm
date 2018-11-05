@@ -138,7 +138,7 @@ const String ALARM_REMOVING = "removing";
 String ver = "1.03E";
 int loopCounter = 1; // loop counter
 int timeCounter = 901; // time counter
-int actionState = 0; // actionState result received command
+int clientAvail = 0; // client.available() count
 int switchState = 0; // digitalRead value from gpiox button
 char readKeyboard = 0; // read serial command
 
@@ -155,7 +155,7 @@ unsigned long milsec = 0;
 unsigned long epoch = 0;
 
 // DHT11 digital temperature and humidity sensor pin Vout (sense)
-int pinDHT11 = 2;
+int pinDHT11 = 2; // GPIO2
 //SimpleDHT11 dht11; <-- uncommit for dht11
 
 // LDR Photocell light interface for NodeMCU
@@ -163,10 +163,14 @@ int photocellChange = 10; // LDR and 10K pulldown resistor are connected to A0
 float photocellLight; // Variable to hold last analog light value
 
 // Arduino values for IR sensor connected to GPIO2
-uint16_t RECV_PIN = D5;
+uint16_t RECV_PIN = D5; // D5 GPIO2
 //IRrecv irrecv(RECV_PIN); // <-- uncommit for IR VS1838
 //decode_results results; // <-- uncommit for IR VS1838
 String irkey = "1.0";
+
+// Set response jBPM Global Variable List
+// kcontext.getKnowledgeRuntime().setGlobal("response", "");
+String response = "";
 
 // Required for LIGHT_SLEEP_T delay mode
 extern "C" {
@@ -201,7 +205,7 @@ void setup(void) {
   if (readIRSensor) {
     //  irrecv.enableIRIn(); // Start the receiver <-- uncommit for IR VS1838
   }
-  delay(500);
+  delay(200);
 }
 
 void loop(void)
@@ -264,25 +268,15 @@ void arduinoTronSend()
 
   // Connect to WiFi network
   WiFi.begin(ssid, password);
-  Serial.print("\n\r \n\rExecutive Order Corporation - Arduino Tron - Arduino ESP8266 MQTT Telemetry Transport Machine-to-Machine(M2M)/Internet of Things(IoT) ");
-  Serial.println(timestamp);
+  Serial.print("Executive Order Corporation - Arduino Tron - Arduino ESP8266 MQTT Telemetry Transport Machine-to-Machine(M2M)/Internet of Things(IoT) ");
+  Serial.println(loopCounter);
+  loopCounter++;
 
   // Wait for connection
   while (WiFi.status() != WL_CONNECTED) {
     delay(200);
     Serial.print(".");
   }
-  Serial.print("Connected to ");
-  Serial.print(ssid);
-  Serial.print(" IP address: ");
-  Serial.print(WiFi.localIP());
-  Serial.print(" ESP8266 Chip Id ");
-  Serial.print(ESP.getChipId());
-  Serial.print(" gpio ");
-  Serial.print(switchState);
-  Serial.print(" loop ");
-  Serial.println(loopCounter);
-  loopCounter++;
 
   if (!client.connect(server, httpPort)) { // http server is running on default port 5055
     Serial.print("Connection Failed Status: ");
@@ -361,51 +355,33 @@ void arduinoTronSend()
 
   client.println(); // empty line for apache server
 
-  int i = 0;
-  // Wait up to 5 seconds for server to respond then read response
-  while ((!client.available()) && (i < 1000)) {
-    delay(5); // was 10 seconds
-    i++;
+  clientAvail = 0;
+  // Wait 1 seconds for server to respond then read response
+  while ((!client.available()) && (clientAvail < 1000)) {
+    delay(1); // wait 1 seconds
+    clientAvail++;
   }
 
-  while (client.available())
+  response = "";
+  clientAvail = 0;
+  while ((client.available()) && (clientAvail < 5))
   {
     String line = client.readStringUntil('\r');
-    if (line.indexOf("/LED1=ON") != -1)  {
-      actionState = 1;
+    if ((line.indexOf("HTTP") == -1) && (clientAvail == 0)) {
+      response = line;
     }
-    if (line.indexOf("/LED1=OFF") != -1)  {
-      actionState = 2;
-    }
-    if (line.indexOf("/LED2=ON") != -1)  {
-      actionState = 3;
-    }
-    if (line.indexOf("/LED2=OFF") != -1)  {
-      actionState = 4;
-    }
-    if (line.indexOf("/LED3=ON") != -1)  {
-      actionState = 5;
-    }
-    if (line.indexOf("/LED3=OFF") != -1)  {
-      actionState = 6;
-    }
-    if (line.indexOf("/LED4=ON") != -1)  {
-      actionState = 7;
-    }
-    if (line.indexOf("/LED4=OFF") != -1)  {
-      actionState = 8;
-    }
-    if (actionState != 0)
-    {
-      arduinoTronAction();
+    if (line.length() == 1) {
+      clientAvail = 6;
     }
     Serial.print(line);
+    clientAvail++;
   }
+  delay(80); //
   client.stop();
 
   Serial.print("Connection Status: ");
   if (WiFi.status() == WL_CONNECTED) {
-    Serial.println("Connected Ok");
+    Serial.println("Ok");
   } else {
     Serial.print("Error ");
     Serial.println(WiFi.status());
@@ -422,37 +398,13 @@ void arduinoTronSend()
   // WiFi.disconnect(); // DO NOT DISCONNECT WIFI IF YOU WANT TO LOWER YOUR POWER DURING LIGHT_SLEEP_T DELLAY !
   // wifi_set_sleep_type(LIGHT_SLEEP_T);
   digitalWrite(LED0, LOW); // turn the LED off
+  if (response.length() > 0) {
+    arduinoTronAction();
+  }
+  Serial.println("");
 }
 
-void arduinoTronAction()
-{
-  switch (actionState) {
-    case 1: // receiveState
-      digitalWrite(LED1, HIGH);
-      break;
-    case 2:
-      digitalWrite(LED1, LOW);
-      break;
-    case 3:
-      digitalWrite(LED2, HIGH);
-      break;
-    case 4:
-      digitalWrite(LED2, LOW);
-      break;
-    case 5:
-      digitalWrite(LED3, HIGH);
-      break;
-    case 6:
-      digitalWrite(LED3, LOW);
-      break;
-    case 7:
-      digitalWrite(LED4, HIGH);
-      break;
-    case 8:
-      digitalWrite(LED4, LOW);
-      break;
-  }
-  actionState = 0;
+void arduinoTronAction() {
 }
 
 // Arduino values for the DHT11 digital temperature/humidity sensor; &temp= and &humidity= fields
@@ -611,7 +563,7 @@ void setNTPServerTime()
   WiFi.hostByName(ntpServerName, timeServerIP);
 
   sendNTPpacket(timeServerIP);
-  delay(1000);
+  delay(500);
 
   int cb = udp.parsePacket();
   if (!cb) {

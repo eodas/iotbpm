@@ -140,7 +140,6 @@ String ver = "1.03E";
 int loopCounter = 1; // loop counter
 int timeCounter = 901; // time counter
 int clientAvail = 0; // client.available() count
-int actionState = 0; // actionState result received command
 int switchState = 0; // digitalRead value from gpiox button
 char readKeyboard = 0; // read serial command
 
@@ -379,7 +378,7 @@ void arduinoWebserver() {
   <body>\
   \
   <form action=""#"" method=""GET"">\
-    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>\
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>\
     Arduino Tron Automation Command\
     <select name=""keypress"">\
       <option value=""1.0"">Lock Office Doors</option>\
