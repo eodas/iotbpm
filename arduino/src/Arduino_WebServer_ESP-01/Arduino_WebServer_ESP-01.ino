@@ -139,7 +139,7 @@ const String ALARM_REMOVING = "removing";
 String ver = "1.03E";
 int loopCounter = 1; // loop counter
 int timeCounter = 901; // time counter
-int actionState = 0; // actionState result received command
+int clientAvail = 0; // client.available() count
 int switchState = 0; // digitalRead value from gpiox button
 char readKeyboard = 0; // read serial command
 
@@ -235,11 +235,11 @@ void loop(void) {
   Serial.println(loopCounter);
   loopCounter++;
 
-  int ca1 = 0;
-  // Wait up to 2 seconds for server to respond then read response
-  while ((!client.available()) && (ca1 < 500)) {
-    delay(1); // was 2 seconds
-    ca1++;
+  clientAvail = 0; // client.available()) count
+  // Wait 1 seconds for server to respond then read response
+  while ((!client.available()) && (clientAvail < 1000)) {
+    delay(1); // wait 1 seconds
+    clientAvail++;
   }
   arduinoWebserver();
   if ((irkey.indexOf("HTTP") == -1) && (alarm.indexOf("HTTP") == -1) &&
@@ -258,24 +258,14 @@ void arduinoTronSend()
 
   // Connect to WiFi network
   WiFi.begin(ssid, password);
-  Serial.print("\n\r \n\rExecutive Order Corporation - Arduino Tron Web Server ESP-01 - Arduino ESP8266 MQTT Telemetry Transport Machine-to-Machine(M2M)/Internet of Things(IoT) ");
-  Serial.println(timestamp);
+  Serial.print("Executive Order Corporation - Arduino Tron - Arduino ESP8266 MQTT Telemetry Transport Machine-to-Machine(M2M)/Internet of Things(IoT) ");
+  Serial.println(loopCounter);
 
   // Wait for connection
   while (WiFi.status() != WL_CONNECTED) {
     delay(200);
     Serial.print(".");
   }
-  Serial.print("Connected to ");
-  Serial.print(ssid);
-  Serial.print(" IP address: ");
-  Serial.print(WiFi.localIP());
-  Serial.print(" ESP8266 Chip Id ");
-  Serial.print(ESP.getChipId());
-  Serial.print(" gpio ");
-  Serial.print(irkey); // switchState
-  Serial.print(" loop ");
-  Serial.println(loopCounter);
 
   if (!client.connect(server, httpPort)) { // http server is running on default port 5055
     Serial.print("Connection Failed Status: ");
@@ -311,29 +301,32 @@ void arduinoTronSend()
 
   client.println(); // empty line for apache server
 
-  int ca2 = 0;
-  // Wait up to 2 seconds for server to respond then read response
-  while ((!client.available()) && (ca2 < 1000)) {
-    delay(1); // was 2 seconds
-    ca2++;
+  clientAvail = 0;
+  // Wait 1 seconds for server to respond then read response
+  while ((!client.available()) && (clientAvail < 1000)) {
+    delay(1); // wait 1 seconds
+    clientAvail++;
   }
 
-  int ca3 = 0;
   response = "";
-  while (client.available())
+  clientAvail = 0;
+  while ((client.available()) && (clientAvail < 5))
   {
     String line = client.readStringUntil('\r');
-    if ((line.indexOf("HTTP") == -1) && (ca3 == 0)) {
+    if ((line.indexOf("HTTP") == -1) && (clientAvail == 0)) {
       response = line;
     }
+    if (line.length() == 1) {
+      clientAvail = 6;
+    }
     Serial.print(line);
-    ca3++;
+    clientAvail++;
   }
   client.stop();
 
   Serial.print("Connection Status: ");
   if (WiFi.status() == WL_CONNECTED) {
-    Serial.println("Connected Ok");
+    Serial.println("Ok");
   } else {
     Serial.print("Error ");
     Serial.println(WiFi.status());
@@ -350,6 +343,7 @@ void arduinoTronSend()
   // WiFi.disconnect(); // DO NOT DISCONNECT WIFI IF YOU WANT TO LOWER YOUR POWER DURING LIGHT_SLEEP_T DELLAY !
   // wifi_set_sleep_type(LIGHT_SLEEP_T);
   digitalWrite(LED0, LOW); // turn the LED off
+  Serial.println("");
 }
 
 void arduinoWebserver() {
@@ -384,7 +378,7 @@ void arduinoWebserver() {
   client.println("background-repeat : no-repeat;");
   client.println("background-color : powderblue;}");
   client.println("h1{color:black; font-family : arial;}");
-  client.println("p{color:yellow; font-family : verdana;}");
+  client.println("p{color:red; font-family : verdana;}");
 
   client.println("</style>Arduino Tron Web Server ESP-01 AI-IoTBPM :: Internet of Things Drools-jBPM</head><body>");
   //client.println("<h4>Arduino Tron Web Server ESP-01 MQTT AI-IoTBPM Drools-jBPM</h4>");
@@ -424,7 +418,7 @@ void arduinoWebserver() {
   client.println("</select>");
   client.println("<br>");
 
-  client.println("Arduino Tron Web Server ESP-01 Message ");
+  client.println("Arduino Tron Web Server Message ");
   client.println("<select name=""textMessage"">");
   client.println("<option value=""IoT_Device_Send_Message"">IoT Device Send Message</option>");
   client.println("<option value=""Server_Room_Temperature"">Server Room Temperature</option>");
