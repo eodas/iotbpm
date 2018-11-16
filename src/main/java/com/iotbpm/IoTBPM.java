@@ -28,7 +28,7 @@ import com.iotbpm.ui.MainWindow;
  * Executive Order Corporation we make Things Smart
  *
  * Arduino Tron AI-IoTBPM :: Internet of Things Drools-jBPM Expert System using Arduino Tron AI-IoTBPM Processing
- * Arduino Tron Drools-jBPM :: Executive Order Sensor Processor System - Arduino Tron MQTT AI-IoTBPM Client using AI-IoTBPM Drools-jBPM
+ * Arduino Tron Drools-jBPM :: Executive Order Arduino Tron Sensor Processor MQTT AI-IoTBPM Client using AI-IoTBPM Drools-jBPM
  * Executive Order Corporation - Arduino Tron ESP8266 MQTT Telemetry Transport Machine-to-Machine(M2M)/Internet of Things(IoT)
  *
  * Executive Order Corporation
