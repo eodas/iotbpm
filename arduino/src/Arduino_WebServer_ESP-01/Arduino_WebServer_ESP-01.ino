@@ -1,5 +1,5 @@
 /********************
-  - Executive Order Corporation - Arduino Tron - Arduino ESP8266 MQTT Telemetry Transport Machine-to-Machine(M2M)/Internet of Things(IoT)
+  - Executive Order Corporation - Arduino Tron ESP8266 MQTT Telemetry Transport Machine-to-Machine(M2M)/Internet of Things(IoT)
   - Arduino Tron Drools-jBPM :: Executive Order Sensor Processor System - Arduino Tron MQTT AI-IoTBPM Client using AI-IoTBPM Drools-jBPM
   - Arduino Tron AI-IoTBPM :: Internet of Things Drools-jBPM Expert System using Arduino Tron AI-IoTBPM Processing
   - Executive Order Corporation
@@ -195,7 +195,7 @@ void setup(void) {
   Serial.begin(115200); // Serial connection from ESP-01 via 3.3v console cable
 
   // Connect to WiFi network
-  Serial.println("Executive Order Corporation - Arduino Tron - Arduino ESP8266 MQTT Telemetry Transport Machine-to-Machine(M2M)/Internet of Things(IoT)");
+  Serial.println("Executive Order Corporation - Arduino Tron ESP8266 MQTT Telemetry Transport Machine-to-Machine(M2M)/Internet of Things(IoT)");
   Serial.println("Arduino Tron Drools-jBPM :: Executive Order Sensor Processor System - Arduino Tron MQTT AI-IoTBPM Client using AI-IoTBPM Drools-jBPM");
   Serial.println("- Arduino Tron Web Server ESP-01 ver " + ver);
   Serial.println("Copyright © 1978, 2018: Executive Order Corporation, All Rights Reserved");
@@ -258,7 +258,7 @@ void arduinoTronSend()
 
   // Connect to WiFi network
   WiFi.begin(ssid, password);
-  Serial.print("Executive Order Corporation - Arduino Tron - Arduino ESP8266 MQTT Telemetry Transport Machine-to-Machine(M2M)/Internet of Things(IoT) ");
+  Serial.print("Executive Order Corporation - Arduino Tron ESP8266 MQTT Telemetry Transport Machine-to-Machine(M2M)/Internet of Things(IoT) ");
   Serial.println(loopCounter);
 
   // Wait for connection
