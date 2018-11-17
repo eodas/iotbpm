@@ -376,7 +376,7 @@ void arduinoTronSend()
     Serial.print(line);
     clientAvail++;
   }
-  delay(80); //
+  delay(10); //
   client.stop();
 
   Serial.print("Connection Status: ");

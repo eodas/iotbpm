@@ -14,29 +14,11 @@
 
 //#define ADC0 A0 // NodeMCU pin Analog ADC0 (A0)
 
-#define LED0 2 // NodeMCU pin GPIO16 (D0)
-//#define LED1 D1 // NodeMCU pin GPIO5 (D1)
-//#define LED2 D2 // NodeMCU pin GPIO4 (D2)
-//#define LED3 D3 // NodeMCU pin GPIO0 (D3)
-//#define LED4 D4 // NodeMCU pin GPIO2 (D4-onboard)
-//#define LED5 D5 // NodeMCU pin GPIO14 (D5)
-//#define LED6 D6 // NodeMCU pin GPIO12 (D6)
-//#define LED7 D7 // NodeMCU pin GPIO13 (D7)
-//#define LED8 D8 // NodeMCU pin GPIO15 (D8)
-//#define LED9 D9 // NodeMCU pin GPIO3 (D9-RXD0)
-//#define LED10 D10 // NodeMCU pin GPIO1 (D10-TXD0)
-
-//#define BUTTON0 D0 // NodeMCU pin GPIO16 (D0)
-//#define BUTTON1 D1 // NodeMCU pin GPIO5 (D1)
-//#define BUTTON2 D2 // NodeMCU pin GPIO4 (D2)
-//#define BUTTON3 D3 // NodeMCU pin GPIO0 (D3)
-//#define BUTTON4 D4 // NodeMCU pin GPIO2 (D4)
-//#define BUTTON5 D5 // NodeMCU pin GPIO14 (D5)
-//#define BUTTON6 D6 // NodeMCU pin GPIO12 (D6)
-//#define BUTTON7 D7 // NodeMCU pin GPIO13 (D7)
-//#define BUTTON8 D8 // NodeMCU pin GPIO15 (D8)
-//#define BUTTON9 D9 // NodeMCU pin GPIO3 (D9-RXD0)
-//#define BUTTON10 D10 // NodeMCU pin GPIO1 (D10-TXD0)
+// TB:IoT-MCU ESP-01S-Relay-v1.0 send digitalWrite(RELAY) to GPIO0
+#define LED0 0 //GPIO0 (SPI_CS2)
+#define LED1 1 //GPIO1 on board LED ESP-01 (U0TXD) 
+#define LED2 2 //GPIO2 on board LED ESP-01S 
+#define LED3 3 //GPIO3 (U0RXD)
 
 // Update these with WiFi network values
 const char* ssid     = "your-ssid"; //  your network SSID (name)
@@ -143,18 +125,17 @@ int clientAvail = 0; // client.available() count
 int switchState = 0; // digitalRead value from gpiox button
 char readKeyboard = 0; // read serial command
 
-// TB:IoT-MCU ESP-01S-Relay-v1.0 send digitalWrite(RELAY) to GPIO0
-#define RELAY 0 // relay send digitalWrite(RELAY) to GPIO0
-
 // LC Technology HEX command Serial.write(relay) to serial open/close relay
-byte relay1ON[]  = {0xA0, 0x01, 0x00, 0xA1};
-byte relay1OFF[] = {0xA0, 0x01, 0x01, 0xA2};
-byte relay2ON[]  = {0xA0, 0x02, 0x00, 0xA3};
-byte relay2OFF[] = {0xA0, 0x02, 0x01, 0xA3};
+byte relay0ON[]  = {0xA0, 0x01, 0x00, 0xA1};
+byte relay0OFF[] = {0xA0, 0x01, 0x01, 0xA2};
+byte relay1ON[]  = {0xA0, 0x02, 0x00, 0xA3};
+byte relay1OFF[] = {0xA0, 0x02, 0x01, 0xA3};
 
-// Relay open/close current state
+// Auxiliary variables to store the current output state
+bool stateRelay0 = false;
 bool stateRelay1 = false;
 bool stateRelay2 = false;
+bool stateRelay3 = false;
 
 // Arduino Time Sync from NTP Server using ESP8266 WiFi module
 unsigned int localPort = 2390; // local port to listen for UDP packets
@@ -192,20 +173,14 @@ extern "C" {
 }
 
 void setup(void) {
-  pinMode(LED0, OUTPUT); // Declaring Arduino LED pin as output
-  //pinMode(LED1, OUTPUT);
-  //pinMode(LED2, OUTPUT);
-  //pinMode(LED3, OUTPUT);
-  //pinMode(LED4, OUTPUT);
-  digitalWrite(LED0, LOW); // turn the LED off
-
-  //pinMode(BUTTON5, INPUT); // Declaring Arduino pins as an inputs
-  //pinMode(BUTTON6, INPUT);
-  //pinMode(BUTTON7, INPUT);
-  //pinMode(BUTTON8, INPUT);
-
-  pinMode(RELAY, OUTPUT); // TB:IoT-MCU ESP-01S-Relay-v1.0 send digitalWrite(RELAY) to GPIO0
-  digitalWrite(RELAY, LOW);
+  pinMode(LED0, OUTPUT); // Initialize Arduino GPIO pins as outputs
+  pinMode(LED1, OUTPUT);
+  pinMode(LED2, OUTPUT);
+  pinMode(LED3, OUTPUT);
+  digitalWrite(LED0, HIGH); // TB:IoT-MCU ESP-01S-Relay-v1.0 send digitalWrite(RELAY) to GPIO0
+  digitalWrite(LED1, HIGH);
+  digitalWrite(LED2, HIGH);
+  digitalWrite(LED3, HIGH);
 
   // Arduino IDE Serial Monitor window to emulate what Arduino Tron sensors are reading
   Serial.begin(115200); // Serial connection from ESP-01 via 3.3v console cable
@@ -271,7 +246,7 @@ void loop(void) {
 
 void arduinoTronSend()
 {
-  digitalWrite(LED0, HIGH); // turn the LED on
+  digitalWrite(LED2, LOW); // turn the LED on
   getTimeClock(); // get time clock for event timestamp
 
   // Explicitly set the ESP8266 to be a WiFi-client
@@ -363,7 +338,7 @@ void arduinoTronSend()
 
   // WiFi.disconnect(); // DO NOT DISCONNECT WIFI IF YOU WANT TO LOWER YOUR POWER DURING LIGHT_SLEEP_T DELLAY !
   // wifi_set_sleep_type(LIGHT_SLEEP_T);
-  digitalWrite(LED0, LOW); // turn the LED off
+  digitalWrite(LED2, HIGH); // turn the LED off
   Serial.println("");
 }
 
@@ -376,25 +351,44 @@ void arduinoWebserver() {
   irkey = "";
   if (request.indexOf("/DEV0=ON") != -1)  {
     irkey = "1.0";
-    stateRelay1 = true;
-    //Serial.write(relay1ON, sizeof(relay1ON)); // LC Technology HEX relay1 ON
-    digitalWrite(RELAY, LOW); // TB:IoT-MCU digitalWrite(RELAY) relay1 ON
+    stateRelay0 = true;
+    //Serial.write(relay0ON, sizeof(relay0ON)); // LC Technology HEX relay0 ON
+    digitalWrite(LED0, LOW); // TB:IoT-MCU digitalWrite(RELAY) relay0 ON
   }
   if (request.indexOf("/DEV0=OFF") != -1)  {
     irkey = "2.0";
-    stateRelay1 = false;
-    //Serial.write(relay1OFF, sizeof(relay1OFF)); // LC Technology HEX relay1 OFF
-    digitalWrite(RELAY, HIGH); // TB:IoT-MCU digitalWrite(RELAY) relay1 OFF
+    stateRelay0 = false;
+    //Serial.write(relay0OFF, sizeof(relay0OFF)); // LC Technology HEX relay0 OFF
+    digitalWrite(LED0, HIGH); // TB:IoT-MCU digitalWrite(RELAY) relay0 OFF
   }
+
   if (request.indexOf("/DEV1=ON") != -1)  {
     irkey = "3.0";
-    stateRelay2 = true;
-    //Serial.write(relay2ON, sizeof(relay2ON)); // LC Technology HEX relay2 ON
+    stateRelay1 = true;
+    //Serial.write(relay1ON, sizeof(relay1ON)); // LC Technology HEX relay1 ON
   }
   if (request.indexOf("/DEV1=OFF") != -1)  {
     irkey = "4.0";
+    stateRelay1 = false;
+    //Serial.write(relay1OFF, sizeof(relay1OFF)); // LC Technology HEX relay1 OFF
+  }
+
+  if (request.indexOf("/DEV2=ON") != -1)  {
+    irkey = "5.0";
+    stateRelay2 = true;
+  }
+  if (request.indexOf("/DEV2=OFF") != -1)  {
+    irkey = "6.0";
     stateRelay2 = false;
-    //Serial.write(relay2OFF, sizeof(relay2OFF)); // LC Technology HEX relay2 OFF
+  }
+
+  if (request.indexOf("/DEV3=ON") != -1)  {
+    irkey = "7.0";
+    stateRelay3 = true;
+  }
+  if (request.indexOf("/DEV3=OFF") != -1)  {
+    irkey = "8.0";
+    stateRelay3 = false;
   }
 
   // Return the response
@@ -494,4 +488,3 @@ unsigned long sendNTPpacket(IPAddress& address)
   udp.write(packetBuffer, NTP_PACKET_SIZE);
   udp.endPacket();
 }
-
