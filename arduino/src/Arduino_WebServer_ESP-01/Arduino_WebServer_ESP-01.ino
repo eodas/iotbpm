@@ -14,7 +14,8 @@
 
 //#define ADC0 A0 // NodeMCU pin Analog ADC0 (A0)
 
-#define LED0 2 // NodeMCU pin GPIO16 (D0)
+#define LED2 2 //GPIO2 on board LED ESP-01S 
+//#define LED0 D0 // NodeMCU pin GPIO16 (D0)
 //#define LED1 D1 // NodeMCU pin GPIO5 (D1)
 //#define LED2 D2 // NodeMCU pin GPIO4 (D2)
 //#define LED3 D3 // NodeMCU pin GPIO0 (D3)
@@ -179,12 +180,12 @@ extern "C" {
 }
 
 void setup(void) {
-  pinMode(LED0, OUTPUT); // Declaring Arduino LED pin as output
+  pinMode(LED2, OUTPUT); // Declaring Arduino LED pin as output
   //pinMode(LED1, OUTPUT);
   //pinMode(LED2, OUTPUT);
   //pinMode(LED3, OUTPUT);
   //pinMode(LED4, OUTPUT);
-  digitalWrite(LED0, LOW); // turn the LED off
+  digitalWrite(LED2, LOW); // turn the LED off
 
   //pinMode(BUTTON5, INPUT); // Declaring Arduino pins as an inputs
   //pinMode(BUTTON6, INPUT);
@@ -250,7 +251,7 @@ void loop(void) {
 
 void arduinoTronSend()
 {
-  digitalWrite(LED0, HIGH); // turn the LED on
+  digitalWrite(LED2, LOW); // turn the LED on
   getTimeClock(); // get time clock for event timestamp
 
   // Explicitly set the ESP8266 to be a WiFi-client
@@ -342,7 +343,7 @@ void arduinoTronSend()
 
   // WiFi.disconnect(); // DO NOT DISCONNECT WIFI IF YOU WANT TO LOWER YOUR POWER DURING LIGHT_SLEEP_T DELLAY !
   // wifi_set_sleep_type(LIGHT_SLEEP_T);
-  digitalWrite(LED0, LOW); // turn the LED off
+  digitalWrite(LED2, HIGH); // turn the LED off
   Serial.println("");
 }
 
@@ -500,4 +501,3 @@ unsigned long sendNTPpacket(IPAddress& address)
   udp.write(packetBuffer, NTP_PACKET_SIZE);
   udp.endPacket();
 }
-
