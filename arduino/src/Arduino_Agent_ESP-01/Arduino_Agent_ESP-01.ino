@@ -9,6 +9,11 @@
 // Load Wi-Fi library
 #include <ESP8266WiFi.h>
 
+// | RX     VCC
+// A GPIO0  RST
+// N GPIO2  CH_PD
+// T GRD    TX
+
 // TB:IoT-MCU ESP-01S-Relay-v1.0 send digitalWrite(RELAY) to GPIO0
 #define LED0 0 //GPIO0 (SPI_CS2)
 #define LED1 1 //GPIO1 on board LED ESP-01 (U0TXD) 

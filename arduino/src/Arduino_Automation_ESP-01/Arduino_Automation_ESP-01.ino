@@ -12,6 +12,11 @@
 #include <ESP8266WiFi.h>
 #include <WiFiUdp.h>
 
+// | RX     VCC
+// A GPIO0  RST
+// N GPIO2  CH_PD
+// T GRD    TX
+
 //#define ADC0 A0 // NodeMCU pin Analog ADC0 (A0)
 
 // TB:IoT-MCU ESP-01S-Relay-v1.0 send digitalWrite(RELAY) to GPIO0
