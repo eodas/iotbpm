@@ -44,6 +44,42 @@ bool stateRelay1 = false;
 bool stateRelay2 = false;
 bool stateRelay3 = false;
 
+#define ITONE_CYCLE 2500000 // 1 second cycle in 1/16 CPU clock (1/5s) for 80 MHz
+// #define ITONE_CYCLE 5000000  // 1 second cycle in 1/16 CPU clock (1/5s) for 160 MHz
+
+// Hardware: ESP8266 NodeMCU - tone using timer1 - Connect Speaker to GPIO2 and Vcc
+// Frequency to Musical Note Chart
+// 220 A7 - 440 A8
+// 247 B7 - 494 B8
+// 262 C7 - 523 C8
+// 294 D7 - 587 D8
+// 330 E7 - 659 E8
+// 349 F7 - 698 F8
+// 392 G7 - 784 G8
+
+byte _itonepin = 2; // Speaker connected to GPIO2
+byte _itoneval = HIGH;
+
+void ICACHE_RAM_ATTR _onItoneTimerISR() {
+  _itoneval ^= 1;
+  digitalWrite(_itonepin, _itoneval); //Toggle LED Pin
+}
+
+void iTone(byte pin, unsigned long frequency) {
+  timer1_detachInterrupt();
+  timer1_attachInterrupt(_onItoneTimerISR);
+  timer1_enable(TIM_DIV16, TIM_EDGE, TIM_LOOP);
+  _itoneval = HIGH;
+  _itonepin = pin;
+  pinMode(pin, OUTPUT);
+  digitalWrite(pin, HIGH);
+  timer1_write(ITONE_CYCLE / frequency);
+}
+
+void noiTone() {
+  timer1_detachInterrupt();
+}
+
 // Required for LIGHT_SLEEP_T delay mode
 extern "C" {
 #include "user_interface.h"
@@ -148,54 +184,63 @@ void arduinoWebserver() {
           client.println();
 
           // turns relay GPIOs on and off
-          if (header.indexOf("/DEV0=ON") >= 0)  {
+          if (header.indexOf("/DEV0=ON") >= 0) {
             stateRelay0 = true;
             Serial.println("GPIO 0 on");
             //Serial.write(relay0ON, sizeof(relay0ON)); // LC Technology HEX relay0 ON
             digitalWrite(LED0, LOW); // TB:IoT-MCU digitalWrite(RELAY) relay0 ON
+            milsec = millis(); // relay millis counter
+
           }
-          if (header.indexOf("/DEV0=OFF") >= 0)  {
+          if (header.indexOf("/DEV0=OFF") >= 0) {
             stateRelay0 = false;
             Serial.println("GPIO 0 off");
             //Serial.write(relay0OFF, sizeof(relay0OFF)); // LC Technology HEX relay0 OFF
             digitalWrite(LED0, HIGH); // TB:IoT-MCU digitalWrite(RELAY) relay0 OFF
           }
 
-          if (header.indexOf("/DEV1=ON") >= 0)  {
+          if (header.indexOf("/DEV1=ON") >= 0) {
             stateRelay1 = true;
             Serial.println("GPIO 1 on");
             //Serial.write(relay1ON, sizeof(relay1ON)); // LC Technology HEX relay1 ON
             digitalWrite(LED1, LOW); // TB:IoT-MCU digitalWrite(RELAY) relay1 ON
           }
-          if (header.indexOf("/DEV1=OFF") >= 0)  {
+          if (header.indexOf("/DEV1=OFF") >= 0) {
             stateRelay1 = false;
             Serial.println("GPIO 1 off");
             //Serial.write(relay1OFF, sizeof(relay1OFF)); // LC Technology HEX relay1 OFF
             digitalWrite(LED1, HIGH); // TB:IoT-MCU digitalWrite(RELAY) relay1 OFF
           }
 
-          if (header.indexOf("/DEV2=ON") >= 0)  {
+          if (header.indexOf("/DEV2=ON") >= 0) {
             stateRelay2 = true;
             Serial.println("GPIO 2 on");
             digitalWrite(LED2, LOW); // TB:IoT-MCU digitalWrite(RELAY) relay2 ON
           }
-          if (header.indexOf("/DEV2=OFF") >= 0)  {
+          if (header.indexOf("/DEV2=OFF") >= 0) {
             stateRelay2 = false;
             Serial.println("GPIO 2 off");
             digitalWrite(LED2, HIGH); // TB:IoT-MCU digitalWrite(RELAY) relay2 OFF
           }
 
-          if (header.indexOf("/DEV3=ON") >= 0)  {
+          if (header.indexOf("/DEV3=ON") >= 0) {
             stateRelay3 = true;
             Serial.println("GPIO 3 on");
             digitalWrite(LED3, LOW); // TB:IoT-MCU digitalWrite(RELAY) relay3 ON
           }
-          if (header.indexOf("/DEV3=OFF") >= 0)  {
+          if (header.indexOf("/DEV3=OFF") >= 0) {
             stateRelay3 = false;
             Serial.println("GPIO 3 off");
             digitalWrite(LED3, HIGH); // TB:IoT-MCU digitalWrite(RELAY) relay3 OFF
           }
-          milsec = millis(); // relay millis counter
+
+          if (header.indexOf("/TONE") >= 0) { // Speaker connected to GPIO2
+            iTone(LED2, 587); // D8
+            delay(200);
+            iTone(LED2, 392); // G7
+            delay(200);
+            noiTone();
+          }
 
           // Display the HTML web page
           client.println("<!DOCTYPE html><html>");
