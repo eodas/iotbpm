@@ -55,6 +55,7 @@ public class ServerEvent {
 	public String alarm;
 	public double distance;
 	public double totalDistance;
+	public double agentCount;
 	public boolean motion;
 
 	public ServerEvent() {
@@ -393,6 +394,14 @@ public class ServerEvent {
 		this.totalDistance = totalDistance;
 	}
 
+	public double getAgentCount() {
+		return agentCount;
+	}
+
+	public void setAgentCount(double agentCount) {
+		this.agentCount = agentCount;
+	}
+
 	public boolean isMotion() {
 		return motion;
 	}
@@ -517,6 +526,9 @@ public class ServerEvent {
 			break;
 		case "totalDistance":
 			setTotalDistance(Double.parseDouble(value));
+			break;
+		case "agentCount":
+			setAgentCount(Double.parseDouble(value));
 			break;
 		case "motion":
 			setMotion(Boolean.parseBoolean(value));
