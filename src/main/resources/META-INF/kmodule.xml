@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <kmodule xmlns="http://jboss.org/kie/6.0.0/kmodule">
 
+	<kbase name="kbaseAutomation"
+		packages="com.automation.rules, com.automation.process">
+		<ksession name="ksession-automation">
+		</ksession>
+	</kbase>
+
 	<kbase name="kbaseEnvironment"
 		packages="com.environment.rules, com.environment.process">
 		<ksession name="ksession-environment">
