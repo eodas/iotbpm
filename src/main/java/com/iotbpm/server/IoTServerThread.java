@@ -10,11 +10,11 @@ import java.util.regex.Pattern;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.iotbpm.ProcessjBPMRules;
+import com.iotbpm.bpmrules.jBPMRules;
 import com.iotbpm.model.ServerEvent;
 
 public class IoTServerThread extends Thread {
-	ProcessjBPMRules processjBPMRules;
+	jBPMRules jbpmRules;
 
 	PrintStream out;
 	String response = "";
@@ -23,10 +23,10 @@ public class IoTServerThread extends Thread {
 
 	private final Logger logger = LoggerFactory.getLogger(IoTServerThread.class);
 
-	public IoTServerThread(Socket socket, IoTServer ws, ProcessjBPMRules processjBPMRules) {
+	public IoTServerThread(Socket socket, IoTServer ws, jBPMRules jbpmRules) {
 		this.ws = ws;
 		this.socket = socket;
-		this.processjBPMRules = processjBPMRules;
+		this.jbpmRules = jbpmRules;
 		setName("IoT Server Thread");
 
 		start();
@@ -73,7 +73,7 @@ public class IoTServerThread extends Thread {
 							e.printStackTrace();
 						}
 					}
-					response = processjBPMRules.receive(serverEvent);
+					response = jbpmRules.receive(serverEvent);
 					if ((response != null) && (response.length() > 0)) {
 						out.println(response);
 						System.out.println("> TRACE RSP " + response);

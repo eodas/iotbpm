@@ -9,7 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.regex.Pattern;
 
-import com.iotbpm.ProcessjBPMRules;
+import com.iotbpm.bpmrules.jBPMRules;
 import com.iotbpm.model.ServerEvent;
 
 public class EventReader {
@@ -18,14 +18,14 @@ public class EventReader {
 	private volatile static boolean shutdown = false;
 	private String DateFormatString = "yyy-mm-dd hh:mm:ss";
 
-	ProcessjBPMRules processjBPMRules;
+	jBPMRules jbpmRules;
 	private String serverEvent;
 	private int eventSleepTimer;
 
-	public EventReader(ProcessjBPMRules processjBPMRules, String serverEvent, int eventSleepTimer) {
+	public EventReader(jBPMRules jbpmRules, String serverEvent, int eventSleepTimer) {
 		this.serverEvent = serverEvent;
 		this.eventSleepTimer = eventSleepTimer;
-		this.processjBPMRules = processjBPMRules;
+		this.jbpmRules = jbpmRules;
 		System.out.println("Arduino Tron Drools-jBPM AI-IoTBPM Event Reader, Location: " + serverEvent);
 	}
 
@@ -122,7 +122,7 @@ public class EventReader {
 				}
 			}
 			String response = "";
-			response = processjBPMRules.receive(serverEvent);
+			response = jbpmRules.receive(serverEvent);
 			if ((response != null) && (response.length() > 0)) {
 				System.out.println("> EVENT RSP " + response);
 			}

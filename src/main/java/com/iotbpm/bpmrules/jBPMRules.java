@@ -1,4 +1,4 @@
-package com.iotbpm;
+package com.iotbpm.bpmrules;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -36,7 +36,7 @@ import com.iotbpm.util.WorkingMemoryListener;
 /**
  * The Arduino Tron AI-IoTBPM Drools-jBPM application
  */
-public class ProcessjBPMRules {
+public class jBPMRules {
 
 	private StateList stateList;
 	private DevicesList devices;
@@ -51,9 +51,9 @@ public class ProcessjBPMRules {
 	private String kSessionName = "";
 	private String processID = "";
 
-	private final Logger logger = LoggerFactory.getLogger(ProcessjBPMRules.class);
+	private final Logger logger = LoggerFactory.getLogger(jBPMRules.class);
 
-	public ProcessjBPMRules(DevicesList devices, String kSessionType, String kSessionName, String processID,
+	public jBPMRules(DevicesList devices, String kSessionType, String kSessionName, String processID,
 			StateList stateList, String knowledgeDebug) {
 		super();
 		this.devices = devices;

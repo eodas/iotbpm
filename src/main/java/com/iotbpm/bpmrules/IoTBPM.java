@@ -1,4 +1,4 @@
-package com.iotbpm;
+package com.iotbpm.bpmrules;
 
 import java.awt.EventQueue;
 import java.io.BufferedReader;
@@ -125,12 +125,12 @@ public class IoTBPM {
 
 		StateList stateList = new StateList();
 
-		ProcessjBPMRules processjBPMRules = new ProcessjBPMRules(devices, kSessionType, kSessionName, processID,
+		jBPMRules jbpmRules = new jBPMRules(devices, kSessionType, kSessionName, processID,
 				stateList, knowledgeDebug);
-		startIoTServer(processjBPMRules);
+		startIoTServer(jbpmRules);
 
 		if ((serverEvent != "") && (eventSleepTimer > 0)) {
-			EventReader source = new EventReader(processjBPMRules, serverEvent, eventSleepTimer);
+			EventReader source = new EventReader(jbpmRules, serverEvent, eventSleepTimer);
 			source.StartEventThread();
 		}
 	}
@@ -185,8 +185,8 @@ public class IoTBPM {
 		}
 	}
 
-	public void startIoTServer(ProcessjBPMRules processjBPMRules) {
-		iotServer = new IoTServer(processjBPMRules, port);
+	public void startIoTServer(jBPMRules jbpmRules) {
+		iotServer = new IoTServer(jbpmRules, port);
 		iotServer.start();
 		iotrunning = true;
 	}

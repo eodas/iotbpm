@@ -7,7 +7,7 @@ import java.net.SocketException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.iotbpm.ProcessjBPMRules;
+import com.iotbpm.bpmrules.jBPMRules;
 
 public class IoTServer extends Thread {
 	private int currrentConnections = 0;
@@ -15,14 +15,14 @@ public class IoTServer extends Thread {
 
 	private int port;
 	private boolean alive = true;
-	private ProcessjBPMRules processjBPMRules;
+	private jBPMRules jbpmRules;
 	private ServerSocket server = null;
 
 	private final Logger logger = LoggerFactory.getLogger(IoTServer.class);
 
-	public IoTServer(ProcessjBPMRules processjBPMRules, int port) {
+	public IoTServer(jBPMRules jbpmRules, int port) {
 		this.port = port;
-		this.processjBPMRules = processjBPMRules;
+		this.jbpmRules = jbpmRules;
 		System.out.println("Arduino Tron Drools-jBPM AI-IoTBPM Server, Started Port: " + port);
 	}
 
@@ -47,7 +47,7 @@ public class IoTServer extends Thread {
 			}
 			if ((alive) && (!server.isClosed())) {
 				try {
-					new IoTServerThread(server.accept(), this, processjBPMRules);
+					new IoTServerThread(server.accept(), this, jbpmRules);
 					incConnection();
 				} catch (SocketException localSocketException) {
 				} catch (IOException ioe) {

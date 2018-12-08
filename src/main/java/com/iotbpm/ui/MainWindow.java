@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
-import com.iotbpm.IoTBPM;
+import com.iotbpm.bpmrules.IoTBPM;
 import com.iotbpm.events.EventReader;
 import com.iotbpm.model.Devices;
 import com.iotbpm.model.ServerEvent;
