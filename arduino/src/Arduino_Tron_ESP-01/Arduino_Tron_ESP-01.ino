@@ -127,7 +127,7 @@ const String ALARM_REMOVING = "removing";
 String ver = "1.03E";
 int loopCounter = 1; // loop counter
 int clientAvail = 0; // client.available() count
-int switchState = 1; // value to send Arduino Tron Agent_ESP-01
+int switchState = 10; // value to send Arduino Tron Agent_ESP-01
 
 String irkey = "1.0";
 
@@ -213,13 +213,34 @@ void arduinoAgentSend() {
 
   switch (switchState) {
     case 1:
-      client.print("GET /DEV0=ON");
+      client.print("GET"); // DTIM -  DTIM (Delivery Traffic Indication Message) beacon,
       break;
     case 2:
-      client.print("GET /DEV1=ON");
+      client.print("GET /DEV0=ON");
       break;
     case 3:
-      client.print("GET /TONE");
+      client.print("GET /DEV0=OFF");
+      break;
+    case 4:
+      client.print("GET /DEV1=ON");
+      break;
+    case 5:
+      client.print("GET /DEV1=OFF");
+      break;
+    case 6:
+      client.print("GET /DEV2=ON");
+      break;
+    case 7:
+      client.print("GET /DEV2=OFF");
+      break;
+    case 8:
+      client.print("GET /DEV3=ON");
+      break;
+    case 9:
+      client.print("GET /DEV3=OFF");
+      break;
+    case 10:
+      client.print("GET /TONE1");
       break;
   }
 

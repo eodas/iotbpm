@@ -30,6 +30,7 @@ WiFiServer webserver(80);
 
 String ver = "1.03E";
 int loopCounter = 1; // loop counter
+const byte tonepin = 3; // 2-Speaker connected to GPIO2 or 3-2N2222 transistor audio amplifier
 unsigned long milsec = 0; // relay millis counter
 
 // LC Technology HEX command Serial.write(relay) to serial open/close relay
@@ -43,42 +44,6 @@ bool stateRelay0 = false;
 bool stateRelay1 = false;
 bool stateRelay2 = false;
 bool stateRelay3 = false;
-
-#define ITONE_CYCLE 2500000 // 1 second cycle in 1/16 CPU clock (1/5s) for 80 MHz
-// #define ITONE_CYCLE 5000000  // 1 second cycle in 1/16 CPU clock (1/5s) for 160 MHz
-
-// Hardware: ESP8266 NodeMCU - tone using timer1 - Connect Speaker to GPIO2 and Vcc
-// Frequency to Musical Note Chart
-// 220 A7 - 440 A8
-// 247 B7 - 494 B8
-// 262 C7 - 523 C8
-// 294 D7 - 587 D8
-// 330 E7 - 659 E8
-// 349 F7 - 698 F8
-// 392 G7 - 784 G8
-
-byte _itonepin = 2; // Speaker connected to GPIO2
-byte _itoneval = HIGH;
-
-void ICACHE_RAM_ATTR _onItoneTimerISR() {
-  _itoneval ^= 1;
-  digitalWrite(_itonepin, _itoneval); //Toggle LED Pin
-}
-
-void iTone(byte pin, unsigned long frequency) {
-  timer1_detachInterrupt();
-  timer1_attachInterrupt(_onItoneTimerISR);
-  timer1_enable(TIM_DIV16, TIM_EDGE, TIM_LOOP);
-  _itoneval = HIGH;
-  _itonepin = pin;
-  pinMode(pin, OUTPUT);
-  digitalWrite(pin, HIGH);
-  timer1_write(ITONE_CYCLE / frequency);
-}
-
-void noiTone() {
-  timer1_detachInterrupt();
-}
 
 // Required for LIGHT_SLEEP_T delay mode
 extern "C" {
@@ -234,12 +199,39 @@ void arduinoWebserver() {
             digitalWrite(LED3, HIGH); // TB:IoT-MCU digitalWrite(RELAY) relay3 OFF
           }
 
-          if (header.indexOf("/TONE") >= 0) { // Speaker connected to GPIO2
-            iTone(LED2, 587); // D8
+          if (header.indexOf("/TONE1") >= 0) { // Speaker connected to GPIO2 or GPIO3
+            tone(tonepin, 587, 300);
             delay(200);
-            iTone(LED2, 392); // G7
-            delay(200);
-            noiTone();
+            tone(tonepin, 392, 300);
+          }
+
+          if (header.indexOf("/TONE2") >= 0) {
+            tone(tonepin, 330, 300); // play e4
+            delay(350);
+            tone(tonepin, 247, 300); // play b3
+            delay(350);
+            tone(tonepin, 294, 300); // play d4
+            delay(350);
+            tone(tonepin, 262, 300); // play c4
+            delay(350);
+            tone(tonepin, 220, 900); // play a3
+            delay(800);
+            tone(tonepin, 147, 300); // play d3
+            delay(350);
+            tone(tonepin, 175, 300); //play f3
+            delay(350);
+            tone(tonepin, 220, 300); //play a3
+            delay(350);
+            tone(tonepin, 247, 900); // play b3
+            delay(800);
+            tone(tonepin, 175, 300); // play f3
+            delay(350);
+            tone(tonepin, 234, 300); // play a3#
+            delay(350);
+            tone(tonepin, 247, 300); // play b3
+            delay(350);
+            tone(tonepin, 262, 900); // play c4
+            delay(350);
           }
 
           // Display the HTML web page
