@@ -20,14 +20,15 @@ public class DevicesList {
 	public DevicesList() {
 
 		this.devices = new HashMap<String, Devices>();
-		this.devices.put("100111", new Devices("Arduino Tron IoT", "100111"));
-		this.devices.put("100222", new Devices("Arduino NodeMCU", "100222"));
-		this.devices.put("100333", new Devices("Arduino ESP8266", "100333"));
-		this.devices.put("100444", new Devices("Arduino SensorTag", "100444"));
-		this.devices.put("100555", new Devices("Arduino TI-BLE Tag", "100555"));
-		this.devices.put("100666", new Devices("EOSpy TI-SensorTag", "100666"));
-		this.devices.put("100777", new Devices("EOSpy TI-BLE Sensor", "100777"));
-		this.devices.put("100888", new Devices("EOSpy AndroidSensor", "100888"));
+		
+        this.devices.put("100111", new Devices("Arduino Tron IoT", "100111"));
+        this.devices.put("100222", new Devices("DHT11 Temp-Humidity", "100222"));
+        this.devices.put("100333", new Devices("IoT-MCU Door Lock", "100333"));
+        this.devices.put("100444", new Devices("Arduino IoT-SensorTag", "100444"));
+        this.devices.put("100555", new Devices("Arduino Dash Button", "100555"));
+        this.devices.put("100666", new Devices("Door Sensor ESP-01S", "100666"));
+        this.devices.put("100777", new Devices("IoT-MCU ESP-01 Relay", "100777"));
+        this.devices.put("100888", new Devices("OLED ESP-01 Display", "100888"));
 	}
 
 	public Collection<Devices> getDevices() {

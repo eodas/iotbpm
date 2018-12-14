@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.Properties;
 
 import com.iotbpm.bpmrules.IoTBPM;
-import com.iotbpm.events.EventReader;
+import com.iotbpm.iottiles.IoTEvents;
 import com.iotbpm.model.Devices;
 import com.iotbpm.model.ServerEvent;
 import com.iotbpm.util.WebBrowser;
@@ -106,7 +106,6 @@ public class MainWindow {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				IoTBPM.stopIoTServer();
-				EventReader.shutdownEventThread();
 				System.exit(0);
 			}
 		});
@@ -170,8 +169,7 @@ public class MainWindow {
 		frame.setContentPane(contentPanel);
 
 		frame.setDefaultCloseOperation(exitOnClose ? JFrame.EXIT_ON_CLOSE : WindowConstants.DISPOSE_ON_CLOSE);
-		frame.setTitle(
-				"Arduino Tron AI-IoTBPM :: Internet of Things Drools-jBPM Expert System using Arduino Tron AI-IoTBPM Processing");
+		frame.setTitle("Arduino Tron AI-IoTBPM :: Internet of Things Drools-jBPM Expert System using Arduino Tron AI-IoTBPM Processing");
 		// frame.setBounds(100, 100, 630, 330);
 		frame.pack();
 		frame.setLocationRelativeTo(null); // Center in screen

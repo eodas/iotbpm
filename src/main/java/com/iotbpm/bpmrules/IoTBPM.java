@@ -16,13 +16,14 @@ import java.util.Properties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.iotbpm.events.EventReader;
 import com.iotbpm.model.AgentsList;
 import com.iotbpm.model.DevicesList;
 import com.iotbpm.model.StateList;
 import com.iotbpm.server.AgentConnect;
 import com.iotbpm.server.IoTServer;
 import com.iotbpm.ui.MainWindow;
+import com.iotbpm.iottiles.IoTEvents;
+import com.iotbpm.iottiles.IoTTiles;
 
 /**
  * Executive Order Corporation we make Things Smart
@@ -48,15 +49,13 @@ public class IoTBPM {
 	private String appVer = "1.01A";
 	private String buildDate = "0304";
 	private boolean is64bitJMV = false;
-	private static boolean iotrunning = false;
 
 	private int port = 5055;
-	private int eventSleepTimer = 0; // 2000
 	private String knowledgeDebug = "none"; // none, debug
 	private String kSessionType = ""; // createKieSession
 	private String kSessionName = ""; // ksession-movement
 	private String processID = ""; // com.TrainMovement
-	private String serverEvent = ""; // C:\iotbpm\log\event.log
+	private String iotTilesWindow = ""; // IoT Tiles window active
 
 	private final Logger logger = LoggerFactory.getLogger(IoTBPM.class);
 
@@ -101,8 +100,8 @@ public class IoTBPM {
 			@Override
 			public void run() {
 				try {
-					MainWindow window = new MainWindow(devices.getDevices(), exitOnClose);
-					window.show(); // .setVisible(true);
+					MainWindow mainWindow = new MainWindow(devices.getDevices(), exitOnClose);
+					mainWindow.show(); // .setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -125,13 +124,24 @@ public class IoTBPM {
 
 		StateList stateList = new StateList();
 
-		jBPMRules jbpmRules = new jBPMRules(devices, kSessionType, kSessionName, processID,
-				stateList, knowledgeDebug);
+		final jBPMRules jbpmRules = new jBPMRules(devices, kSessionType, kSessionName, processID, stateList,
+				knowledgeDebug);
 		startIoTServer(jbpmRules);
 
-		if ((serverEvent != "") && (eventSleepTimer > 0)) {
-			EventReader source = new EventReader(jbpmRules, serverEvent, eventSleepTimer);
-			source.StartEventThread();
+		if (iotTilesWindow.indexOf("active") != -1) {
+			EventQueue.invokeLater(new Runnable() {
+				@Override
+				public void run() {
+					try {
+						IoTEvents iotEvents = new IoTEvents(jbpmRules);
+						IoTTiles iotTiles = new IoTTiles(iotEvents, exitOnClose);
+						// iotTiles.show(); // .setVisible(true);
+						iotTiles.frameIoT.setVisible(true);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			});
 		}
 	}
 
@@ -152,16 +162,6 @@ public class IoTBPM {
 					String portStr = value;
 					port = Integer.parseInt(portStr);
 				}
-				if (key.indexOf("serverEvent") != -1) {
-					serverEvent = value;
-				}
-				if (key.indexOf("eventSleepTimer") != -1) {
-					String eventSleepTimerStr = value;
-					eventSleepTimer = Integer.parseInt(eventSleepTimerStr);
-					if (eventSleepTimer < 100) {
-						eventSleepTimer = 100;
-					}
-				}
 				if (key.indexOf("knowledgeDebug") != -1) {
 					knowledgeDebug = value;
 				}
@@ -177,6 +177,9 @@ public class IoTBPM {
 				if (key.indexOf("arduinoAgent") != -1) {
 					agentsList.parseAgents(value);
 				}
+				if (key.indexOf("iotTilesWindow") != -1) {
+					iotTilesWindow = value;
+				}
 			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -188,12 +191,10 @@ public class IoTBPM {
 	public void startIoTServer(jBPMRules jbpmRules) {
 		iotServer = new IoTServer(jbpmRules, port);
 		iotServer.start();
-		iotrunning = true;
 	}
 
 	public static void stopIoTServer() {
 		iotServer.killServer();
-		iotrunning = false;
 	}
 
 	public void getIPAddress() {
