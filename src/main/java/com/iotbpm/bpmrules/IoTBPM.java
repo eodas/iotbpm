@@ -136,7 +136,7 @@ public class IoTBPM {
 						IoTEvents iotEvents = new IoTEvents(jbpmRules);
 						IoTTiles iotTiles = new IoTTiles(iotEvents, exitOnClose);
 						// iotTiles.show(); // .setVisible(true);
-						iotTiles.frameIoT.setVisible(true);
+						iotTiles.show(); // setVisible(true);
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
