@@ -2,7 +2,7 @@
 <!-- origin at X=0.0 Y=0.0 -->
 <bpmn2:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:java="http://www.java.com/javaTypes" xmlns:tns="http://www.jboss.org/drools" xmlns="http://www.jboss.org/drools" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd http://www.jboss.org/drools drools.xsd http://www.bpsim.org/schemas/1.0 bpsim.xsd" id="Definition" exporter="org.eclipse.bpmn2.modeler.core" exporterVersion="1.5.0.Final-v20180515-1642-B1" expressionLanguage="http://www.mvel.org/2.0" targetNamespace="http://www.jboss.org/drools" typeLanguage="http://www.java.com/javaTypes">
   <bpmn2:itemDefinition id="ItemDefinition_19" isCollection="false" structureRef="java.lang.String"/>
-  <bpmn2:process id="com.IoTAutomation" tns:packageName="com.IoTAutomationPackage" name="Iot Automation jBPM" isExecutable="true" processType="Private">
+  <bpmn2:process id="com.DoorSensorESP01" tns:packageName="com.DoorSensorESP01Package" name="Door Sensor ESP-01" isExecutable="true" processType="Private">
     <bpmn2:property id="id" itemSubjectRef="ItemDefinition_19" name="id"/>
     <bpmn2:property id="name" itemSubjectRef="ItemDefinition_19" name="name"/>
     <bpmn2:property id="event" itemSubjectRef="ItemDefinition_19" name="event"/>
@@ -31,7 +31,7 @@
       <bpmn2:script>kcontext.getKnowledgeRuntime().insert(kcontext.getProcessInstance());</bpmn2:script>
     </bpmn2:scriptTask>
     <bpmn2:exclusiveGateway id="ExclusiveGateway_1" name="Device ID Gateway" gatewayDirection="Diverging" default="SequenceFlow_4">
-      <bpmn2:incoming>SequenceFlow_2</bpmn2:incoming>
+      <bpmn2:incoming>SequenceFlow_5</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_3</bpmn2:outgoing>
       <bpmn2:outgoing>SequenceFlow_4</bpmn2:outgoing>
     </bpmn2:exclusiveGateway>
@@ -56,11 +56,11 @@
       <bpmn2:script>com.iotbpm.ui.MainWindow.getInstance().log(&quot;Other Train Device Move Signal&quot;);</bpmn2:script>
     </bpmn2:scriptTask>
     <bpmn2:sequenceFlow id="SequenceFlow_1" sourceRef="StartEvent_1" targetRef="ScriptTask_1"/>
-    <bpmn2:sequenceFlow id="SequenceFlow_2" sourceRef="ScriptTask_1" targetRef="ExclusiveGateway_1"/>
-    <bpmn2:sequenceFlow id="SequenceFlow_3" name="Main Train Device" sourceRef="ExclusiveGateway_1" targetRef="ScriptTask_2">
+    <bpmn2:sequenceFlow id="SequenceFlow_2" sourceRef="ScriptTask_1" targetRef="ScriptTask_4"/>
+    <bpmn2:sequenceFlow id="SequenceFlow_3" sourceRef="ExclusiveGateway_1" targetRef="ScriptTask_2">
       <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression" id="FormalExpression_1" language="http://www.java.com/java">return  KieFunctions.equalsTo(id, &quot;100111&quot;);</bpmn2:conditionExpression>
     </bpmn2:sequenceFlow>
-    <bpmn2:sequenceFlow id="SequenceFlow_4" tns:priority="2" name="Other Train Device" sourceRef="ExclusiveGateway_1" targetRef="ScriptTask_3"/>
+    <bpmn2:sequenceFlow id="SequenceFlow_4" tns:priority="2" sourceRef="ExclusiveGateway_1" targetRef="ScriptTask_3"/>
     <bpmn2:sequenceFlow id="SequenceFlow_7" tns:priority="1" sourceRef="ScriptTask_2" targetRef="EndEvent_1"/>
     <bpmn2:sequenceFlow id="SequenceFlow_8" tns:priority="1" sourceRef="ScriptTask_3" targetRef="EndEvent_2"/>
     <bpmn2:endEvent id="EndEvent_1" name="End Event 1">
@@ -79,9 +79,20 @@
       </bpmn2:extensionElements>
       <bpmn2:incoming>SequenceFlow_8</bpmn2:incoming>
     </bpmn2:endEvent>
+    <bpmn2:scriptTask id="ScriptTask_4" name="Door Sensor">
+      <bpmn2:extensionElements>
+        <tns:metaData name="elementname">
+          <tns:metaValue><![CDATA[Door Sensor]]></tns:metaValue>
+        </tns:metaData>
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>SequenceFlow_2</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_5</bpmn2:outgoing>
+      <bpmn2:script>com.iotbpm.iottiles.IoTTiles.getInstance().panel_7dooropened();</bpmn2:script>
+    </bpmn2:scriptTask>
+    <bpmn2:sequenceFlow id="SequenceFlow_5" tns:priority="1" sourceRef="ScriptTask_4" targetRef="ExclusiveGateway_1"/>
   </bpmn2:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
-    <bpmndi:BPMNPlane id="BPMNPlane_Process_1" bpmnElement="com.IoTAutomation">
+    <bpmndi:BPMNPlane id="BPMNPlane_Process_1" bpmnElement="com.DoorSensorESP01">
       <bpmndi:BPMNShape id="BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
         <dc:Bounds height="36.0" width="36.0" x="30.0" y="120.0"/>
         <bpmndi:BPMNLabel id="BPMNLabel_1" labelStyle="BPMNLabelStyle_1">
@@ -95,33 +106,39 @@
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_ExclusiveGateway_1" bpmnElement="ExclusiveGateway_1" isMarkerVisible="true">
-        <dc:Bounds height="50.0" width="50.0" x="281.0" y="113.0"/>
+        <dc:Bounds height="50.0" width="50.0" x="441.0" y="113.0"/>
         <bpmndi:BPMNLabel id="BPMNLabel_3" labelStyle="BPMNLabelStyle_1">
-          <dc:Bounds height="30.0" width="61.0" x="276.0" y="163.0"/>
+          <dc:Bounds height="30.0" width="61.0" x="436.0" y="163.0"/>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_ScriptTask_3" bpmnElement="ScriptTask_2" isExpanded="true">
-        <dc:Bounds height="50.0" width="110.0" x="380.0" y="45.0"/>
+        <dc:Bounds height="50.0" width="110.0" x="525.0" y="45.0"/>
         <bpmndi:BPMNLabel id="BPMNLabel_4" labelStyle="BPMNLabelStyle_1">
-          <dc:Bounds height="15.0" width="88.0" x="391.0" y="62.0"/>
+          <dc:Bounds height="15.0" width="88.0" x="536.0" y="62.0"/>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_ScriptTask_4" bpmnElement="ScriptTask_3" isExpanded="true">
-        <dc:Bounds height="50.0" width="110.0" x="380.0" y="185.0"/>
+        <dc:Bounds height="50.0" width="110.0" x="525.0" y="185.0"/>
         <bpmndi:BPMNLabel id="BPMNLabel_5" labelStyle="BPMNLabelStyle_1">
-          <dc:Bounds height="15.0" width="92.0" x="389.0" y="202.0"/>
+          <dc:Bounds height="15.0" width="92.0" x="534.0" y="202.0"/>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_EndEvent_1" bpmnElement="EndEvent_1">
-        <dc:Bounds height="36.0" width="36.0" x="523.0" y="52.0"/>
-        <bpmndi:BPMNLabel>
-          <dc:Bounds height="15.0" width="65.0" x="509.0" y="88.0"/>
+        <dc:Bounds height="36.0" width="36.0" x="676.0" y="52.0"/>
+        <bpmndi:BPMNLabel id="BPMNLabel_6">
+          <dc:Bounds height="15.0" width="65.0" x="662.0" y="88.0"/>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_EndEvent_2" bpmnElement="EndEvent_2">
-        <dc:Bounds height="36.0" width="36.0" x="530.0" y="192.0"/>
+        <dc:Bounds height="36.0" width="36.0" x="675.0" y="192.0"/>
+        <bpmndi:BPMNLabel id="BPMNLabel_7">
+          <dc:Bounds height="15.0" width="65.0" x="661.0" y="228.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_ScriptTask_1" bpmnElement="ScriptTask_4" isExpanded="true">
+        <dc:Bounds height="50.0" width="110.0" x="290.0" y="113.0"/>
         <bpmndi:BPMNLabel>
-          <dc:Bounds height="15.0" width="65.0" x="516.0" y="228.0"/>
+          <dc:Bounds height="15.0" width="70.0" x="310.0" y="130.0"/>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_3" bpmnElement="SequenceFlow_1" sourceElement="BPMNShape_StartEvent_2" targetElement="BPMNShape_ScriptTask_2">
@@ -130,39 +147,41 @@
         <di:waypoint xsi:type="dc:Point" x="120.0" y="138.0"/>
         <bpmndi:BPMNLabel id="BPMNLabel_18"/>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_4" bpmnElement="SequenceFlow_2" sourceElement="BPMNShape_ScriptTask_2" targetElement="BPMNShape_ExclusiveGateway_1">
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_4" bpmnElement="SequenceFlow_2" sourceElement="BPMNShape_ScriptTask_2" targetElement="BPMNShape_ScriptTask_1">
         <di:waypoint xsi:type="dc:Point" x="230.0" y="138.0"/>
-        <di:waypoint xsi:type="dc:Point" x="255.0" y="138.0"/>
-        <di:waypoint xsi:type="dc:Point" x="281.0" y="138.0"/>
+        <di:waypoint xsi:type="dc:Point" x="260.0" y="138.0"/>
+        <di:waypoint xsi:type="dc:Point" x="290.0" y="138.0"/>
         <bpmndi:BPMNLabel id="BPMNLabel_9"/>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_5" bpmnElement="SequenceFlow_3" sourceElement="BPMNShape_ExclusiveGateway_1" targetElement="BPMNShape_ScriptTask_3">
-        <di:waypoint xsi:type="dc:Point" x="306.0" y="113.0"/>
-        <di:waypoint xsi:type="dc:Point" x="306.0" y="70.0"/>
-        <di:waypoint xsi:type="dc:Point" x="380.0" y="70.0"/>
-        <bpmndi:BPMNLabel id="BPMNLabel_10">
-          <dc:Bounds height="30.0" width="66.0" x="290.0" y="71.0"/>
-        </bpmndi:BPMNLabel>
+        <di:waypoint xsi:type="dc:Point" x="466.0" y="113.0"/>
+        <di:waypoint xsi:type="dc:Point" x="466.0" y="70.0"/>
+        <di:waypoint xsi:type="dc:Point" x="525.0" y="70.0"/>
+        <bpmndi:BPMNLabel id="BPMNLabel_10"/>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_6" bpmnElement="SequenceFlow_4" sourceElement="BPMNShape_ExclusiveGateway_1" targetElement="BPMNShape_ScriptTask_4">
-        <di:waypoint xsi:type="dc:Point" x="306.0" y="163.0"/>
-        <di:waypoint xsi:type="dc:Point" x="306.0" y="210.0"/>
-        <di:waypoint xsi:type="dc:Point" x="380.0" y="210.0"/>
-        <bpmndi:BPMNLabel id="BPMNLabel_11">
-          <dc:Bounds height="30.0" width="70.0" x="286.0" y="211.0"/>
-        </bpmndi:BPMNLabel>
+        <di:waypoint xsi:type="dc:Point" x="466.0" y="163.0"/>
+        <di:waypoint xsi:type="dc:Point" x="466.0" y="210.0"/>
+        <di:waypoint xsi:type="dc:Point" x="525.0" y="210.0"/>
+        <bpmndi:BPMNLabel id="BPMNLabel_11"/>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_9" bpmnElement="SequenceFlow_7" sourceElement="BPMNShape_ScriptTask_3" targetElement="BPMNShape_EndEvent_1">
-        <di:waypoint xsi:type="dc:Point" x="490.0" y="70.0"/>
-        <di:waypoint xsi:type="dc:Point" x="506.0" y="70.0"/>
-        <di:waypoint xsi:type="dc:Point" x="523.0" y="70.0"/>
+        <di:waypoint xsi:type="dc:Point" x="635.0" y="70.0"/>
+        <di:waypoint xsi:type="dc:Point" x="655.0" y="70.0"/>
+        <di:waypoint xsi:type="dc:Point" x="676.0" y="70.0"/>
         <bpmndi:BPMNLabel id="BPMNLabel_12"/>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_10" bpmnElement="SequenceFlow_8" sourceElement="BPMNShape_ScriptTask_4" targetElement="BPMNShape_EndEvent_2">
-        <di:waypoint xsi:type="dc:Point" x="490.0" y="210.0"/>
-        <di:waypoint xsi:type="dc:Point" x="510.0" y="210.0"/>
-        <di:waypoint xsi:type="dc:Point" x="530.0" y="210.0"/>
+        <di:waypoint xsi:type="dc:Point" x="635.0" y="210.0"/>
+        <di:waypoint xsi:type="dc:Point" x="655.0" y="210.0"/>
+        <di:waypoint xsi:type="dc:Point" x="675.0" y="210.0"/>
         <bpmndi:BPMNLabel id="BPMNLabel_13"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_1" bpmnElement="SequenceFlow_5" sourceElement="BPMNShape_ScriptTask_1" targetElement="BPMNShape_ExclusiveGateway_1">
+        <di:waypoint xsi:type="dc:Point" x="400.0" y="138.0"/>
+        <di:waypoint xsi:type="dc:Point" x="420.0" y="138.0"/>
+        <di:waypoint xsi:type="dc:Point" x="441.0" y="138.0"/>
+        <bpmndi:BPMNLabel/>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
     <bpmndi:BPMNLabelStyle id="BPMNLabelStyle_1">

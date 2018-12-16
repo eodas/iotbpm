@@ -175,7 +175,7 @@ public class jBPMRules {
 
 		Devices device = this.devices.getDevice(serverEvent.getId());
 		if (device == null) {
-			System.out.println("> id " + serverEvent.search("id") + " : Unknown IoT Device");
+			System.out.println("> id " + serverEvent.search("id") + " : Extended IoT Device ID");
 		} else {
 			if (serverEvent.search("name").equals("")) {
 				serverEvent.add("name", device.getName());
@@ -220,6 +220,11 @@ public class jBPMRules {
 				params.put(key, state.get(key));
 			}
 
+			String rules_processID = stateList.getState("processID");
+			if (rules_processID != null && !rules_processID.isEmpty()) {
+				processID = rules_processID;
+			}
+			
 			// go! - start jBPM processID
 			if (processID != null && !processID.isEmpty()) {
 				// Start the process with knowledge session
@@ -229,6 +234,8 @@ public class jBPMRules {
 				System.out.println(">>" + instance.getState());
 			}
 
+			stateList.delState("processID");
+			
 			// Set response jBPM Global Variable List
 			// kcontext.getKnowledgeRuntime().setGlobal("response", "");
 			response = (String) kSession.getGlobal("response");

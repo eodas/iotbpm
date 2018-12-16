@@ -3,6 +3,7 @@ package com.iotbpm.iottiles;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
@@ -31,6 +32,8 @@ public class IoTTiles {
 	private ImageIcon door_inIcon;
 	private ImageIcon door_openIcon;
 	private ImageIcon door_outIcon;
+
+	private ImageIcon emblem_systemIcon;
 
 	private ImageIcon lightbulbIcon;
 	private ImageIcon lightbulb_offIcon;
@@ -156,6 +159,8 @@ public class IoTTiles {
 		door_inIcon = new ImageIcon("icons" + File.separator + "door_in.png");
 		door_openIcon = new ImageIcon("icons" + File.separator + "door_open.png");
 		door_outIcon = new ImageIcon("icons" + File.separator + "door_out.png");
+
+		emblem_systemIcon = new ImageIcon("icons" + File.separator + "emblem_system.png");
 
 		lightbulbIcon = new ImageIcon("icons" + File.separator + "lightbulb.png");
 		lightbulb_offIcon = new ImageIcon("icons" + File.separator + "lightbulb_off.png");
@@ -590,7 +595,7 @@ public class IoTTiles {
 		lblTopLabel_15.setForeground(Color.WHITE);
 		panel_15.add(lblTopLabel_15, BorderLayout.NORTH);
 
-		lblBottomLabel_15 = new JLabel("Tone");
+		lblBottomLabel_15 = new JLabel("Chime");
 		lblBottomLabel_15.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblBottomLabel_15.setForeground(Color.WHITE);
 		panel_15.add(lblBottomLabel_15, BorderLayout.SOUTH);
@@ -627,7 +632,7 @@ public class IoTTiles {
 		lblIconLabel_16.setForeground(Color.WHITE);
 		lblIconLabel_16.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_16.add(lblIconLabel_16, BorderLayout.CENTER);
-		lblIconLabel_16.setIcon(lockIcon);
+		lblIconLabel_16.setIcon(emblem_systemIcon);
 
 		panel_17 = new JPanel();
 		panel_17.addMouseListener(new MouseAdapter() {
@@ -646,7 +651,7 @@ public class IoTTiles {
 		lblTopLabel_17.setForeground(Color.WHITE);
 		panel_17.add(lblTopLabel_17, BorderLayout.NORTH);
 
-		lblBottomLabel_17 = new JLabel("Press Button");
+		lblBottomLabel_17 = new JLabel("Button Press");
 		lblBottomLabel_17.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblBottomLabel_17.setForeground(Color.WHITE);
 		panel_17.add(lblBottomLabel_17, BorderLayout.SOUTH);
@@ -760,6 +765,40 @@ public class IoTTiles {
 	}
 
 	public void panel_7clicked(MouseEvent e) {
+		JOptionPane.showMessageDialog(null,
+				"The IoT Door Sensor jBPM Automation process is triggered by an Arduino Tron event.", "IoT Door Sensor",
+				JOptionPane.INFORMATION_MESSAGE);
+	}
+
+	public void panel_7dooropened() {
+		lblIconLabel_7.setIcon(door_inIcon);
+		lblBottomLabel_7.setText("Opened");
+		panel_7.setBackground(Color.RED);
+		panel_7clear();
+	}
+
+	public void panel_7doorclosed() {
+		panel_7.setBackground(new Color(255, 175, 175));
+		lblIconLabel_7.setIcon(doorIcon);
+		lblBottomLabel_7.setText("Closed");
+	}
+
+	public void panel_7clear() {
+		new Thread(new Runnable() {
+			public void run() {
+				for (int i = 0; i <= 4; i++) {
+					if (i == 4) {
+						panel_7doorclosed();
+					}
+					try {
+						Thread.sleep(500L);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			}
+		}).start();
 	}
 
 	public void panel_8clicked(MouseEvent e) {
@@ -787,6 +826,36 @@ public class IoTTiles {
 	}
 
 	public void panel_16clicked(MouseEvent e) {
+		JOptionPane.showMessageDialog(null,
+				"This is the default IoT Sensors jBPM Automation process. Use Drools Rules to start a specific IoT jBPM Automation process.",
+				"Monitor IoT Sensors", JOptionPane.INFORMATION_MESSAGE);
+	}
+
+	public void panel_16IoTSensors(String IoT_Sensors) {
+		lblBottomLabel_16.setText(IoT_Sensors);
+		panel_16blink();
+	}
+
+	public void panel_16blink() {
+		new Thread(new Runnable() {
+			public void run() {
+				boolean blink = true;
+				for (int i = 0; i < 6; i++) {
+					if (blink) {
+						panel_16.setBackground(Color.RED);
+					} else {
+						panel_16.setBackground(Color.BLUE);
+					}
+					blink = !blink;
+					try {
+						Thread.sleep(500L);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			}
+		}).start();
 	}
 
 	public void panel_17clicked(MouseEvent e) {
@@ -798,7 +867,7 @@ public class IoTTiles {
 	public void panel_18temp(String temp) {
 		lblIconLabel_18.setText(temp);
 	}
-	
+
 	public void panel_19clicked(MouseEvent e) {
 	}
 }

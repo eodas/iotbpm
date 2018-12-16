@@ -3,18 +3,32 @@ package com.automation
 // list import classes
 import com.iotbpm.model.Devices;
 import com.iotbpm.model.ServerEvent;
+import com.iotbpm.model.StateList;
 
 // default dialect for the semantic code will be MVEL
 dialect "mvel"
 
+rule "Rule for device ID: 100666 - Door Sensor ESP-01"
+	when
+		$event : ServerEvent( $eventId : id, $eventId == "100666" )
+	then
+		com.iotbpm.model.StateList.getInstance().putState("processID", "com.DoorSensorESP01");
+end
+
 rule "Rules Automation Rule"
  	no-loop
     when
-    	// event keypress1.0 used to change state Move/Stop
-		$event : ServerEvent( $eventId : id, (event == "keypress1.0" || event == "keypress2.0") )
+    	// event used to change update Door Sensor ESP-01
+		$event : ServerEvent( $eventId : id, $eventId == "100666" )
       	$device : Devices( $deviceId : id,  $eventId == id )
     then
-		com.iotbpm.ui.MainWindow.getInstance().log("IoT Device " + $device.getName());
+		$device.status = "Sensor";
+		$device.action = "Opened";
+		com.iotbpm.ui.MainWindow.getInstance().log("Door Sensor " + $device.getName());
+		modify( $device );
+		update( $device );
+		
+		// com.iotbpm.model.StateList.getInstance().putState("processID", "FOO");
 end
 
 /*
