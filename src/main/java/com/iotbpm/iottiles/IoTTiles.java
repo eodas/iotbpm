@@ -184,7 +184,7 @@ public class IoTTiles {
 		panel_1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				panel_1clicked(e);
+				panel_1Clicked(e);
 			}
 		});
 		panel_1.setBackground(Color.BLUE);
@@ -213,7 +213,7 @@ public class IoTTiles {
 		panel_2.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				panel_2clicked(e);
+				panel_2Clicked(e);
 			}
 		});
 		panel_2.setBackground(Color.MAGENTA);
@@ -242,7 +242,7 @@ public class IoTTiles {
 		panel_3.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				panel_3clicked(e);
+				panel_3Clicked(e);
 			}
 		});
 		panel_3.setBackground(new Color(199, 21, 133));
@@ -271,7 +271,7 @@ public class IoTTiles {
 		panel_4.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				panel_4clicked(e);
+				panel_4Clicked(e);
 			}
 		});
 		panel_4.setBackground(Color.RED);
@@ -300,7 +300,7 @@ public class IoTTiles {
 		panel_5.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				panel_5clicked(e);
+				panel_5Clicked(e);
 			}
 		});
 		panel_5.setBackground(Color.RED);
@@ -329,7 +329,7 @@ public class IoTTiles {
 		panel_6.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				panel_6clicked(e);
+				panel_6Clicked(e);
 			}
 		});
 		panel_6.setBackground(Color.LIGHT_GRAY);
@@ -357,10 +357,10 @@ public class IoTTiles {
 		panel_7.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				panel_7clicked(e);
+				panel_7Clicked(e);
 			}
 		});
-		panel_7.setBackground(new Color(255, 175, 175));
+		panel_7.setBackground(Color.BLUE);
 		panel_7.setBounds(320, 110, 100, 100);
 		frame.getContentPane().add(panel_7);
 		panel_7.setLayout(new BorderLayout(0, 0));
@@ -385,7 +385,7 @@ public class IoTTiles {
 		panel_8.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				panel_8clicked(e);
+				panel_8Clicked(e);
 			}
 		});
 		panel_8.setBackground(new Color(128, 128, 128));
@@ -414,7 +414,7 @@ public class IoTTiles {
 		panel_9.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				panel_9clicked(e);
+				panel_9Clicked(e);
 			}
 		});
 		panel_9.setBackground(Color.BLUE);
@@ -442,7 +442,7 @@ public class IoTTiles {
 		panel_10.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				panel_10clicked(e);
+				panel_10Clicked(e);
 			}
 		});
 		panel_10.setBackground(Color.PINK);
@@ -470,7 +470,7 @@ public class IoTTiles {
 		panel_11.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				panel_11clicked(e);
+				panel_11Clicked(e);
 			}
 		});
 		panel_11.setBackground(new Color(244, 164, 96));
@@ -498,7 +498,7 @@ public class IoTTiles {
 		panel_12.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				panel_12clicked(e);
+				panel_12Clicked(e);
 			}
 		});
 		panel_12.setBackground(Color.DARK_GRAY);
@@ -526,7 +526,7 @@ public class IoTTiles {
 		panel_13.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				panel_13clicked(e);
+				panel_13Clicked(e);
 			}
 		});
 		panel_13.setBackground(new Color(0, 128, 0));
@@ -554,7 +554,7 @@ public class IoTTiles {
 		panel_14.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				panel_14clicked(e);
+				panel_14Clicked(e);
 			}
 		});
 		panel_14.setBackground(Color.RED);
@@ -582,7 +582,7 @@ public class IoTTiles {
 		panel_15.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				panel_15clicked(e);
+				panel_15Clicked(e);
 			}
 		});
 		panel_15.setBackground(Color.DARK_GRAY);
@@ -595,7 +595,7 @@ public class IoTTiles {
 		lblTopLabel_15.setForeground(Color.WHITE);
 		panel_15.add(lblTopLabel_15, BorderLayout.NORTH);
 
-		lblBottomLabel_15 = new JLabel("Chime");
+		lblBottomLabel_15 = new JLabel("Button Press");
 		lblBottomLabel_15.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblBottomLabel_15.setForeground(Color.WHITE);
 		panel_15.add(lblBottomLabel_15, BorderLayout.SOUTH);
@@ -610,7 +610,7 @@ public class IoTTiles {
 		panel_16.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				panel_16clicked(e);
+				panel_16Clicked(e);
 			}
 		});
 		panel_16.setBackground(Color.BLUE);
@@ -638,7 +638,7 @@ public class IoTTiles {
 		panel_17.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				panel_17clicked(e);
+				panel_17Clicked(e);
 			}
 		});
 		panel_17.setBackground(Color.GRAY);
@@ -651,7 +651,7 @@ public class IoTTiles {
 		lblTopLabel_17.setForeground(Color.WHITE);
 		panel_17.add(lblTopLabel_17, BorderLayout.NORTH);
 
-		lblBottomLabel_17 = new JLabel("Button Press");
+		lblBottomLabel_17 = new JLabel("Chime");
 		lblBottomLabel_17.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblBottomLabel_17.setForeground(Color.WHITE);
 		panel_17.add(lblBottomLabel_17, BorderLayout.SOUTH);
@@ -666,7 +666,7 @@ public class IoTTiles {
 		panel_18.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				panel_18clicked(e);
+				panel_18Clicked(e);
 			}
 		});
 		panel_18.setBackground(Color.RED);
@@ -695,7 +695,7 @@ public class IoTTiles {
 		panel_19.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				panel_19clicked(e);
+				panel_19Clicked(e);
 			}
 		});
 		panel_19.setBackground(Color.BLUE);
@@ -726,74 +726,75 @@ public class IoTTiles {
 		this.frameIoT.setVisible(true);
 	}
 
-	public void panel_1clicked(MouseEvent e) {
-		panel_1lock();
+	public void panel_1Clicked(MouseEvent e) {
+		panel_1Lock();
 	}
 
-	public void panel_1lock() {
+	public void panel_1Lock() {
 		lblIconLabel_6.setIcon(lockIcon);
 		lblBottomLabel_6.setText("Lock");
 		panel_6.setBackground(Color.GREEN);
 	}
 
-	public void panel_1unlock() {
+	public void panel_1Unlock() {
 		lblIconLabel_6.setIcon(lock_openIcon);
 		lblBottomLabel_6.setText("Unlock");
 		panel_6.setBackground(Color.RED);
 	}
 
-	public void panel_2clicked(MouseEvent e) {
+	public void panel_2Clicked(MouseEvent e) {
 		lblIconLabel_3.setIcon(lightbulbIcon);
 		lblBottomLabel_3.setText("On");
 	}
 
-	public void panel_3clicked(MouseEvent e) {
+	public void panel_3Clicked(MouseEvent e) {
 		iotEvents.IoTServerEvent("GET /?id=100222&timestamp=0&event=CHIME");
 	}
 
-	public void panel_4clicked(MouseEvent e) {
+	public void panel_4Clicked(MouseEvent e) {
 	}
 
-	public void panel_5clicked(MouseEvent e) {
+	// Office Temperature
+	public void panel_5Clicked(MouseEvent e) {
 	}
 
-	public void panel_5temp(String temp) {
+	public void panel_5Temp(String temp) {
 		lblIconLabel_5.setText(temp);
 	}
 
-	public void panel_6clicked(MouseEvent e) {
+	public void panel_6Clicked(MouseEvent e) {
 	}
 
-	public void panel_7clicked(MouseEvent e) {
+	// Front Door
+	public void panel_7Clicked(MouseEvent e) {
 		JOptionPane.showMessageDialog(null,
 				"The IoT Door Sensor jBPM Automation process is triggered by an Arduino Tron event.", "IoT Door Sensor",
 				JOptionPane.INFORMATION_MESSAGE);
 	}
 
-	public void panel_7dooropened() {
+	public void panel_7DoorOpened() {
 		lblIconLabel_7.setIcon(door_inIcon);
 		lblBottomLabel_7.setText("Opened");
 		panel_7.setBackground(Color.RED);
-		panel_7clear();
+		panel_7Clear();
 	}
 
-	public void panel_7doorclosed() {
-		panel_7.setBackground(new Color(255, 175, 175));
+	public void panel_7DoorClosed() {
 		lblIconLabel_7.setIcon(doorIcon);
 		lblBottomLabel_7.setText("Closed");
+		panel_7.setBackground(Color.BLUE);
 	}
 
-	public void panel_7clear() {
+	public void panel_7Clear() {
 		new Thread(new Runnable() {
 			public void run() {
 				for (int i = 0; i <= 4; i++) {
 					if (i == 4) {
-						panel_7doorclosed();
+						panel_7DoorClosed();
 					}
 					try {
 						Thread.sleep(500L);
 					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				}
@@ -801,31 +802,38 @@ public class IoTTiles {
 		}).start();
 	}
 
-	public void panel_8clicked(MouseEvent e) {
+	public void panel_8Clicked(MouseEvent e) {
 	}
 
-	public void panel_9clicked(MouseEvent e) {
+	// Lobby Door
+	public void panel_9Clicked(MouseEvent e) {
 	}
 
-	public void panel_10clicked(MouseEvent e) {
+	public void panel_10Clicked(MouseEvent e) {
 	}
 
-	public void panel_11clicked(MouseEvent e) {
+	public void panel_11Clicked(MouseEvent e) {
 	}
 
-	public void panel_12clicked(MouseEvent e) {
+	public void panel_12Clicked(MouseEvent e) {
 	}
 
-	public void panel_13clicked(MouseEvent e) {
+	public void panel_13Clicked(MouseEvent e) {
 	}
 
-	public void panel_14clicked(MouseEvent e) {
+	public void panel_14Clicked(MouseEvent e) {
 	}
 
-	public void panel_15clicked(MouseEvent e) {
+	// IoT Dash Button
+	public void panel_15Clicked(MouseEvent e) {
 	}
 
-	public void panel_16clicked(MouseEvent e) {
+	public void panel_15DashButton(String alert) {
+		lblIconLabel_15.setText("Boom " + alert);
+	}
+	
+	// IoT Sensors
+	public void panel_16Clicked(MouseEvent e) {
 		JOptionPane.showMessageDialog(null,
 				"This is the default IoT Sensors jBPM Automation process. Use Drools Rules to start a specific IoT jBPM Automation process.",
 				"Monitor IoT Sensors", JOptionPane.INFORMATION_MESSAGE);
@@ -833,10 +841,10 @@ public class IoTTiles {
 
 	public void panel_16IoTSensors(String IoT_Sensors) {
 		lblBottomLabel_16.setText(IoT_Sensors);
-		panel_16blink();
+		panel_16Blink();
 	}
 
-	public void panel_16blink() {
+	public void panel_16Blink() {
 		new Thread(new Runnable() {
 			public void run() {
 				boolean blink = true;
@@ -850,7 +858,6 @@ public class IoTTiles {
 					try {
 						Thread.sleep(500L);
 					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				}
@@ -858,16 +865,18 @@ public class IoTTiles {
 		}).start();
 	}
 
-	public void panel_17clicked(MouseEvent e) {
+	// Dash Button
+	public void panel_17Clicked(MouseEvent e) {
 	}
 
-	public void panel_18clicked(MouseEvent e) {
+	// Outside Temperature
+	public void panel_18Clicked(MouseEvent e) {
 	}
 
-	public void panel_18temp(String temp) {
+	public void panel_18Temp(String temp) {
 		lblIconLabel_18.setText(temp);
 	}
 
-	public void panel_19clicked(MouseEvent e) {
+	public void panel_19Clicked(MouseEvent e) {
 	}
 }

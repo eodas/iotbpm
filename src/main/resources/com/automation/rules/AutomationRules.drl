@@ -8,28 +8,37 @@ import com.iotbpm.model.StateList;
 // default dialect for the semantic code will be MVEL
 dialect "mvel"
 
-rule "Rule for device ID: 100666 - Door Sensor ESP-01"
+rule "processID rule for device ID: 100555 - Arduino Dash Button"
+	when
+		$event : ServerEvent( $eventId : id, $eventId == "100555" )
+	then
+		com.iotbpm.model.StateList.getInstance().putState("processID", "com.DashButton");
+end
+
+rule "processID rule for device ID: 100666 - Door Open Sensor ESP01"
 	when
 		$event : ServerEvent( $eventId : id, $eventId == "100666" )
 	then
-		com.iotbpm.model.StateList.getInstance().putState("processID", "com.DoorSensorESP01");
+		com.iotbpm.model.StateList.getInstance().putState("processID", "com.DoorOpenSensorESP01");
 end
 
-rule "Rules Automation Rule"
+rule "Rules for device ID: 100666 - Door Open Sensor ESP01"
  	no-loop
     when
-    	// event used to change update Door Sensor ESP-01
+    	// event used to change update Door Open Sensor ESP01
 		$event : ServerEvent( $eventId : id, $eventId == "100666" )
       	$device : Devices( $deviceId : id,  $eventId == id )
     then
 		$device.status = "Sensor";
 		$device.action = "Opened";
-		com.iotbpm.ui.MainWindow.getInstance().log("Door Sensor " + $device.getName());
+		com.iotbpm.ui.MainWindow.getInstance().log("Door Open Sensor " + $device.getName());
 		modify( $device );
 		update( $device );
-		
-		// com.iotbpm.model.StateList.getInstance().putState("processID", "FOO");
 end
+
+
+
+
 
 /*
 rule "No Trains Are Moving - Quite Rule"
