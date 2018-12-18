@@ -192,7 +192,7 @@ public class IoTTiles {
 		frame.getContentPane().add(panel_1);
 		panel_1.setLayout(new BorderLayout(0, 0));
 
-		JLabel lblTopLabel_1 = new JLabel("Alert Bell");
+		JLabel lblTopLabel_1 = new JLabel("-Alert Bell");
 		lblTopLabel_1.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblTopLabel_1.setForeground(Color.WHITE);
 		panel_1.add(lblTopLabel_1, BorderLayout.NORTH);
@@ -221,7 +221,7 @@ public class IoTTiles {
 		frame.getContentPane().add(panel_2);
 		panel_2.setLayout(new BorderLayout(0, 0));
 
-		JLabel lblTopLabel_2 = new JLabel("Office Mode");
+		JLabel lblTopLabel_2 = new JLabel("-Office Mode");
 		lblTopLabel_2.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblTopLabel_2.setForeground(Color.WHITE);
 		panel_2.add(lblTopLabel_2, BorderLayout.NORTH);
@@ -250,7 +250,7 @@ public class IoTTiles {
 		frame.getContentPane().add(panel_3);
 		panel_3.setLayout(new BorderLayout(0, 0));
 
-		JLabel lblTopLabel_3 = new JLabel("Steven");
+		JLabel lblTopLabel_3 = new JLabel("-Steven");
 		lblTopLabel_3.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblTopLabel_3.setForeground(Color.WHITE);
 		panel_3.add(lblTopLabel_3, BorderLayout.NORTH);
@@ -279,7 +279,7 @@ public class IoTTiles {
 		frame.getContentPane().add(panel_4);
 		panel_4.setLayout(new BorderLayout(0, 0));
 
-		JLabel lblTopLabel_4 = new JLabel("Smart Office Monitor");
+		JLabel lblTopLabel_4 = new JLabel("-Smart Office Monitor");
 		lblTopLabel_4.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblTopLabel_4.setForeground(Color.WHITE);
 		panel_4.add(lblTopLabel_4, BorderLayout.NORTH);
@@ -318,7 +318,7 @@ public class IoTTiles {
 		lblBottomLabel_5.setForeground(Color.WHITE);
 		panel_5.add(lblBottomLabel_5, BorderLayout.SOUTH);
 
-		lblIconLabel_5 = new JLabel("72'");
+		lblIconLabel_5 = new JLabel("72.2'");
 		lblIconLabel_5.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 16));
 		lblIconLabel_5.setForeground(Color.WHITE);
 		lblIconLabel_5.setHorizontalAlignment(SwingConstants.CENTER);
@@ -393,7 +393,7 @@ public class IoTTiles {
 		frame.getContentPane().add(panel_8);
 		panel_8.setLayout(new BorderLayout(0, 0));
 
-		JLabel lblTopLabel_8 = new JLabel("Lobby Door");
+		JLabel lblTopLabel_8 = new JLabel("-Lobby Door");
 		lblTopLabel_8.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblTopLabel_8.setForeground(Color.WHITE);
 		panel_8.add(lblTopLabel_8, BorderLayout.NORTH);
@@ -421,7 +421,7 @@ public class IoTTiles {
 		frame.getContentPane().add(panel_9);
 		panel_9.setLayout(new BorderLayout(0, 0));
 
-		JLabel lblTopLabel_9 = new JLabel("Lobby Door");
+		JLabel lblTopLabel_9 = new JLabel("-Lobby Door");
 		lblTopLabel_9.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblTopLabel_9.setForeground(Color.WHITE);
 		panel_9.add(lblTopLabel_9, BorderLayout.NORTH);
@@ -454,7 +454,7 @@ public class IoTTiles {
 		lblTopLabel_10.setForeground(Color.WHITE);
 		panel_10.add(lblTopLabel_10, BorderLayout.NORTH);
 
-		lblBottomLabel_10 = new JLabel("Light Level");
+		lblBottomLabel_10 = new JLabel("Light Off");
 		lblBottomLabel_10.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblBottomLabel_10.setForeground(Color.WHITE);
 		panel_10.add(lblBottomLabel_10, BorderLayout.SOUTH);
@@ -463,7 +463,7 @@ public class IoTTiles {
 		lblIconLabel_10.setForeground(Color.WHITE);
 		lblIconLabel_10.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_10.add(lblIconLabel_10, BorderLayout.CENTER);
-		lblIconLabel_10.setIcon(lockIcon);
+		lblIconLabel_10.setIcon(lightbulb_offIcon);
 
 		panel_11 = new JPanel();
 		panel_11.addMouseListener(new MouseAdapter() {
@@ -505,7 +505,7 @@ public class IoTTiles {
 		frame.getContentPane().add(panel_12);
 		panel_12.setLayout(new BorderLayout(0, 0));
 
-		JLabel lblTopLabel_12 = new JLabel("Front Door");
+		JLabel lblTopLabel_12 = new JLabel("-Front Door");
 		lblTopLabel_12.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblTopLabel_12.setForeground(Color.WHITE);
 		panel_12.add(lblTopLabel_12, BorderLayout.NORTH);
@@ -533,7 +533,7 @@ public class IoTTiles {
 		frame.getContentPane().add(panel_13);
 		panel_13.setLayout(new BorderLayout(0, 0));
 
-		JLabel lblTopLabel_13 = new JLabel("OLED ESP-01 Display");
+		JLabel lblTopLabel_13 = new JLabel("OLED SSD Desk Display");
 		lblTopLabel_13.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblTopLabel_13.setForeground(Color.WHITE);
 		panel_13.add(lblTopLabel_13, BorderLayout.NORTH);
@@ -673,7 +673,7 @@ public class IoTTiles {
 		frame.getContentPane().add(panel_18);
 		panel_18.setLayout(new BorderLayout(0, 0));
 
-		JLabel lblTopLabel_18 = new JLabel("Outside Temperature");
+		JLabel lblTopLabel_18 = new JLabel("-Outside Temperature");
 		lblTopLabel_18.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblTopLabel_18.setForeground(Color.WHITE);
 		panel_18.add(lblTopLabel_18, BorderLayout.NORTH);
@@ -683,7 +683,7 @@ public class IoTTiles {
 		lblBottomLabel_18.setForeground(Color.WHITE);
 		panel_18.add(lblBottomLabel_18, BorderLayout.SOUTH);
 
-		lblIconLabel_18 = new JLabel("75'");
+		lblIconLabel_18 = new JLabel("75.8'");
 		lblIconLabel_18.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 16));
 		lblIconLabel_18.setForeground(Color.WHITE);
 		lblIconLabel_18.setHorizontalAlignment(SwingConstants.CENTER);
@@ -729,12 +729,9 @@ public class IoTTiles {
 	}
 
 	public void panel_2Clicked(MouseEvent e) {
-		lblIconLabel_3.setIcon(lightbulbIcon);
-		lblBottomLabel_3.setText("On");
 	}
 
 	public void panel_3Clicked(MouseEvent e) {
-		iotEvents.IoTServerEvent("GET /?id=100222&timestamp=0&event=CHIME");
 	}
 
 	public void panel_4Clicked(MouseEvent e) {
@@ -809,9 +806,23 @@ public class IoTTiles {
 	public void panel_9Clicked(MouseEvent e) {
 	}
 
+	// Lobby Light
 	public void panel_10Clicked(MouseEvent e) {
+		iotEvents.IoTServerEvent("GET /?id=100777&timestamp=0&event=LobbyLight");
 	}
 
+	public void panel_10LightOn() {
+		lblIconLabel_10.setIcon(lightbulbIcon);
+		lblBottomLabel_10.setText("Light On");
+		panel_10.setBackground(Color.PINK);
+	}
+
+	public void panel_10LightOff() {
+		lblIconLabel_10.setIcon(lightbulb_offIcon);
+		lblBottomLabel_10.setText("Light Off");
+		panel_10.setBackground(Color.PINK);
+	}
+	
 	public void panel_11Clicked(MouseEvent e) {
 	}
 

@@ -19,13 +19,15 @@ rule "Rules for device ID: 100222 - Temperature-Humidity"
  	no-loop
     when
     	// event used to change update Temperature-Humidity
-		$event : ServerEvent( $eventId : id, $eventId == "100222" )
-      	$device : Devices( $deviceId : id,  $eventId == id )
-    then
-		$device.status = "Temperature";
-		$device.action = "Humidity";
-		com.iotbpm.ui.MainWindow.getInstance().log($device.getName());
-		modify( $device );
+		$event : ServerEvent( $eventId : id, $eventId == "100222", $temp : temp, $ir_temp : ir_temp, $humidity : humidity, $mbar : mbar )
+       	$device : Devices( $deviceId : id, $eventId == id )
+	then
+		$device.action = "DHT11 Temp";
+		String result = ($temp == "0.0") ? "Mbar " + $mbar : "Temp " + $temp; 
+		$device.status = result;
+		String results = $event.getName() + " Temp:" + $temp + "  IR_Temp:" + $ir_temp + "  Humidity:" + $humidity + "  Mbar:" + $mbar;
+		com.iotbpm.ui.MainWindow.getInstance().log(results);
+		modify( $device )
 		update( $device );
 end
 
