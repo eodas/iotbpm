@@ -342,7 +342,7 @@ public class IoTTiles {
 		lblTopLabel_6.setForeground(Color.WHITE);
 		panel_6.add(lblTopLabel_6, BorderLayout.NORTH);
 
-		lblBottomLabel_6 = new JLabel("Locked");
+		lblBottomLabel_6 = new JLabel("Unlocked");
 		lblBottomLabel_6.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblBottomLabel_6.setForeground(Color.WHITE);
 		panel_6.add(lblBottomLabel_6, BorderLayout.SOUTH);
@@ -351,7 +351,7 @@ public class IoTTiles {
 		lblIconLabel_6.setForeground(Color.WHITE);
 		lblIconLabel_6.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_6.add(lblIconLabel_6, BorderLayout.CENTER);
-		lblIconLabel_6.setIcon(lockIcon);
+		lblIconLabel_6.setIcon(lock_openIcon);
 
 		panel_7 = new JPanel();
 		panel_7.addMouseListener(new MouseAdapter() {
@@ -395,11 +395,10 @@ public class IoTTiles {
 
 		JLabel lblTopLabel_8 = new JLabel("Lobby Door");
 		lblTopLabel_8.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblTopLabel_6.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblTopLabel_8.setForeground(Color.WHITE);
 		panel_8.add(lblTopLabel_8, BorderLayout.NORTH);
 
-		lblBottomLabel_8 = new JLabel("Locked");
+		lblBottomLabel_8 = new JLabel("Unlocked");
 		lblBottomLabel_8.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblBottomLabel_8.setForeground(Color.WHITE);
 		panel_8.add(lblBottomLabel_8, BorderLayout.SOUTH);
@@ -408,7 +407,7 @@ public class IoTTiles {
 		lblIconLabel_8.setForeground(Color.WHITE);
 		lblIconLabel_8.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_8.add(lblIconLabel_8, BorderLayout.CENTER);
-		lblIconLabel_8.setIcon(lockIcon);
+		lblIconLabel_8.setIcon(lock_openIcon);
 
 		panel_9 = new JPanel();
 		panel_9.addMouseListener(new MouseAdapter() {
@@ -595,7 +594,7 @@ public class IoTTiles {
 		lblTopLabel_15.setForeground(Color.WHITE);
 		panel_15.add(lblTopLabel_15, BorderLayout.NORTH);
 
-		lblBottomLabel_15 = new JLabel("Button Press");
+		lblBottomLabel_15 = new JLabel("IoT Chime");
 		lblBottomLabel_15.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblBottomLabel_15.setForeground(Color.WHITE);
 		panel_15.add(lblBottomLabel_15, BorderLayout.SOUTH);
@@ -651,7 +650,7 @@ public class IoTTiles {
 		lblTopLabel_17.setForeground(Color.WHITE);
 		panel_17.add(lblTopLabel_17, BorderLayout.NORTH);
 
-		lblBottomLabel_17 = new JLabel("Chime");
+		lblBottomLabel_17 = new JLabel("Button Press");
 		lblBottomLabel_17.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblBottomLabel_17.setForeground(Color.WHITE);
 		panel_17.add(lblBottomLabel_17, BorderLayout.SOUTH);
@@ -727,19 +726,6 @@ public class IoTTiles {
 	}
 
 	public void panel_1Clicked(MouseEvent e) {
-		panel_1Lock();
-	}
-
-	public void panel_1Lock() {
-		lblIconLabel_6.setIcon(lockIcon);
-		lblBottomLabel_6.setText("Lock");
-		panel_6.setBackground(Color.GREEN);
-	}
-
-	public void panel_1Unlock() {
-		lblIconLabel_6.setIcon(lock_openIcon);
-		lblBottomLabel_6.setText("Unlock");
-		panel_6.setBackground(Color.RED);
 	}
 
 	public void panel_2Clicked(MouseEvent e) {
@@ -762,14 +748,28 @@ public class IoTTiles {
 		lblIconLabel_5.setText(temp);
 	}
 
+	// Front Door Locked
 	public void panel_6Clicked(MouseEvent e) {
+		iotEvents.IoTServerEvent("GET /?id=100333&timestamp=0&event=Lock");
 	}
 
-	// Front Door
+	public void panel_6DoorLocked() {
+		lblIconLabel_6.setIcon(lockIcon);
+		lblBottomLabel_6.setText("Locked");
+		panel_6.setBackground(Color.RED);
+	}
+
+	public void panel_6DoorUnlocked() {
+		lblIconLabel_6.setIcon(lock_openIcon);
+		lblBottomLabel_6.setText("Unlocked");
+		panel_6.setBackground(Color.LIGHT_GRAY);
+	}
+
+	// Front Door Open
 	public void panel_7Clicked(MouseEvent e) {
 		JOptionPane.showMessageDialog(null,
-				"The IoT Door Sensor jBPM Automation process is triggered by an Arduino Tron event.", "IoT Door Sensor",
-				JOptionPane.INFORMATION_MESSAGE);
+				"The IoT Door Open Sensor jBPM Automation process is triggered by an Arduino Tron event.",
+				"IoT Door Sensor", JOptionPane.INFORMATION_MESSAGE);
 	}
 
 	public void panel_7DoorOpened() {
@@ -805,7 +805,7 @@ public class IoTTiles {
 	public void panel_8Clicked(MouseEvent e) {
 	}
 
-	// Lobby Door
+	// Lobby Door Open
 	public void panel_9Clicked(MouseEvent e) {
 	}
 
@@ -826,7 +826,14 @@ public class IoTTiles {
 
 	// IoT Dash Button
 	public void panel_15Clicked(MouseEvent e) {
-		iotEvents.IoTServerEvent("GET /?id=100555&timestamp=0&event=CHIME");
+		JOptionPane.showMessageDialog(null,
+				"Clear IoT Dash Button Sensor process triggered by an Arduino Tron event message.", "IoT Dash Button",
+				JOptionPane.INFORMATION_MESSAGE);
+		panel_15DashButtonAlert("");
+	}
+
+	public void panel_15DashButtonAlert(String alert) {
+		lblIconLabel_15.setText(alert);
 	}
 
 	// IoT Sensors
@@ -864,6 +871,7 @@ public class IoTTiles {
 
 	// Dash Button
 	public void panel_17Clicked(MouseEvent e) {
+		iotEvents.IoTServerEvent("GET /?id=100555&timestamp=0&alarm=Message&event=Chime");
 	}
 
 	// Outside Temperature

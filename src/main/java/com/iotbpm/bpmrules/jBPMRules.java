@@ -50,7 +50,8 @@ public class jBPMRules {
 	private String kSessionType = "";
 	private String kSessionName = "";
 	private String processID = "";
-	private String saveprocessID = "";
+	private String _processID = "";
+	private boolean droolsProcessID = false;
 
 	private final Logger logger = LoggerFactory.getLogger(jBPMRules.class);
 
@@ -62,7 +63,7 @@ public class jBPMRules {
 		this.kSessionType = kSessionType;
 		this.kSessionName = kSessionName;
 		this.processID = processID;
-		this.saveprocessID = processID;
+		this._processID = processID;
 		this.stateList = stateList;
 	}
 
@@ -225,8 +226,9 @@ public class jBPMRules {
 			String rules_processID = stateList.getState("processID");
 			if (rules_processID != null && !rules_processID.isEmpty()) {
 				processID = rules_processID;
+				droolsProcessID = true;
 			}
-			
+
 			// go! - start jBPM processID
 			if (processID != null && !processID.isEmpty()) {
 				// Start the process with knowledge session
@@ -236,9 +238,12 @@ public class jBPMRules {
 				System.out.println(">>" + instance.getState());
 			}
 
-			stateList.delState("processID");
-			processID = saveprocessID;
-			
+			if (droolsProcessID) {
+				stateList.delState("processID");
+				processID = _processID;
+				droolsProcessID = false;
+			}
+
 			// Set response jBPM Global Variable List
 			// kcontext.getKnowledgeRuntime().setGlobal("response", "");
 			response = (String) kSession.getGlobal("response");

@@ -38,7 +38,7 @@ public class AgentConnect {
 	public void sendGet(String agentName, String command) {
 		String agentIP = agentsList.getAgent(agentName);
 		if (agentIP == "") {
-			System.err.println("Error: Send Arduino Command no arduinoAgent=[AgentName,http://10.0.0.2,...] "
+			System.err.println("Error no " + agentName + ": Send Arduino Command no arduinoAgent=[AgentName,http://10.0.0.2,...] "
 					+ "defined in iotbpm.properties file.");
 			return;
 		}
@@ -81,7 +81,7 @@ public class AgentConnect {
 	public void sendPost(String agentName, String command) {
 		String agentIP = agentsList.getAgent(agentName);
 		if (agentIP == "") {
-			System.err.println("Error: Send Arduino Command no arduinoAgent=[AgentName,http://10.0.0.2,...] "
+			System.err.println("Error no " + agentName + ": Send Arduino Command no arduinoAgent=[AgentName,http://10.0.0.2,...] "
 					+ "defined in iotbpm.properties file.");
 			return;
 		}

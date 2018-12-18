@@ -22,13 +22,13 @@ public class DevicesList {
 		this.devices = new HashMap<String, Devices>();
 		
         this.devices.put("100111", new Devices("Arduino Tron IoT", "100111"));
-        this.devices.put("100222", new Devices("Temperature Humidity", "100222"));
+        this.devices.put("100222", new Devices("Temperature-Humidity", "100222"));
         this.devices.put("100333", new Devices("IoT-MCU Door Lock", "100333"));
         this.devices.put("100444", new Devices("Arduino IoT-SensorTag", "100444"));
         this.devices.put("100555", new Devices("Arduino Dash Button", "100555"));
         this.devices.put("100666", new Devices("Door Open Sensor ESP01", "100666"));
         this.devices.put("100777", new Devices("IoT-MCU ESP-01 Relay", "100777"));
-        this.devices.put("100888", new Devices("Desk OLED SSD Display", "100888"));
+        this.devices.put("100888", new Devices("OLED SSD Desk Display", "100888"));
 	}
 
 	public Collection<Devices> getDevices() {
