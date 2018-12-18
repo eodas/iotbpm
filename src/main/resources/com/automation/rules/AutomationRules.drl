@@ -12,14 +12,28 @@ rule "processID rule for device ID: 100555 - Arduino Dash Button"
 	when
 		$event : ServerEvent( $eventId : id, $eventId == "100555" )
 	then
-		com.iotbpm.model.StateList.getInstance().putState("processID", "com.DashButton");
+		com.iotbpm.model.StateList.getInstance().putState("processID", "com.IoTDashButton");
+end
+
+rule "Rules for device ID: 100555 - Arduino Dash Button"
+ 	no-loop
+    when
+    	// event used to change update Arduino Dash Button ESP01
+		$event : ServerEvent( $eventId : id, $eventId == "100555" )
+      	$device : Devices( $deviceId : id,  $eventId == id )
+    then
+		$device.status = "Chime";
+		$device.action = "Dash Button";
+		com.iotbpm.ui.MainWindow.getInstance().log("Arduino Dash Button ESP01 " + $device.getName());
+		modify( $device );
+		update( $device );
 end
 
 rule "processID rule for device ID: 100666 - Door Open Sensor ESP01"
 	when
 		$event : ServerEvent( $eventId : id, $eventId == "100666" )
 	then
-		com.iotbpm.model.StateList.getInstance().putState("processID", "com.DoorOpenSensorESP01");
+		com.iotbpm.model.StateList.getInstance().putState("processID", "com.DoorOpenSensor");
 end
 
 rule "Rules for device ID: 100666 - Door Open Sensor ESP01"

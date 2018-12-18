@@ -50,6 +50,7 @@ public class jBPMRules {
 	private String kSessionType = "";
 	private String kSessionName = "";
 	private String processID = "";
+	private String saveprocessID = "";
 
 	private final Logger logger = LoggerFactory.getLogger(jBPMRules.class);
 
@@ -61,6 +62,7 @@ public class jBPMRules {
 		this.kSessionType = kSessionType;
 		this.kSessionName = kSessionName;
 		this.processID = processID;
+		this.saveprocessID = processID;
 		this.stateList = stateList;
 	}
 
@@ -235,6 +237,7 @@ public class jBPMRules {
 			}
 
 			stateList.delState("processID");
+			processID = saveprocessID;
 			
 			// Set response jBPM Global Variable List
 			// kcontext.getKnowledgeRuntime().setGlobal("response", "");

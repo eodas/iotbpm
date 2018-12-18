@@ -259,6 +259,10 @@ public class MainWindow {
 		this.frameMain.setVisible(true);
 	}
 
+	public void showMove() {
+		this.frameMain.setLocation(10, 10);
+	}
+
 	public void updateDevice(String device) {
 		this.devices.get(device).updateDevice();
 	}

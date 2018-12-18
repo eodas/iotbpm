@@ -101,6 +101,9 @@ public class IoTBPM {
 			public void run() {
 				try {
 					MainWindow mainWindow = new MainWindow(devices.getDevices(), exitOnClose);
+					if (iotTilesWindow.indexOf("active") != -1) {
+						mainWindow.showMove();
+					}
 					mainWindow.show(); // .setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();

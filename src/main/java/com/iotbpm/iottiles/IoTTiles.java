@@ -826,12 +826,9 @@ public class IoTTiles {
 
 	// IoT Dash Button
 	public void panel_15Clicked(MouseEvent e) {
+		iotEvents.IoTServerEvent("GET /?id=100555&timestamp=0&event=CHIME");
 	}
 
-	public void panel_15DashButton(String alert) {
-		lblIconLabel_15.setText("Boom " + alert);
-	}
-	
 	// IoT Sensors
 	public void panel_16Clicked(MouseEvent e) {
 		JOptionPane.showMessageDialog(null,
