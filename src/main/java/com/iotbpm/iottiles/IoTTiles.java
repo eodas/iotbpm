@@ -750,7 +750,7 @@ public class IoTTiles {
 
 	// Front Door Locked
 	public void panel_6Clicked(MouseEvent e) {
-		iotEvents.IoTServerEvent("GET /?id=100333&timestamp=0&event=Lock");
+		iotEvents.IoTServerEvent("GET /?id=100333&timestamp=0&event=DoorLock");
 	}
 
 	public void panel_6DoorLocked() {

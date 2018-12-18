@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- origin at X=0.0 Y=0.0 -->
+<bpmn2:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:java="http://www.java.com/javaTypes" xmlns:tns="http://www.jboss.org/drools" xmlns="http://www.jboss.org/drools" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd http://www.jboss.org/drools drools.xsd http://www.bpsim.org/schemas/1.0 bpsim.xsd" id="Definition" exporter="org.eclipse.bpmn2.modeler.core" exporterVersion="1.5.0.Final-v20180515-1642-B1" expressionLanguage="http://www.mvel.org/2.0" targetNamespace="http://www.jboss.org/drools" typeLanguage="http://www.java.com/javaTypes">
+  <bpmn2:itemDefinition id="ItemDefinition_19" isCollection="false" structureRef="java.lang.String"/>
+  <bpmn2:process id="com.Temperature" tns:packageName="com.TempturePackage" name="IoT Temperature-Humidity" isExecutable="true" processType="Private">
+    <bpmn2:property id="id" itemSubjectRef="ItemDefinition_19" name="id"/>
+    <bpmn2:property id="name" itemSubjectRef="ItemDefinition_19" name="name"/>
+    <bpmn2:property id="event" itemSubjectRef="ItemDefinition_19" name="event"/>
+    <bpmn2:property id="address" itemSubjectRef="ItemDefinition_19" name="address"/>
+    <bpmn2:property id="textMessage" itemSubjectRef="ItemDefinition_19" name="textMessage"/>
+    <bpmn2:property id="temp" itemSubjectRef="ItemDefinition_19" name="temp"/>
+    <bpmn2:property id="light" itemSubjectRef="ItemDefinition_19" name="light"/>
+    <bpmn2:property id="keypress" itemSubjectRef="ItemDefinition_19" name="keypress"/>
+    <bpmn2:property id="alarm" itemSubjectRef="ItemDefinition_19" name="alarm"/>
+    <bpmn2:startEvent id="StartEvent_1" name="Start Event">
+      <bpmn2:extensionElements>
+        <tns:metaData name="elementname">
+          <tns:metaValue><![CDATA[Start Event]]></tns:metaValue>
+        </tns:metaData>
+      </bpmn2:extensionElements>
+      <bpmn2:outgoing>SequenceFlow_1</bpmn2:outgoing>
+    </bpmn2:startEvent>
+    <bpmn2:scriptTask id="ScriptTask_1" name="Prepare Facts">
+      <bpmn2:extensionElements>
+        <tns:metaData name="elementname">
+          <tns:metaValue><![CDATA[Prepare Facts]]></tns:metaValue>
+        </tns:metaData>
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>SequenceFlow_1</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_2</bpmn2:outgoing>
+      <bpmn2:script>kcontext.getKnowledgeRuntime().insert(kcontext.getProcessInstance());</bpmn2:script>
+    </bpmn2:scriptTask>
+    <bpmn2:scriptTask id="ScriptTask_2" name="Temperature-Humidity">
+      <bpmn2:extensionElements>
+        <tns:metaData name="elementname">
+          <tns:metaValue><![CDATA[Temperature-Humidity]]></tns:metaValue>
+        </tns:metaData>
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>SequenceFlow_2</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_7</bpmn2:outgoing>
+      <bpmn2:script>// com.iotbpm.ui.MainWindow.getInstance().log(&quot;This is the default IoT Sensors jBPM Automation process.&quot;);
+// com.iotbpm.ui.MainWindow.getInstance().log(&quot;Use Drools Rules to start a specific IoT jBPM Automation process.&quot;);
+
+com.iotbpm.ui.MainWindow.getInstance().log(&quot;IoT &quot; +  kcontext.getVariable(&quot;name&quot;) + &quot; &quot; + kcontext.getNodeInstance().getNodeName() +  &quot; is &quot; + kcontext.getVariable(&quot;temp&quot;));
+
+com.iotbpm.ui.MainWindow.getInstance().log(&quot;IoT Temperature-Humidity &quot; +  kcontext.getVariable(&quot;name&quot;) + &quot; &quot; + kcontext.getNodeInstance().getNodeName() +  &quot; temp &quot; + kcontext.getVariable(&quot;temp&quot;) );
+
+com.iotbpm.iottiles.IoTTiles.getInstance().panel_5Temp(kcontext.getVariable(&quot;temp&quot;)+&quot;'&quot; );</bpmn2:script>
+    </bpmn2:scriptTask>
+    <bpmn2:sequenceFlow id="SequenceFlow_1" sourceRef="StartEvent_1" targetRef="ScriptTask_1"/>
+    <bpmn2:sequenceFlow id="SequenceFlow_2" sourceRef="ScriptTask_1" targetRef="ScriptTask_2"/>
+    <bpmn2:sequenceFlow id="SequenceFlow_7" tns:priority="1" sourceRef="ScriptTask_2" targetRef="EndEvent_1"/>
+    <bpmn2:endEvent id="EndEvent_1" name="End Event">
+      <bpmn2:extensionElements>
+        <tns:metaData name="elementname">
+          <tns:metaValue><![CDATA[End Event]]></tns:metaValue>
+        </tns:metaData>
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>SequenceFlow_7</bpmn2:incoming>
+    </bpmn2:endEvent>
+  </bpmn2:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_Process_1" bpmnElement="com.Temperature">
+      <bpmndi:BPMNShape id="BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds height="36.0" width="36.0" x="30.0" y="120.0"/>
+        <bpmndi:BPMNLabel id="BPMNLabel_1" labelStyle="BPMNLabelStyle_1">
+          <dc:Bounds height="15.0" width="58.0" x="19.0" y="156.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_ScriptTask_2" bpmnElement="ScriptTask_1" isExpanded="true">
+        <dc:Bounds height="50.0" width="110.0" x="120.0" y="113.0"/>
+        <bpmndi:BPMNLabel id="BPMNLabel_2" labelStyle="BPMNLabelStyle_1">
+          <dc:Bounds height="15.0" width="77.0" x="136.0" y="130.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_ScriptTask_3" bpmnElement="ScriptTask_2" isExpanded="true">
+        <dc:Bounds height="50.0" width="119.0" x="282.0" y="113.0"/>
+        <bpmndi:BPMNLabel id="BPMNLabel_4" labelStyle="BPMNLabelStyle_1">
+          <dc:Bounds height="30.0" width="77.0" x="303.0" y="123.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_EndEvent_1" bpmnElement="EndEvent_1">
+        <dc:Bounds height="36.0" width="36.0" x="452.0" y="120.0"/>
+        <bpmndi:BPMNLabel id="BPMNLabel_6">
+          <dc:Bounds height="15.0" width="55.0" x="443.0" y="156.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_3" bpmnElement="SequenceFlow_1" sourceElement="BPMNShape_StartEvent_2" targetElement="BPMNShape_ScriptTask_2">
+        <di:waypoint xsi:type="dc:Point" x="66.0" y="138.0"/>
+        <di:waypoint xsi:type="dc:Point" x="93.0" y="138.0"/>
+        <di:waypoint xsi:type="dc:Point" x="120.0" y="138.0"/>
+        <bpmndi:BPMNLabel id="BPMNLabel_18"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_4" bpmnElement="SequenceFlow_2" sourceElement="BPMNShape_ScriptTask_2" targetElement="BPMNShape_ScriptTask_3">
+        <di:waypoint xsi:type="dc:Point" x="230.0" y="138.0"/>
+        <di:waypoint xsi:type="dc:Point" x="256.0" y="138.0"/>
+        <di:waypoint xsi:type="dc:Point" x="282.0" y="138.0"/>
+        <bpmndi:BPMNLabel id="BPMNLabel_9"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_9" bpmnElement="SequenceFlow_7" sourceElement="BPMNShape_ScriptTask_3" targetElement="BPMNShape_EndEvent_1">
+        <di:waypoint xsi:type="dc:Point" x="401.0" y="138.0"/>
+        <di:waypoint xsi:type="dc:Point" x="426.0" y="138.0"/>
+        <di:waypoint xsi:type="dc:Point" x="452.0" y="138.0"/>
+        <bpmndi:BPMNLabel id="BPMNLabel_12"/>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+    <bpmndi:BPMNLabelStyle id="BPMNLabelStyle_1">
+      <dc:Font name="arial" size="9.0"/>
+    </bpmndi:BPMNLabelStyle>
+  </bpmndi:BPMNDiagram>
+</bpmn2:definitions>

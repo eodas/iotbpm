@@ -8,23 +8,45 @@ import com.iotbpm.model.StateList;
 // default dialect for the semantic code will be MVEL
 dialect "mvel"
 
-rule "processID rule for device ID: 100333 - IoT-MCU Door Lock"
+rule "processID rule for device ID: 100222 - Temperature-Humidity"
+	when
+		$event : ServerEvent( $eventId : id, $eventId == "100222" )
+	then
+		com.iotbpm.model.StateList.getInstance().putState("processID", "com.Temperature");
+end
+
+rule "Rules for device ID: 100222 - Temperature-Humidity"
+ 	no-loop
+    when
+    	// event used to change update Temperature-Humidity
+		$event : ServerEvent( $eventId : id, $eventId == "100222" )
+      	$device : Devices( $deviceId : id,  $eventId == id )
+    then
+		$device.status = "Temperature";
+		$device.action = "Humidity";
+		com.iotbpm.ui.MainWindow.getInstance().log($device.getName());
+		modify( $device );
+		update( $device );
+end
+
+rule "processID rule for device ID: 100333 - Door Lock IoT-MCU"
 	when
 		$event : ServerEvent( $eventId : id, $eventId == "100333" )
 	then
 		com.iotbpm.model.StateList.getInstance().putState("processID", "com.DoorLock");
 end
 
-rule "Rules for device ID: 100333 - IoT-MCU Door Lock"
+rule "Rules for device ID: 100333 - Door Lock IoT-MCU"
  	no-loop
     when
-    	// event used to change update Arduino IoT-MCU Door Lock/Unlock ESP01
+    	// event used to change update Arduino Door Lock/Unlock IoT-MCU ESP01
 		$event : ServerEvent( $eventId : id, $eventId == "100333" )
       	$device : Devices( $deviceId : id,  $eventId == id )
     then
-		$device.status = "Action";
-		$device.action = "Door Lock";
-		com.iotbpm.ui.MainWindow.getInstance().log("Arduino IoT-MCU Door Lock ESP01 " + $device.getName());
+    	String result = (com.iotbpm.model.StateList.getInstance().getState("DoorLock") == "Locked") ? "Unlocked" : "Locked";
+    	$device.status = result;
+		$device.action = "Door Status";
+		com.iotbpm.ui.MainWindow.getInstance().log($device.getName() + " " + result);
 		modify( $device );
 		update( $device );
 end
@@ -45,7 +67,7 @@ rule "Rules for device ID: 100555 - Arduino Dash Button"
     then
 		$device.status = "Chime";
 		$device.action = "Dash Button";
-		com.iotbpm.ui.MainWindow.getInstance().log("Arduino Dash Button ESP01 " + $device.getName());
+		com.iotbpm.ui.MainWindow.getInstance().log($device.getName());
 		modify( $device );
 		update( $device );
 end
@@ -64,9 +86,9 @@ rule "Rules for device ID: 100666 - Door Open Sensor ESP01"
 		$event : ServerEvent( $eventId : id, $eventId == "100666" )
       	$device : Devices( $deviceId : id,  $eventId == id )
     then
-		$device.status = "Sensor";
-		$device.action = "Opened";
-		com.iotbpm.ui.MainWindow.getInstance().log("Door Open Sensor " + $device.getName());
+		$device.status = "Opened";
+		$device.action = "Sensor";
+		com.iotbpm.ui.MainWindow.getInstance().log($device.getName());
 		modify( $device );
 		update( $device );
 end
