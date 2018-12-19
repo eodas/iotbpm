@@ -1,1 +1,1 @@
-c:\curl\bin\curl -X GET "http://localhost:5055/?id=100555&timestamp=0&alarm=Alert&event=Chime" -H "accept: application/xml"
+c:\curl\bin\curl -X GET "http://localhost:5055/?id=100555&agentCount=1&alarm=Dash&keypress=1.0" -H "accept: application/xml"

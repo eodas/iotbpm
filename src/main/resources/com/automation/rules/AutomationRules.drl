@@ -64,10 +64,10 @@ rule "Rules for device ID: 100555 - Arduino Dash Button"
  	no-loop
     when
     	// event used to change update Arduino Dash Button ESP01
-		$event : ServerEvent( $eventId : id, $eventId == "100555" )
+    	$event : ServerEvent( $eventId : id, $eventId == "100555", $alarm : alarm )
       	$device : Devices( $deviceId : id,  $eventId == id )
     then
-		$device.status = "Chime";
+		$device.status = $alarm;
 		$device.action = "Dash Button";
 		com.iotbpm.ui.MainWindow.getInstance().log($device.getName());
 		modify( $device );

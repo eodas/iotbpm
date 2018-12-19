@@ -28,6 +28,8 @@ const char* password = "your-password"; // your network password
 WiFiClient client;
 WiFiServer webserver(80);
 
+const bool autoReset = false; // Values for auto reset 3 second delay, then off
+
 String ver = "1.03E";
 int loopCounter = 1; // loop counter
 const byte tonepin = 3; // 2-Speaker connected to GPIO2 or 3-2N2222 transistor audio amplifier
@@ -99,12 +101,14 @@ void setup(void) {
 }
 
 void loop(void) {
-  if (stateRelay0 == true) {
-    if ((millis() - milsec) > 3000) { // 3 second delay, then off
-      stateRelay0 = false;
-      Serial.println("GPIO 0 off : milsec delay");
-      //Serial.write(relay0OFF, sizeof(relay0OFF)); // LC Technology HEX relay0 OFF
-      digitalWrite(LED0, HIGH); // TB:IoT-MCU digitalWrite(RELAY) relay0 OFF
+  if (autoReset == true) { // Values for auto reset 3 second delay, then off
+    if (stateRelay0 == true) {
+      if ((millis() - milsec) > 3000) { // 3 second delay, then off
+        stateRelay0 = false;
+        Serial.println("GPIO 0 off : milsec delay");
+        //Serial.write(relay0OFF, sizeof(relay0OFF)); // LC Technology HEX relay0 OFF
+        digitalWrite(LED0, HIGH); // TB:IoT-MCU digitalWrite(RELAY) relay0 OFF
+      }
     }
   }
 
@@ -199,39 +203,30 @@ void arduinoWebserver() {
             digitalWrite(LED3, HIGH); // TB:IoT-MCU digitalWrite(RELAY) relay3 OFF
           }
 
-          if (header.indexOf("/TONE1") >= 0) { // Speaker connected to GPIO2 or GPIO3
+          if (header.indexOf("/CHIME") >= 0) { // Speaker connected to GPIO2 or GPIO3
             tone(tonepin, 587, 300);
             delay(200);
             tone(tonepin, 392, 300);
           }
 
-          if (header.indexOf("/TONE2") >= 0) {
+          if (header.indexOf("/TONE") >= 0) {
             tone(tonepin, 330, 300); // play e4
-            delay(350);
+            delay(250);
             tone(tonepin, 247, 300); // play b3
-            delay(350);
+            delay(250);
             tone(tonepin, 294, 300); // play d4
-            delay(350);
+            delay(250);
             tone(tonepin, 262, 300); // play c4
-            delay(350);
-            tone(tonepin, 220, 900); // play a3
-            delay(800);
+            delay(250);
+            tone(tonepin, 220, 800); // play a3
+            delay(700);
             tone(tonepin, 147, 300); // play d3
-            delay(350);
+            delay(250);
             tone(tonepin, 175, 300); //play f3
-            delay(350);
+            delay(250);
             tone(tonepin, 220, 300); //play a3
-            delay(350);
-            tone(tonepin, 247, 900); // play b3
-            delay(800);
-            tone(tonepin, 175, 300); // play f3
-            delay(350);
-            tone(tonepin, 234, 300); // play a3#
-            delay(350);
-            tone(tonepin, 247, 300); // play b3
-            delay(350);
-            tone(tonepin, 262, 900); // play c4
-            delay(350);
+            delay(250);
+            tone(tonepin, 247, 400); // play b3
           }
 
           // Display the HTML web page
@@ -287,7 +282,8 @@ void arduinoWebserver() {
     }
   }
   header = ""; // Clear the header variable
-  client.stop(); // Close the connection
+  // client.stop(); // Close the connection
+  delay(1);
   Serial.println("Client disconnected");
   Serial.println("");
 }

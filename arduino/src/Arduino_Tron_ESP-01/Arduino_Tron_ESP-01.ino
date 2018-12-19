@@ -47,6 +47,7 @@ String lon = "-77.019868"; // position LON
 
 // Above are all the fields you need to provide values, the remaining fields are used in the Arduino Tron application
 const bool initConsole = true; // Values for display of console information
+const bool sendAgent = false; // Values for send Tron Agent_ESP-01 IP address
 const bool sendArduino = true; // Values for send AI-IoTBPM Drools-jBPM post
 
 const int httpPort = 5055; // Arduino Tron server is running on default port 5055
@@ -86,7 +87,7 @@ const String TYPE_REED_RELAY = "4.0"; // reedRelay
 const String TYPE_PROXIMITY = "8.0"; // proximity
 
 // Values to send in &alarm= field
-String alarm = "general";
+String alarm = "Dash";
 
 // Values to send in &alarm= field
 const String ALARM_GENERAL = "general";
@@ -127,7 +128,7 @@ const String ALARM_REMOVING = "removing";
 String ver = "1.03E";
 int loopCounter = 1; // loop counter
 int clientAvail = 0; // client.available() count
-int switchState = 10; // value to send Arduino Tron Agent_ESP-01
+int switchState = 2; // value to send Arduino Tron Agent_ESP-01
 
 String irkey = "1.0";
 
@@ -165,9 +166,9 @@ void setup(void) {
   if (initConsole) { // Values for display of console information
     initConsoleMessage();
   }
-
-  // Establish a WiFi connection with router
-  arduinoAgentSend();
+  if (sendAgent) { // Values for send Tron Agent_ESP-01 IP address
+    arduinoAgentSend();
+  }
   if (sendArduino) { // Values for send AI-IoTBPM Drools-jBPM post
     arduinoTronSend();
   }
@@ -189,7 +190,7 @@ void arduinoAgentSend() {
   WiFi.begin(ssid, password);
   Serial.print("Executive Order Corporation - Arduino Tron ESP8266 MQTT Telemetry Transport Machine-to-Machine(M2M)/Internet of Things(IoT) ");
   Serial.println(loopCounter);
-  //loopCounter++;
+  loopCounter++;
 
   while (WiFi.status() != WL_CONNECTED) {
     delay(200);
@@ -240,7 +241,10 @@ void arduinoAgentSend() {
       client.print("GET /DEV3=OFF");
       break;
     case 10:
-      client.print("GET /TONE1");
+      client.print("GET /CHIME");
+      break;
+    case 11:
+      client.print("GET /TONE");
       break;
   }
 
@@ -334,7 +338,15 @@ void arduinoTronSend() {
   // client.print("&accuracy=" + accuracy);
   // client.print("&batt=" + batt);
 
-  client.print("&agentCount=" + agentCount);
+  if (sendAgent) {
+    client.print("&agentCount=" + agentCount);
+  } else {
+    client.print("&agentCount=0");
+  }
+
+  if  (switchState > 2) {
+    client.print("&alarm=" + alarm);
+  }
   client.print("&keypress=" + TYPE_KEYPRESS_1);
 
   client.println(" HTTP/1.1");

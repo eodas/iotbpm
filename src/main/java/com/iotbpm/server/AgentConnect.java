@@ -87,6 +87,7 @@ public class AgentConnect {
 		}
 
 		String url = agentIP + command;
+		
 		try {
 			URL obj = new URL(url);
 			HttpURLConnection con = (HttpURLConnection) obj.openConnection();

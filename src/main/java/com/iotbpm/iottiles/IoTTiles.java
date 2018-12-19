@@ -882,7 +882,7 @@ public class IoTTiles {
 
 	// Dash Button
 	public void panel_17Clicked(MouseEvent e) {
-		iotEvents.IoTServerEvent("GET /?id=100555&timestamp=0&alarm=Message&event=Chime");
+		iotEvents.IoTServerEvent("GET /?id=100555&agentCount=0&alarm=IoTTiles&keypress=1.0");
 	}
 
 	// Outside Temperature
