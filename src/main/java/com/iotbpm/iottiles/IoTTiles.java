@@ -24,6 +24,7 @@ public class IoTTiles {
 	private final IoTEvents iotEvents;
 	private static IoTTiles IOTTILES_INSTANCE = null;
 
+	private ImageIcon alarm_bell;
 	private ImageIcon bulbIcon;
 	private ImageIcon celsiusIcon;
 	private ImageIcon coldIcon;
@@ -43,6 +44,7 @@ public class IoTTiles {
 
 	private ImageIcon personalIcon;
 	private ImageIcon personal2Icon;
+	private ImageIcon television;
 
 	private ImageIcon weather_cloudsIcon;
 	private ImageIcon weather_cloudyIcon;
@@ -151,6 +153,7 @@ public class IoTTiles {
 		frame.getContentPane().setLayout(null);
 		frame.setLocationRelativeTo(null); // Center in screen
 
+		alarm_bell = new ImageIcon("icons" + File.separator + "alarm_bell.png");
 		bulbIcon = new ImageIcon("icons" + File.separator + "bulb.png");
 		celsiusIcon = new ImageIcon("icons" + File.separator + "celsius.png");
 		coldIcon = new ImageIcon("icons" + File.separator + "cold.png");
@@ -170,6 +173,7 @@ public class IoTTiles {
 
 		personalIcon = new ImageIcon("icons" + File.separator + "personal.png");
 		personal2Icon = new ImageIcon("icons" + File.separator + "personal-2.png");
+		television = new ImageIcon("icons" + File.separator + "television.png");
 
 		weather_cloudsIcon = new ImageIcon("icons" + File.separator + "weather_clouds.png");
 		weather_cloudyIcon = new ImageIcon("icons" + File.separator + "weather_cloudy.png");
@@ -556,17 +560,17 @@ public class IoTTiles {
 				panel_14Clicked(e);
 			}
 		});
-		panel_14.setBackground(Color.RED);
+		panel_14.setBackground(Color.BLUE);
 		panel_14.setBounds(425, 215, 100, 100);
 		frame.getContentPane().add(panel_14);
 		panel_14.setLayout(new BorderLayout(0, 0));
 
-		JLabel lblTopLabel_14 = new JLabel("-Front Door");
+		JLabel lblTopLabel_14 = new JLabel("Door Open");
 		lblTopLabel_14.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblTopLabel_14.setForeground(Color.WHITE);
 		panel_14.add(lblTopLabel_14, BorderLayout.NORTH);
 
-		lblBottomLabel_14 = new JLabel("Lock");
+		lblBottomLabel_14 = new JLabel("Chime Signal");
 		lblBottomLabel_14.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblBottomLabel_14.setForeground(Color.WHITE);
 		panel_14.add(lblBottomLabel_14, BorderLayout.SOUTH);
@@ -575,7 +579,7 @@ public class IoTTiles {
 		lblIconLabel_14.setForeground(Color.WHITE);
 		lblIconLabel_14.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_14.add(lblIconLabel_14, BorderLayout.CENTER);
-		lblIconLabel_14.setIcon(lockIcon);
+		lblIconLabel_14.setIcon(alarm_bell);
 
 		panel_15 = new JPanel();
 		panel_15.addMouseListener(new MouseAdapter() {
@@ -855,7 +859,7 @@ public class IoTTiles {
 			}
 		}).start();
 	}
-	
+
 	// Lobby Light
 	public void panel_10Clicked(MouseEvent e) {
 		iotEvents.IoTServerEvent("GET /?id=100777&keypress=1.0&event=LightModule");
@@ -883,6 +887,16 @@ public class IoTTiles {
 	}
 
 	public void panel_14Clicked(MouseEvent e) {
+		String doorOpen = com.iotbpm.model.StateList.getInstance().getState("DoorOpen");
+		if (doorOpen.indexOf("OLED") != -1) {
+			com.iotbpm.model.StateList.getInstance().putState("DoorOpen", "Chime");
+			lblBottomLabel_14.setText("Chime Signal");
+			lblIconLabel_14.setIcon(alarm_bell);
+		} else {
+			com.iotbpm.model.StateList.getInstance().putState("DoorOpen", "OLED");
+			lblBottomLabel_14.setText("OLED Display");
+			lblIconLabel_14.setIcon(television);
+		}
 	}
 
 	// IoT Dash Button
