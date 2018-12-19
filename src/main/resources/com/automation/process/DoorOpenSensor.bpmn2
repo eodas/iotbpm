@@ -35,15 +35,15 @@
       <bpmn2:outgoing>SequenceFlow_3</bpmn2:outgoing>
       <bpmn2:outgoing>SequenceFlow_4</bpmn2:outgoing>
     </bpmn2:exclusiveGateway>
-    <bpmn2:scriptTask id="ScriptTask_2" name="Door Open OLED Desk Display">
+    <bpmn2:scriptTask id="ScriptTask_2" name="Door OLED Desk Display">
       <bpmn2:extensionElements>
         <tns:metaData name="elementname">
-          <tns:metaValue><![CDATA[Door Open OLED Desk Display]]></tns:metaValue>
+          <tns:metaValue><![CDATA[Door OLED Desk Display]]></tns:metaValue>
         </tns:metaData>
       </bpmn2:extensionElements>
       <bpmn2:incoming>SequenceFlow_3</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_7</bpmn2:outgoing>
-      <bpmn2:script>com.iotbpm.ui.MainWindow.getInstance().log(&quot;Door Open OLED Desk Display&quot;);</bpmn2:script>
+      <bpmn2:script>com.iotbpm.ui.MainWindow.getInstance().log(&quot;Door OLED Desk Display&quot;);</bpmn2:script>
     </bpmn2:scriptTask>
     <bpmn2:scriptTask id="ScriptTask_3" name="Door Chime">
       <bpmn2:extensionElements>
@@ -53,7 +53,8 @@
       </bpmn2:extensionElements>
       <bpmn2:incoming>SequenceFlow_4</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_8</bpmn2:outgoing>
-      <bpmn2:script>com.iotbpm.ui.MainWindow.getInstance().log(&quot;Door Chime Signal&quot;);</bpmn2:script>
+      <bpmn2:script>com.iotbpm.ui.MainWindow.getInstance().log(&quot;Door Open Chime Signal&quot;);
+com.iotbpm.server.AgentConnect.getInstance().sendPost(&quot;DoorLock&quot;,&quot;/CHIME&quot;);</bpmn2:script>
     </bpmn2:scriptTask>
     <bpmn2:sequenceFlow id="SequenceFlow_1" sourceRef="StartEvent_1" targetRef="ScriptTask_1"/>
     <bpmn2:sequenceFlow id="SequenceFlow_2" sourceRef="ScriptTask_1" targetRef="ScriptTask_4"/>
@@ -114,7 +115,7 @@
       <bpmndi:BPMNShape id="BPMNShape_ScriptTask_3" bpmnElement="ScriptTask_2" isExpanded="true">
         <dc:Bounds height="50.0" width="110.0" x="525.0" y="45.0"/>
         <bpmndi:BPMNLabel id="BPMNLabel_4" labelStyle="BPMNLabelStyle_1">
-          <dc:Bounds height="30.0" width="108.0" x="526.0" y="55.0"/>
+          <dc:Bounds height="30.0" width="107.0" x="526.0" y="55.0"/>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_ScriptTask_4" bpmnElement="ScriptTask_3" isExpanded="true">

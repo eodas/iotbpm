@@ -39,7 +39,7 @@
       <bpmn2:incoming>SequenceFlow_2</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_7</bpmn2:outgoing>
       <bpmn2:script>com.iotbpm.ui.MainWindow.getInstance().log(&quot;Arduino &quot; + kcontext.getVariable(&quot;alarm&quot;) + &quot; Dash Button &quot; +  kcontext.getVariable(&quot;name&quot;) + &quot; &quot; + kcontext.getNodeInstance().getNodeName() +  &quot; ID &quot; + kcontext.getVariable(&quot;id&quot;) );
-com.iotbpm.ui.MainWindow.getInstance().log(&quot;IoT Dash Button &quot; + kcontext.getVariable(&quot;alarm&quot;)  + &quot; Sensors.&quot;);
+com.iotbpm.ui.MainWindow.getInstance().log(&quot;IoT Dash Button &quot; + kcontext.getVariable(&quot;alarm&quot;)  + &quot; Sensors&quot;);
 
 com.iotbpm.iottiles.IoTTiles.getInstance().panel_15DashButtonAlert(kcontext.getVariable(&quot;alarm&quot;) );
 com.iotbpm.server.AgentConnect.getInstance().sendPost(&quot;DashButton&quot;,&quot;/CHIME&quot;);
