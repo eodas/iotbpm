@@ -35,16 +35,10 @@ public class AgentsList {
 	}
 
 	public String getAgent(String agentName) {
-		String urlValue = "";
 		for (Object o : agents.entrySet()) {
 			Map.Entry entry = (Map.Entry) o;
 			if (agentName.indexOf((String) entry.getKey()) != -1) {
-				urlValue = (String) entry.getValue();
-				if (urlValue.indexOf("10.0.0.2") != -1) {
-					return "";
-				} else {
-					return urlValue;
-				}
+				return (String) entry.getValue();
 			}
 		}
 		return "";

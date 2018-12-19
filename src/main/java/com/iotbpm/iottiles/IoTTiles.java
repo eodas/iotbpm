@@ -250,7 +250,7 @@ public class IoTTiles {
 		frame.getContentPane().add(panel_3);
 		panel_3.setLayout(new BorderLayout(0, 0));
 
-		JLabel lblTopLabel_3 = new JLabel("-Steven");
+		JLabel lblTopLabel_3 = new JLabel("Steven");
 		lblTopLabel_3.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblTopLabel_3.setForeground(Color.WHITE);
 		panel_3.add(lblTopLabel_3, BorderLayout.NORTH);
@@ -291,7 +291,7 @@ public class IoTTiles {
 
 		lblIconLabel_4 = new JLabel("");
 		lblIconLabel_4.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblIconLabel_3.setForeground(Color.WHITE);
+		lblIconLabel_4.setForeground(Color.WHITE);
 		lblIconLabel_4.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_4.add(lblIconLabel_4, BorderLayout.CENTER);
 		lblIconLabel_4.setIcon(lightbulbIcon);
@@ -393,7 +393,7 @@ public class IoTTiles {
 		frame.getContentPane().add(panel_8);
 		panel_8.setLayout(new BorderLayout(0, 0));
 
-		JLabel lblTopLabel_8 = new JLabel("-Lobby Door");
+		JLabel lblTopLabel_8 = new JLabel("Lobby Door");
 		lblTopLabel_8.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblTopLabel_8.setForeground(Color.WHITE);
 		panel_8.add(lblTopLabel_8, BorderLayout.NORTH);
@@ -421,7 +421,7 @@ public class IoTTiles {
 		frame.getContentPane().add(panel_9);
 		panel_9.setLayout(new BorderLayout(0, 0));
 
-		JLabel lblTopLabel_9 = new JLabel("-Lobby Door");
+		JLabel lblTopLabel_9 = new JLabel("Lobby Door");
 		lblTopLabel_9.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblTopLabel_9.setForeground(Color.WHITE);
 		panel_9.add(lblTopLabel_9, BorderLayout.NORTH);
@@ -444,7 +444,7 @@ public class IoTTiles {
 				panel_10Clicked(e);
 			}
 		});
-		panel_10.setBackground(Color.PINK);
+		panel_10.setBackground(new Color(0, 128, 0));
 		panel_10.setBounds(635, 110, 100, 205);
 		frame.getContentPane().add(panel_10);
 		panel_10.setLayout(new BorderLayout(0, 0));
@@ -538,7 +538,7 @@ public class IoTTiles {
 		lblTopLabel_13.setForeground(Color.WHITE);
 		panel_13.add(lblTopLabel_13, BorderLayout.NORTH);
 
-		lblBottomLabel_13 = new JLabel("IoT OLED Message");
+		lblBottomLabel_13 = new JLabel("IoT OLED Desk Message");
 		lblBottomLabel_13.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblBottomLabel_13.setForeground(Color.WHITE);
 		panel_13.add(lblBottomLabel_13, BorderLayout.SOUTH);
@@ -673,7 +673,7 @@ public class IoTTiles {
 		frame.getContentPane().add(panel_18);
 		panel_18.setLayout(new BorderLayout(0, 0));
 
-		JLabel lblTopLabel_18 = new JLabel("-Outside Temperature");
+		JLabel lblTopLabel_18 = new JLabel("Outside Temperature");
 		lblTopLabel_18.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblTopLabel_18.setForeground(Color.WHITE);
 		panel_18.add(lblTopLabel_18, BorderLayout.NORTH);
@@ -697,7 +697,7 @@ public class IoTTiles {
 				panel_19Clicked(e);
 			}
 		});
-		panel_19.setBackground(Color.BLUE);
+		panel_19.setBackground(Color.PINK);
 		panel_19.setBounds(635, 320, 100, 100);
 		frame.getContentPane().add(panel_19);
 		panel_19.setLayout(new BorderLayout(0, 0));
@@ -732,6 +732,9 @@ public class IoTTiles {
 	}
 
 	public void panel_3Clicked(MouseEvent e) {
+		JOptionPane.showMessageDialog(null,
+				"The IoT Door RFID-RC522 Smart Card Reader Sensor can alert you to individuals or equipment location and movement.",
+				"IoT Door RFID Smart Card Sensor", JOptionPane.INFORMATION_MESSAGE);
 	}
 
 	public void panel_4Clicked(MouseEvent e) {
@@ -799,30 +802,77 @@ public class IoTTiles {
 		}).start();
 	}
 
+	// Lobby Door Locked
 	public void panel_8Clicked(MouseEvent e) {
+		iotEvents.IoTServerEvent("GET /?id=100334&timestamp=0&event=DoorLobby");
+	}
+
+	public void panel_8DoorLocked() {
+		lblIconLabel_8.setIcon(lockIcon);
+		lblBottomLabel_8.setText("Locked");
+		panel_8.setBackground(Color.RED);
+	}
+
+	public void panel_8DoorUnlocked() {
+		lblIconLabel_8.setIcon(lock_openIcon);
+		lblBottomLabel_8.setText("Unlocked");
+		panel_8.setBackground(Color.LIGHT_GRAY);
 	}
 
 	// Lobby Door Open
 	public void panel_9Clicked(MouseEvent e) {
+		JOptionPane.showMessageDialog(null,
+				"The IoT Door Open Sensor jBPM Automation process is triggered by an Arduino Tron event.",
+				"IoT Door Sensor", JOptionPane.INFORMATION_MESSAGE);
 	}
 
+	public void panel_9DoorOpened() {
+		lblIconLabel_9.setIcon(door_inIcon);
+		lblBottomLabel_9.setText("Opened");
+		panel_9.setBackground(Color.RED);
+		panel_9Clear();
+	}
+
+	public void panel_9DoorClosed() {
+		lblIconLabel_9.setIcon(doorIcon);
+		lblBottomLabel_9.setText("Closed");
+		panel_9.setBackground(Color.BLUE);
+	}
+
+	public void panel_9Clear() {
+		new Thread(new Runnable() {
+			public void run() {
+				for (int i = 0; i <= 4; i++) {
+					if (i == 4) {
+						panel_9DoorClosed();
+					}
+					try {
+						Thread.sleep(500L);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		}).start();
+	}
+	
 	// Lobby Light
 	public void panel_10Clicked(MouseEvent e) {
-		iotEvents.IoTServerEvent("GET /?id=100777&timestamp=0&event=LobbyLight");
+		iotEvents.IoTServerEvent("GET /?id=100777&keypress=1.0&event=LightModule");
 	}
 
 	public void panel_10LightOn() {
 		lblIconLabel_10.setIcon(lightbulbIcon);
 		lblBottomLabel_10.setText("Light On");
-		panel_10.setBackground(Color.PINK);
+		// panel_10.setBackground(new Color(0, 128, 0));
 	}
 
 	public void panel_10LightOff() {
 		lblIconLabel_10.setIcon(lightbulb_offIcon);
 		lblBottomLabel_10.setText("Light Off");
-		panel_10.setBackground(Color.PINK);
+		// panel_10.setBackground(new Color(0, 128, 0));
 	}
-	
+
 	public void panel_11Clicked(MouseEvent e) {
 	}
 

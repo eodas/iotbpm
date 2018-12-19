@@ -95,6 +95,28 @@ rule "Rules for device ID: 100666 - Door Open Sensor ESP01"
 		update( $device );
 end
 
+rule "processID rule for device ID: 100777 - Light Module IoT-MCU"
+	when
+		$event : ServerEvent( $eventId : id, $eventId == "100777" )
+	then
+		com.iotbpm.model.StateList.getInstance().putState("processID", "com.LightModule");
+end
+
+rule "Rules for device ID: 100777 - Light Module IoT-MCU"
+ 	no-loop
+    when
+    	// event used to change update Arduino Light Module IoT-MCU ESP01
+		$event : ServerEvent( $eventId : id, $eventId == "100777" )
+      	$device : Devices( $deviceId : id,  $eventId == id )
+    then
+    	String result = (com.iotbpm.model.StateList.getInstance().getState("LightModule") == "On") ? "Off" : "On";
+    	$device.status = result;
+		$device.action = "Light Module";
+		com.iotbpm.ui.MainWindow.getInstance().log($device.getName() + " " + result);
+		modify( $device );
+		update( $device );
+end
+
 
 
 

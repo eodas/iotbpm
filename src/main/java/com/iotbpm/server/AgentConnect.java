@@ -37,9 +37,8 @@ public class AgentConnect {
 	// HTTP GET request
 	public void sendGet(String agentName, String command) {
 		String agentIP = agentsList.getAgent(agentName);
-		if (agentIP == "") {
-			System.err.println("Error no " + agentName + ": Send Arduino Command no arduinoAgent=[AgentName,http://10.0.0.2,...] "
-					+ "defined in iotbpm.properties file.");
+		if ((agentIP == "") || (agentIP.indexOf("10.0.0.2") != -1)) {
+			agentNotDefined(agentName);
 			return;
 		}
 
@@ -80,14 +79,12 @@ public class AgentConnect {
 	// HTTP Post request
 	public void sendPost(String agentName, String command) {
 		String agentIP = agentsList.getAgent(agentName);
-		if (agentIP == "") {
-			System.err.println("Error no " + agentName + ": Send Arduino Command no arduinoAgent=[AgentName,http://10.0.0.2,...] "
-					+ "defined in iotbpm.properties file.");
+		if ((agentIP == "") || (agentIP.indexOf("10.0.0.2") != -1)) {
+			agentNotDefined(agentName);
 			return;
 		}
 
 		String url = agentIP + command;
-		
 		try {
 			URL obj = new URL(url);
 			HttpURLConnection con = (HttpURLConnection) obj.openConnection();
@@ -132,5 +129,10 @@ public class AgentConnect {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public void agentNotDefined(String agentName) {
+		System.err.println("Error: Send Arduino Command " + agentName
+				+ " in arduinoAgent=[AgentName,http://10.0.0.2,...] defined in iotbpm.properties file.");
 	}
 }

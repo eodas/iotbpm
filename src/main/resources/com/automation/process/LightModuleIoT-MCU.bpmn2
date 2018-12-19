@@ -2,7 +2,7 @@
 <!-- origin at X=0.0 Y=0.0 -->
 <bpmn2:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:java="http://www.java.com/javaTypes" xmlns:tns="http://www.jboss.org/drools" xmlns="http://www.jboss.org/drools" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd http://www.jboss.org/drools drools.xsd http://www.bpsim.org/schemas/1.0 bpsim.xsd" id="Definition" exporter="org.eclipse.bpmn2.modeler.core" exporterVersion="1.5.0.Final-v20180515-1642-B1" expressionLanguage="http://www.mvel.org/2.0" targetNamespace="http://www.jboss.org/drools" typeLanguage="http://www.java.com/javaTypes">
   <bpmn2:itemDefinition id="ItemDefinition_19" isCollection="false" structureRef="java.lang.String"/>
-  <bpmn2:process id="com.DoorLock" tns:packageName="com.DoorLockPackage" name="Door Lock IoT-MCU ESP-01" isExecutable="true" processType="Private">
+  <bpmn2:process id="com.LightModule" tns:packageName="com.LightModulePackage" name="Light Module IoT-MCU ESP-01" isExecutable="true" processType="Private">
     <bpmn2:property id="id" itemSubjectRef="ItemDefinition_19" name="id"/>
     <bpmn2:property id="name" itemSubjectRef="ItemDefinition_19" name="name"/>
     <bpmn2:property id="event" itemSubjectRef="ItemDefinition_19" name="event"/>
@@ -30,54 +30,54 @@
       <bpmn2:outgoing>SequenceFlow_5</bpmn2:outgoing>
       <bpmn2:script>kcontext.getKnowledgeRuntime().insert(kcontext.getProcessInstance());</bpmn2:script>
     </bpmn2:scriptTask>
-    <bpmn2:exclusiveGateway id="ExclusiveGateway_1" name="Door Lock Gateway" gatewayDirection="Diverging" default="SequenceFlow_4">
+    <bpmn2:exclusiveGateway id="ExclusiveGateway_1" name="Light Module Gateway" gatewayDirection="Diverging" default="SequenceFlow_4">
       <bpmn2:incoming>SequenceFlow_5</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_3</bpmn2:outgoing>
       <bpmn2:outgoing>SequenceFlow_4</bpmn2:outgoing>
     </bpmn2:exclusiveGateway>
-    <bpmn2:scriptTask id="ScriptTask_2" name="Door Unlock">
+    <bpmn2:scriptTask id="ScriptTask_2" name="Light Off">
       <bpmn2:extensionElements>
         <tns:metaData name="elementname">
-          <tns:metaValue><![CDATA[Door Unlock]]></tns:metaValue>
+          <tns:metaValue><![CDATA[Light Off]]></tns:metaValue>
         </tns:metaData>
       </bpmn2:extensionElements>
       <bpmn2:incoming>SequenceFlow_3</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_7</bpmn2:outgoing>
-      <bpmn2:script>com.iotbpm.model.StateList.getInstance().delState(&quot;DoorLock&quot;);
-com.iotbpm.iottiles.IoTTiles.getInstance().panel_6DoorUnlocked();
-com.iotbpm.server.AgentConnect.getInstance().sendPost(&quot;DoorLock&quot;,&quot;/DEV0=OFF&quot;);</bpmn2:script>
+      <bpmn2:script>com.iotbpm.model.StateList.getInstance().delState(&quot;LightModule&quot;);
+com.iotbpm.iottiles.IoTTiles.getInstance().panel_10LightOff();
+com.iotbpm.server.AgentConnect.getInstance().sendPost(&quot;LightModule&quot;,&quot;/DEV0=OFF&quot;);</bpmn2:script>
     </bpmn2:scriptTask>
-    <bpmn2:scriptTask id="ScriptTask_3" name="Door Lock">
+    <bpmn2:scriptTask id="ScriptTask_3" name="Light On">
       <bpmn2:extensionElements>
         <tns:metaData name="elementname">
-          <tns:metaValue><![CDATA[Door Lock]]></tns:metaValue>
+          <tns:metaValue><![CDATA[Light On]]></tns:metaValue>
         </tns:metaData>
       </bpmn2:extensionElements>
       <bpmn2:incoming>SequenceFlow_4</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_8</bpmn2:outgoing>
-      <bpmn2:script>com.iotbpm.model.StateList.getInstance().putState(&quot;DoorLock&quot;, &quot;Locked&quot;);
-com.iotbpm.iottiles.IoTTiles.getInstance().panel_6DoorLocked();
-com.iotbpm.server.AgentConnect.getInstance().sendPost(&quot;DoorLock&quot;,&quot;/DEV0=ON&quot;);</bpmn2:script>
+      <bpmn2:script>com.iotbpm.model.StateList.getInstance().putState(&quot;LightModule&quot;, &quot;On&quot;);
+com.iotbpm.iottiles.IoTTiles.getInstance().panel_10LightOn();
+com.iotbpm.server.AgentConnect.getInstance().sendPost(&quot;LightModule&quot;,&quot;/DEV0=ON&quot;);</bpmn2:script>
     </bpmn2:scriptTask>
     <bpmn2:sequenceFlow id="SequenceFlow_1" sourceRef="StartEvent_1" targetRef="ScriptTask_1"/>
     <bpmn2:sequenceFlow id="SequenceFlow_3" sourceRef="ExclusiveGateway_1" targetRef="ScriptTask_2">
-      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression" id="FormalExpression_1" language="http://www.java.com/java">return KieFunctions.equalsTo(com.iotbpm.model.StateList.getInstance().getState(&quot;DoorLock&quot;), &quot;Locked&quot;);</bpmn2:conditionExpression>
+      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression" id="FormalExpression_1" language="http://www.java.com/java">return KieFunctions.equalsTo(com.iotbpm.model.StateList.getInstance().getState(&quot;LightModule&quot;), &quot;On&quot;);</bpmn2:conditionExpression>
     </bpmn2:sequenceFlow>
     <bpmn2:sequenceFlow id="SequenceFlow_4" tns:priority="1" sourceRef="ExclusiveGateway_1" targetRef="ScriptTask_3"/>
     <bpmn2:sequenceFlow id="SequenceFlow_7" tns:priority="1" sourceRef="ScriptTask_2" targetRef="EndEvent_1"/>
     <bpmn2:sequenceFlow id="SequenceFlow_8" tns:priority="1" sourceRef="ScriptTask_3" targetRef="EndEvent_2"/>
-    <bpmn2:endEvent id="EndEvent_1" name="End Door Unlock Event">
+    <bpmn2:endEvent id="EndEvent_1" name="Light Module Off">
       <bpmn2:extensionElements>
         <tns:metaData name="elementname">
-          <tns:metaValue><![CDATA[End Door Unlock Event]]></tns:metaValue>
+          <tns:metaValue><![CDATA[Light Module Off]]></tns:metaValue>
         </tns:metaData>
       </bpmn2:extensionElements>
       <bpmn2:incoming>SequenceFlow_7</bpmn2:incoming>
     </bpmn2:endEvent>
-    <bpmn2:endEvent id="EndEvent_2" name="End Door Lock Event">
+    <bpmn2:endEvent id="EndEvent_2" name="Light Module On">
       <bpmn2:extensionElements>
         <tns:metaData name="elementname">
-          <tns:metaValue><![CDATA[End Door Lock Event]]></tns:metaValue>
+          <tns:metaValue><![CDATA[Light Module On]]></tns:metaValue>
         </tns:metaData>
       </bpmn2:extensionElements>
       <bpmn2:incoming>SequenceFlow_8</bpmn2:incoming>
@@ -85,7 +85,7 @@ com.iotbpm.server.AgentConnect.getInstance().sendPost(&quot;DoorLock&quot;,&quot
     <bpmn2:sequenceFlow id="SequenceFlow_5" tns:priority="1" sourceRef="ScriptTask_1" targetRef="ExclusiveGateway_1"/>
   </bpmn2:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
-    <bpmndi:BPMNPlane id="BPMNPlane_Process_1" bpmnElement="com.DoorLock">
+    <bpmndi:BPMNPlane id="BPMNPlane_Process_1" bpmnElement="com.LightModule">
       <bpmndi:BPMNShape id="BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
         <dc:Bounds height="36.0" width="36.0" x="30.0" y="120.0"/>
         <bpmndi:BPMNLabel id="BPMNLabel_1" labelStyle="BPMNLabelStyle_1">
@@ -101,31 +101,31 @@ com.iotbpm.server.AgentConnect.getInstance().sendPost(&quot;DoorLock&quot;,&quot
       <bpmndi:BPMNShape id="BPMNShape_ExclusiveGateway_1" bpmnElement="ExclusiveGateway_1" isMarkerVisible="true">
         <dc:Bounds height="50.0" width="50.0" x="290.0" y="113.0"/>
         <bpmndi:BPMNLabel id="BPMNLabel_3" labelStyle="BPMNLabelStyle_1">
-          <dc:Bounds height="30.0" width="65.0" x="283.0" y="163.0"/>
+          <dc:Bounds height="30.0" width="79.0" x="276.0" y="163.0"/>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_ScriptTask_3" bpmnElement="ScriptTask_2" isExpanded="true">
         <dc:Bounds height="50.0" width="110.0" x="374.0" y="45.0"/>
         <bpmndi:BPMNLabel id="BPMNLabel_4" labelStyle="BPMNLabelStyle_1">
-          <dc:Bounds height="15.0" width="68.0" x="395.0" y="62.0"/>
+          <dc:Bounds height="15.0" width="45.0" x="406.0" y="62.0"/>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_ScriptTask_4" bpmnElement="ScriptTask_3" isExpanded="true">
         <dc:Bounds height="50.0" width="110.0" x="374.0" y="185.0"/>
         <bpmndi:BPMNLabel id="BPMNLabel_5" labelStyle="BPMNLabelStyle_1">
-          <dc:Bounds height="15.0" width="56.0" x="401.0" y="202.0"/>
+          <dc:Bounds height="15.0" width="46.0" x="406.0" y="202.0"/>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_EndEvent_1" bpmnElement="EndEvent_1">
         <dc:Bounds height="36.0" width="36.0" x="525.0" y="52.0"/>
         <bpmndi:BPMNLabel id="BPMNLabel_6">
-          <dc:Bounds height="30.0" width="74.0" x="506.0" y="88.0"/>
+          <dc:Bounds height="30.0" width="79.0" x="504.0" y="88.0"/>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_EndEvent_2" bpmnElement="EndEvent_2">
         <dc:Bounds height="36.0" width="36.0" x="524.0" y="192.0"/>
         <bpmndi:BPMNLabel id="BPMNLabel_7">
-          <dc:Bounds height="30.0" width="62.0" x="511.0" y="228.0"/>
+          <dc:Bounds height="30.0" width="79.0" x="503.0" y="228.0"/>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_3" bpmnElement="SequenceFlow_1" sourceElement="BPMNShape_StartEvent_2" targetElement="BPMNShape_ScriptTask_2">
