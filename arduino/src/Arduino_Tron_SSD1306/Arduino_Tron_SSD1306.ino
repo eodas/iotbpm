@@ -103,7 +103,7 @@ void setup() {
 
   display.print("http://");
   display.println(WiFi.localIP());
-  display.println("Tron SSD1306 ver " + ver);
+  display.println("OLED SSD1306 ver " + ver);
   display.display();
 }
 
@@ -175,7 +175,7 @@ void arduinoWebserver() {
             //display.println("AI-IoTBPM Drools-jBPM");
             display.setTextColor(WHITE);
 
-            display.print("OLED Arduino Tron ");
+            display.print("Arduino Tron OLED ");
             display.print(loopCounter);
             display.display();
           }

@@ -537,12 +537,12 @@ public class IoTTiles {
 		frame.getContentPane().add(panel_13);
 		panel_13.setLayout(new BorderLayout(0, 0));
 
-		JLabel lblTopLabel_13 = new JLabel("OLED SSD Desk Display");
+		JLabel lblTopLabel_13 = new JLabel("IoT OLED Tron Display");
 		lblTopLabel_13.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblTopLabel_13.setForeground(Color.WHITE);
 		panel_13.add(lblTopLabel_13, BorderLayout.NORTH);
 
-		lblBottomLabel_13 = new JLabel("IoT OLED Desk Message");
+		lblBottomLabel_13 = new JLabel("Display Message");
 		lblBottomLabel_13.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblBottomLabel_13.setForeground(Color.WHITE);
 		panel_13.add(lblBottomLabel_13, BorderLayout.SOUTH);

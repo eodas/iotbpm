@@ -28,7 +28,7 @@ public class DevicesList {
         this.devices.put("100555", new Devices("Arduino Dash Button", "100555"));
         this.devices.put("100666", new Devices("Door Open Sensor ESP01", "100666"));
         this.devices.put("100777", new Devices("Light Module IoT-MCU", "100777"));
-        this.devices.put("100888", new Devices("OLED SSD Desk Display", "100888"));
+        this.devices.put("100888", new Devices("IoT OLED Tron Display", "100888"));
 	}
 
 	public Collection<Devices> getDevices() {
