@@ -42,9 +42,10 @@ public class IoTTiles {
 	private ImageIcon lockIcon;
 	private ImageIcon lock_openIcon;
 
+	private ImageIcon notification_bell;
 	private ImageIcon personalIcon;
 	private ImageIcon personal2Icon;
-	private ImageIcon television;
+	private ImageIcon phone_open;
 
 	private ImageIcon weather_cloudsIcon;
 	private ImageIcon weather_cloudyIcon;
@@ -171,9 +172,10 @@ public class IoTTiles {
 		lockIcon = new ImageIcon("icons" + File.separator + "lock.png");
 		lock_openIcon = new ImageIcon("icons" + File.separator + "lock_open.png");
 
+		notification_bell = new ImageIcon("icons" + File.separator + "notification_bell.png");
 		personalIcon = new ImageIcon("icons" + File.separator + "personal.png");
 		personal2Icon = new ImageIcon("icons" + File.separator + "personal-2.png");
-		television = new ImageIcon("icons" + File.separator + "television.png");
+		phone_open = new ImageIcon("icons" + File.separator + "phone_open.png");
 
 		weather_cloudsIcon = new ImageIcon("icons" + File.separator + "weather_clouds.png");
 		weather_cloudyIcon = new ImageIcon("icons" + File.separator + "weather_cloudy.png");
@@ -537,7 +539,7 @@ public class IoTTiles {
 		frame.getContentPane().add(panel_13);
 		panel_13.setLayout(new BorderLayout(0, 0));
 
-		JLabel lblTopLabel_13 = new JLabel("IoT OLED Tron Display");
+		JLabel lblTopLabel_13 = new JLabel("Tron IoT OLED Display");
 		lblTopLabel_13.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblTopLabel_13.setForeground(Color.WHITE);
 		panel_13.add(lblTopLabel_13, BorderLayout.NORTH);
@@ -579,7 +581,7 @@ public class IoTTiles {
 		lblIconLabel_14.setForeground(Color.WHITE);
 		lblIconLabel_14.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_14.add(lblIconLabel_14, BorderLayout.CENTER);
-		lblIconLabel_14.setIcon(alarm_bell);
+		lblIconLabel_14.setIcon(notification_bell);
 
 		panel_15 = new JPanel();
 		panel_15.addMouseListener(new MouseAdapter() {
@@ -891,11 +893,11 @@ public class IoTTiles {
 		if (doorOpen.indexOf("OLED") != -1) {
 			com.iotbpm.model.StateList.getInstance().putState("DoorOpen", "Chime");
 			lblBottomLabel_14.setText("Chime Signal");
-			lblIconLabel_14.setIcon(alarm_bell);
+			lblIconLabel_14.setIcon(notification_bell);
 		} else {
 			com.iotbpm.model.StateList.getInstance().putState("DoorOpen", "OLED");
-			lblBottomLabel_14.setText("OLED Display");
-			lblIconLabel_14.setIcon(television);
+			lblBottomLabel_14.setText("IoT OLED Display");
+			lblIconLabel_14.setIcon(phone_open);
 		}
 	}
 
