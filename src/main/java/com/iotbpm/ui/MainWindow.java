@@ -100,15 +100,15 @@ public class MainWindow {
 		JSeparator separator_1 = new JSeparator();
 		mnFileMenu.add(separator_1);
 
-		JMenuItem mntmExitIotBPM = new JMenuItem("Exit Arduino Tron AI-IoTBPM");
-		mntmExitIotBPM.addActionListener(new ActionListener() {
+		JMenuItem mntmExitIoTBPM = new JMenuItem("Exit Arduino Tron AI-IoTBPM");
+		mntmExitIoTBPM.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				IoTBPM.stopIoTServer();
 				System.exit(0);
 			}
 		});
-		mnFileMenu.add(mntmExitIotBPM);
+		mnFileMenu.add(mntmExitIoTBPM);
 
 		JMenu mnArduinoMenu = new JMenu("Arduino");
 		menuBar.add(mnArduinoMenu);

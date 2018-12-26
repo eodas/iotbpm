@@ -324,7 +324,7 @@ public class IoTTiles {
 		lblBottomLabel_5.setForeground(Color.WHITE);
 		panel_5.add(lblBottomLabel_5, BorderLayout.SOUTH);
 
-		lblIconLabel_5 = new JLabel("72.2'");
+		lblIconLabel_5 = new JLabel("70' 61%");
 		lblIconLabel_5.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 16));
 		lblIconLabel_5.setForeground(Color.WHITE);
 		lblIconLabel_5.setHorizontalAlignment(SwingConstants.CENTER);
@@ -544,7 +544,7 @@ public class IoTTiles {
 		lblTopLabel_13.setForeground(Color.WHITE);
 		panel_13.add(lblTopLabel_13, BorderLayout.NORTH);
 
-		lblBottomLabel_13 = new JLabel("Display Message");
+		lblBottomLabel_13 = new JLabel("Send IoT OLED Message");
 		lblBottomLabel_13.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblBottomLabel_13.setForeground(Color.WHITE);
 		panel_13.add(lblBottomLabel_13, BorderLayout.SOUTH);
@@ -553,7 +553,7 @@ public class IoTTiles {
 		lblIconLabel_13.setForeground(Color.WHITE);
 		lblIconLabel_13.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_13.add(lblIconLabel_13, BorderLayout.CENTER);
-		lblIconLabel_13.setIcon(lockIcon);
+		lblIconLabel_13.setIcon(phone_open);
 
 		panel_14 = new JPanel();
 		panel_14.addMouseListener(new MouseAdapter() {
@@ -689,7 +689,7 @@ public class IoTTiles {
 		lblBottomLabel_18.setForeground(Color.WHITE);
 		panel_18.add(lblBottomLabel_18, BorderLayout.SOUTH);
 
-		lblIconLabel_18 = new JLabel("75.8'");
+		lblIconLabel_18 = new JLabel("75' 62%");
 		lblIconLabel_18.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 16));
 		lblIconLabel_18.setForeground(Color.WHITE);
 		lblIconLabel_18.setHorizontalAlignment(SwingConstants.CENTER);
@@ -713,7 +713,7 @@ public class IoTTiles {
 		lblTopLabel_19.setForeground(Color.WHITE);
 		panel_19.add(lblTopLabel_19, BorderLayout.NORTH);
 
-		lblBottomLabel_19 = new JLabel("Lock");
+		lblBottomLabel_19 = new JLabel("Device Control");
 		lblBottomLabel_19.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblBottomLabel_19.setForeground(Color.WHITE);
 		panel_19.add(lblBottomLabel_19, BorderLayout.SOUTH);
@@ -748,6 +748,9 @@ public class IoTTiles {
 
 	// Office Temperature
 	public void panel_5Clicked(MouseEvent e) {
+		JOptionPane.showMessageDialog(null,
+				"The IoT DHT11 WiFi wireless module sends temperature and humidity environment information to the Tron IoT OLED Display and IoT Tiles Panel.",
+				"IoT DHT11 Temperature Humidity Sensor", JOptionPane.INFORMATION_MESSAGE);
 	}
 
 	public void panel_5Temp(String temp) {
@@ -756,7 +759,7 @@ public class IoTTiles {
 
 	// Front Door Locked
 	public void panel_6Clicked(MouseEvent e) {
-		iotEvents.IoTServerEvent("GET /?id=100333&timestamp=0&event=DoorLock");
+		iotEvents.IoTServerEvent("GET /?id=100334&timestamp=0&event=DoorLock");
 	}
 
 	public void panel_6DoorLocked() {
@@ -810,7 +813,7 @@ public class IoTTiles {
 
 	// Lobby Door Locked
 	public void panel_8Clicked(MouseEvent e) {
-		iotEvents.IoTServerEvent("GET /?id=100334&timestamp=0&event=DoorLobby");
+		iotEvents.IoTServerEvent("GET /?id=100333&timestamp=0&event=DoorLobby");
 	}
 
 	public void panel_8DoorLocked() {
@@ -886,6 +889,7 @@ public class IoTTiles {
 	}
 
 	public void panel_13Clicked(MouseEvent e) {
+		com.iotbpm.server.AgentConnect.getInstance().sendOLED("IoTOLED","&message=*_Message_IoT_Tiles_*&");
 	}
 
 	public void panel_14Clicked(MouseEvent e) {
@@ -916,7 +920,7 @@ public class IoTTiles {
 	// IoT Sensors
 	public void panel_16Clicked(MouseEvent e) {
 		JOptionPane.showMessageDialog(null,
-				"This is the default IoT Sensors jBPM Automation process. Use Drools Rules to start a specific IoT jBPM Automation process.",
+				"The IoT DHT11 WiFi wireless module sends temperature and humidity environment information to the Tron IoT OLED Display and IoT Tiles Panel.",
 				"Monitor IoT Sensors", JOptionPane.INFORMATION_MESSAGE);
 	}
 
@@ -953,6 +957,9 @@ public class IoTTiles {
 
 	// Outside Temperature
 	public void panel_18Clicked(MouseEvent e) {
+		JOptionPane.showMessageDialog(null,
+				"The IoT DHT11 WiFi wireless module sends temperature and humidity environment information to IoT Tiles and Tron IoT OLED Display.",
+				"IoT DHT11 Temperature Humidity Sensor", JOptionPane.INFORMATION_MESSAGE);
 	}
 
 	public void panel_18Temp(String temp) {
@@ -960,5 +967,9 @@ public class IoTTiles {
 	}
 
 	public void panel_19Clicked(MouseEvent e) {
+		JOptionPane.showMessageDialog(null,
+				"The little IoT ESP-01S relay expansion module board is a simple and easy-to-use expansion board to drive a relay and operate devices or machines wirelessly.", 
+				"IoT ESP-01S WiFi Relay Expansion Module Board", JOptionPane.INFORMATION_MESSAGE);
+
 	}
 }

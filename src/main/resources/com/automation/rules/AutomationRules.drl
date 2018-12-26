@@ -15,17 +15,23 @@ rule "processID rule for device ID: 100222 - Temperature-Humidity"
 		com.iotbpm.model.StateList.getInstance().putState("processID", "com.Temperature");
 end
 
+rule "processID rule for device ID: 100223 - Temperature-Humidity"
+	when
+		$event : ServerEvent( $eventId : id, $eventId == "100223" )
+	then
+		com.iotbpm.model.StateList.getInstance().putState("processID", "com.TemperatureOutside");
+end
+
 rule "Rules for device ID: 100222 - Temperature-Humidity"
  	no-loop
     when
     	// event used to change update Temperature-Humidity
-		$event : ServerEvent( $eventId : id, $eventId == "100222", $temp : temp, $ir_temp : ir_temp, $humidity : humidity, $mbar : mbar )
+		$event : ServerEvent( $eventId : id, $eventId == "100222", $temp : temp, $humidity : humidity )
        	$device : Devices( $deviceId : id, $eventId == id )
 	then
 		$device.action = "DHT11 Temp";
-		String result = ($temp == "0.0") ? "Mbar " + $mbar : "Temp " + $temp; 
-		$device.status = result;
-		String results = $event.getName() + " Temp:" + $temp + "  IR_Temp:" + $ir_temp + "  Humidity:" + $humidity + "  Mbar:" + $mbar;
+		$device.status = "Temp " + $temp; 
+		String results = $event.getName() + " Temp:" + $temp + "  Humidity:" + $humidity;
 		com.iotbpm.ui.MainWindow.getInstance().log(results);
 		modify( $device )
 		update( $device );

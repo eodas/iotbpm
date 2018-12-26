@@ -6,7 +6,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.iotbpm</groupId>
-	<artifactId>IotBPM</artifactId>
+	<artifactId>IoTBPM</artifactId>
 	<version>1.0.1-SNAPSHOT</version>
 
 	<name>Arduino Tron AI–IoTBPM :: Internet of Things Drools-jBPM Expert System using EOSpy Arduino Tron AI-IoTBPMBPM</name>
