@@ -372,7 +372,7 @@ int clockSecond() {
   if (milsec == 0) {
     milsec = millis();
   }
-  int x = ((millis() - milsec) / 900); // clock seems to always run slow
+  int x = ((millis() - milsec) / 700); // clock seems to always run slow
   if ( x > 0) {
     milsec = millis();
   } return x;

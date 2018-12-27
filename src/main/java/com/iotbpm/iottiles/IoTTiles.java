@@ -324,7 +324,7 @@ public class IoTTiles {
 		lblBottomLabel_5.setForeground(Color.WHITE);
 		panel_5.add(lblBottomLabel_5, BorderLayout.SOUTH);
 
-		lblIconLabel_5 = new JLabel("70' 61%");
+		lblIconLabel_5 = new JLabel("72' 36%");
 		lblIconLabel_5.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 16));
 		lblIconLabel_5.setForeground(Color.WHITE);
 		lblIconLabel_5.setHorizontalAlignment(SwingConstants.CENTER);
@@ -689,7 +689,7 @@ public class IoTTiles {
 		lblBottomLabel_18.setForeground(Color.WHITE);
 		panel_18.add(lblBottomLabel_18, BorderLayout.SOUTH);
 
-		lblIconLabel_18 = new JLabel("75' 62%");
+		lblIconLabel_18 = new JLabel("72' 36%");
 		lblIconLabel_18.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 16));
 		lblIconLabel_18.setForeground(Color.WHITE);
 		lblIconLabel_18.setHorizontalAlignment(SwingConstants.CENTER);

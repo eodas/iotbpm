@@ -149,6 +149,7 @@ public class AgentConnect {
 				+ (minute < 10 ? "0" + Integer.toString(minute) : Integer.toString(minute)) + ":"
 				+ (second < 10 ? "0" + Integer.toString(second) : Integer.toString(second)) + command;
 		sendPost(agentName, OLED);
+System.out.println(OLED);		
 	}
 
 	public void agentNotDefined(String agentName) {

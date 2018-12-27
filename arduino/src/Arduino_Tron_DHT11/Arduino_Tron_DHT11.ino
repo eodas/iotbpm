@@ -180,6 +180,8 @@ void loop(void) {
 void arduinoTronSend()
 {
   //digitalWrite(LED2, LOW); // turn the LED on
+  temp_prev = temp;
+  humidity_prev = humidity;
 
   // Explicitly set the ESP8266 to be a WiFi-client
   WiFi.mode(WIFI_STA);
@@ -212,10 +214,12 @@ void arduinoTronSend()
   // client.print("&accuracy=" + accuracy);
   // client.print("&batt=" + batt);
 
-  client.print("&temp=" + String(temp));
+  // switchState NodeMCU gpio pinMode()
+  client.print("&keypress=" + TYPE_KEYPRESS_1);
+
+  int tempF = (temp * 9 / 5) + 32;
+  client.print("&temp=" + String(tempF));
   client.print("&humidity=" + String(humidity));
-  temp_prev = temp;
-  humidity_prev = humidity;
 
   // digitalRead GPIO15(D8) send values for web server DHT11
   client.print("&textMessage=" + textMessage);
@@ -286,7 +290,6 @@ void readDHT11() {
     Serial.println(err);
     return;
   }
-
   // convert to Fahrenheit
   // tempF = (temp * 9 / 5) + 32;
 }
