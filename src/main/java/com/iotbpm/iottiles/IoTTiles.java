@@ -24,7 +24,9 @@ public class IoTTiles {
 	private final IoTEvents iotEvents;
 	private static IoTTiles IOTTILES_INSTANCE = null;
 
-	private ImageIcon alarm_bell;
+	private ImageIcon alarm_bellIcon;
+	private ImageIcon bluetoothIcon;
+	private ImageIcon autosIcon;
 	private ImageIcon bulbIcon;
 	private ImageIcon celsiusIcon;
 	private ImageIcon coldIcon;
@@ -42,10 +44,10 @@ public class IoTTiles {
 	private ImageIcon lockIcon;
 	private ImageIcon lock_openIcon;
 
-	private ImageIcon notification_bell;
+	private ImageIcon notification_bellIcon;
 	private ImageIcon personalIcon;
 	private ImageIcon personal2Icon;
-	private ImageIcon phone_open;
+	private ImageIcon phone_openIcon;
 
 	private ImageIcon weather_cloudsIcon;
 	private ImageIcon weather_cloudyIcon;
@@ -154,7 +156,9 @@ public class IoTTiles {
 		frame.getContentPane().setLayout(null);
 		frame.setLocationRelativeTo(null); // Center in screen
 
-		alarm_bell = new ImageIcon("icons" + File.separator + "alarm_bell.png");
+		alarm_bellIcon = new ImageIcon("icons" + File.separator + "alarm_bell.png");
+		bluetoothIcon = new ImageIcon("icons" + File.separator + "bluetooth.png");
+		autosIcon = new ImageIcon("icons" + File.separator + "autos.png");
 		bulbIcon = new ImageIcon("icons" + File.separator + "bulb.png");
 		celsiusIcon = new ImageIcon("icons" + File.separator + "celsius.png");
 		coldIcon = new ImageIcon("icons" + File.separator + "cold.png");
@@ -172,10 +176,10 @@ public class IoTTiles {
 		lockIcon = new ImageIcon("icons" + File.separator + "lock.png");
 		lock_openIcon = new ImageIcon("icons" + File.separator + "lock_open.png");
 
-		notification_bell = new ImageIcon("icons" + File.separator + "notification_bell.png");
+		notification_bellIcon = new ImageIcon("icons" + File.separator + "notification_bell.png");
 		personalIcon = new ImageIcon("icons" + File.separator + "personal.png");
 		personal2Icon = new ImageIcon("icons" + File.separator + "personal-2.png");
-		phone_open = new ImageIcon("icons" + File.separator + "phone_open.png");
+		phone_openIcon = new ImageIcon("icons" + File.separator + "phone_open.png");
 
 		weather_cloudsIcon = new ImageIcon("icons" + File.separator + "weather_clouds.png");
 		weather_cloudyIcon = new ImageIcon("icons" + File.separator + "weather_cloudy.png");
@@ -483,12 +487,12 @@ public class IoTTiles {
 		frame.getContentPane().add(panel_11);
 		panel_11.setLayout(new BorderLayout(0, 0));
 
-		JLabel lblTopLabel_11 = new JLabel("-Front Door");
+		JLabel lblTopLabel_11 = new JLabel("Cloud Connect");
 		lblTopLabel_11.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblTopLabel_11.setForeground(Color.WHITE);
 		panel_11.add(lblTopLabel_11, BorderLayout.NORTH);
 
-		lblBottomLabel_11 = new JLabel("Lock");
+		lblBottomLabel_11 = new JLabel("IoT Control");
 		lblBottomLabel_11.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblBottomLabel_11.setForeground(Color.WHITE);
 		panel_11.add(lblBottomLabel_11, BorderLayout.SOUTH);
@@ -497,7 +501,7 @@ public class IoTTiles {
 		lblIconLabel_11.setForeground(Color.WHITE);
 		lblIconLabel_11.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_11.add(lblIconLabel_11, BorderLayout.CENTER);
-		lblIconLabel_11.setIcon(lockIcon);
+		lblIconLabel_11.setIcon(autosIcon);
 
 		panel_12 = new JPanel();
 		panel_12.addMouseListener(new MouseAdapter() {
@@ -511,12 +515,12 @@ public class IoTTiles {
 		frame.getContentPane().add(panel_12);
 		panel_12.setLayout(new BorderLayout(0, 0));
 
-		JLabel lblTopLabel_12 = new JLabel("-Front Door");
+		JLabel lblTopLabel_12 = new JLabel("IoT Message");
 		lblTopLabel_12.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblTopLabel_12.setForeground(Color.WHITE);
 		panel_12.add(lblTopLabel_12, BorderLayout.NORTH);
 
-		lblBottomLabel_12 = new JLabel("Lock");
+		lblBottomLabel_12 = new JLabel("Status");
 		lblBottomLabel_12.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblBottomLabel_12.setForeground(Color.WHITE);
 		panel_12.add(lblBottomLabel_12, BorderLayout.SOUTH);
@@ -525,7 +529,7 @@ public class IoTTiles {
 		lblIconLabel_12.setForeground(Color.WHITE);
 		lblIconLabel_12.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_12.add(lblIconLabel_12, BorderLayout.CENTER);
-		lblIconLabel_12.setIcon(lockIcon);
+		lblIconLabel_12.setIcon(bluetoothIcon);
 
 		panel_13 = new JPanel();
 		panel_13.addMouseListener(new MouseAdapter() {
@@ -553,7 +557,7 @@ public class IoTTiles {
 		lblIconLabel_13.setForeground(Color.WHITE);
 		lblIconLabel_13.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_13.add(lblIconLabel_13, BorderLayout.CENTER);
-		lblIconLabel_13.setIcon(phone_open);
+		lblIconLabel_13.setIcon(phone_openIcon);
 
 		panel_14 = new JPanel();
 		panel_14.addMouseListener(new MouseAdapter() {
@@ -581,7 +585,7 @@ public class IoTTiles {
 		lblIconLabel_14.setForeground(Color.WHITE);
 		lblIconLabel_14.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_14.add(lblIconLabel_14, BorderLayout.CENTER);
-		lblIconLabel_14.setIcon(notification_bell);
+		lblIconLabel_14.setIcon(notification_bellIcon);
 
 		panel_15 = new JPanel();
 		panel_15.addMouseListener(new MouseAdapter() {
@@ -703,17 +707,17 @@ public class IoTTiles {
 				panel_19Clicked(e);
 			}
 		});
-		panel_19.setBackground(Color.PINK);
+		panel_19.setBackground(new Color(0, 191, 255));
 		panel_19.setBounds(635, 320, 100, 100);
 		frame.getContentPane().add(panel_19);
 		panel_19.setLayout(new BorderLayout(0, 0));
 
-		JLabel lblTopLabel_19 = new JLabel("-Front Door");
+		JLabel lblTopLabel_19 = new JLabel("Device Control");
 		lblTopLabel_19.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblTopLabel_19.setForeground(Color.WHITE);
 		panel_19.add(lblTopLabel_19, BorderLayout.NORTH);
 
-		lblBottomLabel_19 = new JLabel("Device Control");
+		lblBottomLabel_19 = new JLabel("Relay Module");
 		lblBottomLabel_19.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblBottomLabel_19.setForeground(Color.WHITE);
 		panel_19.add(lblBottomLabel_19, BorderLayout.SOUTH);
@@ -722,7 +726,7 @@ public class IoTTiles {
 		lblIconLabel_19.setForeground(Color.WHITE);
 		lblIconLabel_19.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_19.add(lblIconLabel_19, BorderLayout.CENTER);
-		lblIconLabel_19.setIcon(lockIcon);
+		lblIconLabel_19.setIcon(bulbIcon);
 
 		return frame;
 	}
@@ -883,25 +887,36 @@ public class IoTTiles {
 	}
 
 	public void panel_11Clicked(MouseEvent e) {
+		JOptionPane.showMessageDialog(null,
+				"The Arduino Tron Web Server is a cloud-connected complete SoC System on a Chip architecture that integrates all components of a computer, "
+						+ "WiFi and Web Server application software on an ESP-01 WiFi chip for complete control of IoT Internet of things devices from the cloud.",
+				"Arduino Tron Web Server Getting Your IoT Project working in the Cloud",
+				JOptionPane.INFORMATION_MESSAGE);
 	}
 
 	public void panel_12Clicked(MouseEvent e) {
+		JOptionPane.showMessageDialog(null,
+				"The Arduino Tron IoT is used connect to Office Door Locks, Activate Security Alarms, Turn Office Lights: ON, Control Thermostats, Answer Doorbell, "
+						+ "Open Window Shades, Activate Motion Sensors.",
+				"The Arduino Tron IoT is used to Connect to External Devices", JOptionPane.INFORMATION_MESSAGE);
 	}
 
+	// IoTOLED Message
 	public void panel_13Clicked(MouseEvent e) {
-		com.iotbpm.server.AgentConnect.getInstance().sendOLED("IoTOLED","&message=*_Message_IoT_Tiles_*&");
+		com.iotbpm.server.AgentConnect.getInstance().sendOLED("IoTOLED", "&message=*_Message_IoT_Tiles_*&");
 	}
 
+	// DoorOpen, Chime-OLED
 	public void panel_14Clicked(MouseEvent e) {
 		String doorOpen = com.iotbpm.model.StateList.getInstance().getState("DoorOpen");
 		if (doorOpen.indexOf("OLED") != -1) {
 			com.iotbpm.model.StateList.getInstance().putState("DoorOpen", "Chime");
 			lblBottomLabel_14.setText("Chime Signal");
-			lblIconLabel_14.setIcon(notification_bell);
+			lblIconLabel_14.setIcon(notification_bellIcon);
 		} else {
 			com.iotbpm.model.StateList.getInstance().putState("DoorOpen", "OLED");
 			lblBottomLabel_14.setText("IoT OLED Display");
-			lblIconLabel_14.setIcon(phone_open);
+			lblIconLabel_14.setIcon(phone_openIcon);
 		}
 	}
 
@@ -920,8 +935,8 @@ public class IoTTiles {
 	// IoT Sensors
 	public void panel_16Clicked(MouseEvent e) {
 		JOptionPane.showMessageDialog(null,
-				"The IoT DHT11 WiFi wireless module sends temperature and humidity environment information to the Tron IoT OLED Display and IoT Tiles Panel.",
-				"Monitor IoT Sensors", JOptionPane.INFORMATION_MESSAGE);
+				"This is the default IoT Sensors jBPM Automation extended process. Use Drools Rules to start a specific IoT jBPM Automation process for this IoT sensor event.",
+				"IoT Sensors Extended Event", JOptionPane.INFORMATION_MESSAGE);
 	}
 
 	public void panel_16IoTSensors(String IoT_Sensors) {
@@ -959,17 +974,27 @@ public class IoTTiles {
 	public void panel_18Clicked(MouseEvent e) {
 		JOptionPane.showMessageDialog(null,
 				"The IoT DHT11 WiFi wireless module sends temperature and humidity environment information to IoT Tiles and Tron IoT OLED Display.",
-				"IoT DHT11 Temperature Humidity Sensor", JOptionPane.INFORMATION_MESSAGE);
+				"IoT DHT11 Temperature and Humidity WiFi Module Wireless Module ESP-01S",
+				JOptionPane.INFORMATION_MESSAGE);
 	}
 
 	public void panel_18Temp(String temp) {
 		lblIconLabel_18.setText(temp);
+		int iTemp = Integer.parseInt(temp.substring(0, 2));
+		if (iTemp < 32)
+			lblIconLabel_18.setIcon(weather_snowIcon);
+		if ((iTemp >= 32) && (iTemp <= 50))
+			lblIconLabel_18.setIcon(weather_cloudsIcon);
+		if ((iTemp >= 51) && (iTemp <= 70))
+			lblIconLabel_18.setIcon(weather_cloudyIcon);
+		if (iTemp > 70)
+			lblIconLabel_18.setIcon(weather_sunIcon);
 	}
 
+	// Device Control
 	public void panel_19Clicked(MouseEvent e) {
 		JOptionPane.showMessageDialog(null,
-				"The little IoT ESP-01S relay expansion module board is a simple and easy-to-use expansion board to drive a relay and operate devices or machines wirelessly.", 
+				"The little IoT ESP-01S Relay Expansion Module is a simple and easy-to-use expansion board that uses the ESP-01S breakout board to drive a relay and operate devices or machines wirelessly.",
 				"IoT ESP-01S WiFi Relay Expansion Module Board", JOptionPane.INFORMATION_MESSAGE);
-
 	}
 }
