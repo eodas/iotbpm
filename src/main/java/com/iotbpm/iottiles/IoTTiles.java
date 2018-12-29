@@ -191,6 +191,7 @@ public class IoTTiles {
 		web_conciergeIcon = new ImageIcon("icons" + File.separator + "web_concierge.png");
 
 		panel_1 = new JPanel();
+		panel_1.setToolTipText("Create a function for me.");
 		panel_1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -220,6 +221,7 @@ public class IoTTiles {
 		lblIconLabel_1.setIcon(doorIcon);
 
 		panel_2 = new JPanel();
+		panel_2.setToolTipText("Create a function for me.");
 		panel_2.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -249,6 +251,8 @@ public class IoTTiles {
 		lblIconLabel_2.setIcon(doorIcon);
 
 		panel_3 = new JPanel();
+		panel_3.setToolTipText(
+				"The IoT Door RFID-RC522 Smart Card Reader Sensor can alert you to individuals or equipment location and movement.");
 		panel_3.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -275,9 +279,10 @@ public class IoTTiles {
 		lblIconLabel_3.setForeground(Color.WHITE);
 		lblIconLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_3.add(lblIconLabel_3, BorderLayout.CENTER);
-		lblIconLabel_3.setIcon(personal2Icon);
+		lblIconLabel_3.setIcon(personalIcon);
 
 		panel_4 = new JPanel();
+		panel_4.setToolTipText("Create a function for me.");
 		panel_4.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -307,6 +312,8 @@ public class IoTTiles {
 		lblIconLabel_4.setIcon(lightbulbIcon);
 
 		panel_5 = new JPanel();
+		panel_5.setToolTipText(
+				"The IoT DHT11 WiFi wireless module sends temperature and humidity environment information to the IoT Tiles Panel and Tron IoT OLED display.");
 		panel_5.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -336,6 +343,8 @@ public class IoTTiles {
 		lblIconLabel_5.setIcon(celsiusIcon);
 
 		panel_6 = new JPanel();
+		panel_6.setToolTipText(
+				"The IoT ESP-01S WiFi Relay Expansion Module board is a simple to operate a relay to control a door lock wirelessly.");
 		panel_6.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -364,6 +373,8 @@ public class IoTTiles {
 		lblIconLabel_6.setIcon(lock_openIcon);
 
 		panel_7 = new JPanel();
+		panel_7.setToolTipText(
+				"The IoT Door Open Sensor jBPM Automation process is triggered by an Arduino Tron contact switch event.");
 		panel_7.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -392,6 +403,8 @@ public class IoTTiles {
 		lblIconLabel_7.setIcon(doorIcon);
 
 		panel_8 = new JPanel();
+		panel_8.setToolTipText(
+				"The IoT ESP-01S WiFi Relay Expansion Module board is a simple to operate a relay to control a door lock wirelessly.");
 		panel_8.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -420,6 +433,8 @@ public class IoTTiles {
 		lblIconLabel_8.setIcon(lock_openIcon);
 
 		panel_9 = new JPanel();
+		panel_9.setToolTipText(
+				"The IoT Door Open Sensor jBPM Automation process is triggered by an Arduino Tron contact switch event.");
 		panel_9.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -448,6 +463,8 @@ public class IoTTiles {
 		lblIconLabel_9.setIcon(lockIcon);
 
 		panel_10 = new JPanel();
+		panel_10.setToolTipText(
+				"The IoT ESP-01S WiFi Relay Expansion Module board is a simple and easy-to-use expansion board that uses the ESP-01S breakout board to drive a relay and operate devices or machines wirelessly.");
 		panel_10.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -476,6 +493,8 @@ public class IoTTiles {
 		lblIconLabel_10.setIcon(lightbulb_offIcon);
 
 		panel_11 = new JPanel();
+		panel_11.setToolTipText(
+				"The Arduino Tron Web Server is a cloud-connected complete SoC System on a Chip architecture that integrates all components of a computer.");
 		panel_11.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -741,10 +760,18 @@ public class IoTTiles {
 	public void panel_2Clicked(MouseEvent e) {
 	}
 
+	// RFID-RC522 Smart Card
 	public void panel_3Clicked(MouseEvent e) {
-		JOptionPane.showMessageDialog(null,
-				"The IoT Door RFID-RC522 Smart Card Reader Sensor can alert you to individuals or equipment location and movement.",
-				"IoT Door RFID Smart Card Sensor", JOptionPane.INFORMATION_MESSAGE);
+		String personal = com.iotbpm.model.StateList.getInstance().getState("Personal");
+		if (personal.indexOf("Occupied") != -1) {
+			com.iotbpm.model.StateList.getInstance().putState("Personal", "Present");
+			lblBottomLabel_3.setText("Present");
+			lblIconLabel_3.setIcon(personalIcon);
+		} else {
+			com.iotbpm.model.StateList.getInstance().putState("Personal", "Occupied");
+			lblBottomLabel_3.setText("Occupied");
+			lblIconLabel_3.setIcon(personal2Icon);
+		}
 	}
 
 	public void panel_4Clicked(MouseEvent e) {
@@ -753,7 +780,7 @@ public class IoTTiles {
 	// Office Temperature
 	public void panel_5Clicked(MouseEvent e) {
 		JOptionPane.showMessageDialog(null,
-				"The IoT DHT11 WiFi wireless module sends temperature and humidity environment information to the Tron IoT OLED Display and IoT Tiles Panel.",
+				"The IoT DHT11 WiFi wireless module sends temperature and humidity environment information to the IoT Tiles Panel and Tron IoT OLED display.",
 				"IoT DHT11 Temperature Humidity Sensor", JOptionPane.INFORMATION_MESSAGE);
 	}
 
@@ -781,7 +808,7 @@ public class IoTTiles {
 	// Front Door Open
 	public void panel_7Clicked(MouseEvent e) {
 		JOptionPane.showMessageDialog(null,
-				"The IoT Door Open Sensor jBPM Automation process is triggered by an Arduino Tron event.",
+				"The IoT Door Open Sensor jBPM Automation process is triggered by an Arduino Tron contact switch event.",
 				"IoT Door Sensor", JOptionPane.INFORMATION_MESSAGE);
 	}
 
