@@ -11,6 +11,7 @@ import javax.swing.WindowConstants;
 import java.awt.Font;
 import java.awt.Color;
 import java.awt.BorderLayout;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -25,11 +26,15 @@ public class IoTTiles {
 	private static IoTTiles IOTTILES_INSTANCE = null;
 
 	private ImageIcon alarm_bellIcon;
-	private ImageIcon bluetoothIcon;
 	private ImageIcon autosIcon;
+	private ImageIcon biosIcon;
+	private ImageIcon bluetoothIcon;
 	private ImageIcon bulbIcon;
 	private ImageIcon celsiusIcon;
-	private ImageIcon coldIcon;
+	private ImageIcon computerIcon;
+	private ImageIcon computer_addIcon;
+	private ImageIcon computer_deleteIcon;
+	private ImageIcon computer_keyIcon;
 
 	private ImageIcon doorIcon;
 	private ImageIcon door_inIcon;
@@ -37,17 +42,31 @@ public class IoTTiles {
 	private ImageIcon door_outIcon;
 
 	private ImageIcon emblem_systemIcon;
+	private ImageIcon exclamationIcon;
+	private ImageIcon informationIcon;
+	private ImageIcon keyIcon;
+	private ImageIcon key_addIcon;
 
 	private ImageIcon lightbulbIcon;
+	private ImageIcon lightbulb_addIcon;
+	private ImageIcon lightbulb_deleteIcon;
 	private ImageIcon lightbulb_offIcon;
 
 	private ImageIcon lockIcon;
+	private ImageIcon lock_addIcon;
+	private ImageIcon lock_breakIcon;
 	private ImageIcon lock_openIcon;
 
 	private ImageIcon notification_bellIcon;
 	private ImageIcon personalIcon;
 	private ImageIcon personal2Icon;
 	private ImageIcon phone_openIcon;
+	private ImageIcon textfieldIcon;
+	private ImageIcon textfield_addIcon;
+	private ImageIcon textfield_deleteIcon;
+	private ImageIcon timeIcon;
+	private ImageIcon time_addIcon;
+	private ImageIcon time_deleteIcon;
 
 	private ImageIcon weather_cloudsIcon;
 	private ImageIcon weather_cloudyIcon;
@@ -147,21 +166,26 @@ public class IoTTiles {
 	// Initialize the contents of the frame
 	private JFrame buildFrame(boolean exitOnClose) {
 		JFrame frame = new JFrame();
+		frame.setResizable(false);
 
 		frame.getContentPane().setBackground(Color.BLACK);
 		frame.setTitle(
 				"Arduino Tron AI-IoTBPM :: IoT Tiles Internet of Things Drools-jBPM using Arduino Tron AI-IoTBPM");
-		frame.setBounds(100, 100, 755, 465);
+		frame.setBounds(100, 100, 745, 455);
 		frame.setDefaultCloseOperation(exitOnClose ? JFrame.EXIT_ON_CLOSE : WindowConstants.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.setLocationRelativeTo(null); // Center in screen
 
 		alarm_bellIcon = new ImageIcon("icons" + File.separator + "alarm_bell.png");
-		bluetoothIcon = new ImageIcon("icons" + File.separator + "bluetooth.png");
 		autosIcon = new ImageIcon("icons" + File.separator + "autos.png");
+		biosIcon = new ImageIcon("icons" + File.separator + "bios.png");
+		bluetoothIcon = new ImageIcon("icons" + File.separator + "bluetooth.png");
 		bulbIcon = new ImageIcon("icons" + File.separator + "bulb.png");
 		celsiusIcon = new ImageIcon("icons" + File.separator + "celsius.png");
-		coldIcon = new ImageIcon("icons" + File.separator + "cold.png");
+		computerIcon = new ImageIcon("icons" + File.separator + "computer.png");
+		computer_addIcon = new ImageIcon("icons" + File.separator + "computer_add.png");
+		computer_deleteIcon = new ImageIcon("icons" + File.separator + "computer_delete.png");
+		computer_keyIcon = new ImageIcon("icons" + File.separator + "computer_key.png");
 
 		doorIcon = new ImageIcon("icons" + File.separator + "door.png");
 		door_inIcon = new ImageIcon("icons" + File.separator + "door_in.png");
@@ -169,17 +193,32 @@ public class IoTTiles {
 		door_outIcon = new ImageIcon("icons" + File.separator + "door_out.png");
 
 		emblem_systemIcon = new ImageIcon("icons" + File.separator + "emblem_system.png");
+		exclamationIcon = new ImageIcon("icons" + File.separator + "exclamation.png");
+		informationIcon = new ImageIcon("icons" + File.separator + "information.png");
+		keyIcon = new ImageIcon("icons" + File.separator + "key.png");
+		key_addIcon = new ImageIcon("icons" + File.separator + "key_add.png");
 
 		lightbulbIcon = new ImageIcon("icons" + File.separator + "lightbulb.png");
+		lightbulb_addIcon = new ImageIcon("icons" + File.separator + "lightbulb_add.png");
+		lightbulb_deleteIcon = new ImageIcon("icons" + File.separator + "lightbulb_delete.png");
 		lightbulb_offIcon = new ImageIcon("icons" + File.separator + "lightbulb_off.png");
 
 		lockIcon = new ImageIcon("icons" + File.separator + "lock.png");
+		lock_addIcon = new ImageIcon("icons" + File.separator + "lock_add.png");
+		lock_breakIcon = new ImageIcon("icons" + File.separator + "lock_break.png");
 		lock_openIcon = new ImageIcon("icons" + File.separator + "lock_open.png");
 
 		notification_bellIcon = new ImageIcon("icons" + File.separator + "notification_bell.png");
 		personalIcon = new ImageIcon("icons" + File.separator + "personal.png");
 		personal2Icon = new ImageIcon("icons" + File.separator + "personal2.png");
 		phone_openIcon = new ImageIcon("icons" + File.separator + "phone_open.png");
+
+		textfieldIcon = new ImageIcon("icons" + File.separator + "textfield.png");
+		textfield_addIcon = new ImageIcon("icons" + File.separator + "textfield_add.png");
+		textfield_deleteIcon = new ImageIcon("icons" + File.separator + "textfield_delete.png");
+		timeIcon = new ImageIcon("icons" + File.separator + "time.png");
+		time_addIcon = new ImageIcon("icons" + File.separator + "time_add.png");
+		time_deleteIcon = new ImageIcon("icons" + File.separator + "time_delete.png");
 
 		weather_cloudsIcon = new ImageIcon("icons" + File.separator + "weather_clouds.png");
 		weather_cloudyIcon = new ImageIcon("icons" + File.separator + "weather_cloudy.png");
@@ -191,7 +230,7 @@ public class IoTTiles {
 		web_conciergeIcon = new ImageIcon("icons" + File.separator + "web_concierge.png");
 
 		panel_1 = new JPanel();
-		panel_1.setToolTipText("Create a function for me.");
+		panel_1.setToolTipText("IoT Tiles is a control panel (dashboard) for Arduino Tron IoT Things.");
 		panel_1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -203,12 +242,12 @@ public class IoTTiles {
 		frame.getContentPane().add(panel_1);
 		panel_1.setLayout(new BorderLayout(0, 0));
 
-		JLabel lblTopLabel_1 = new JLabel("-Alert Bell");
+		JLabel lblTopLabel_1 = new JLabel("Arduino Tron IoT Tiles");
 		lblTopLabel_1.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblTopLabel_1.setForeground(Color.WHITE);
 		panel_1.add(lblTopLabel_1, BorderLayout.NORTH);
 
-		lblBottomLabel_1 = new JLabel("Active");
+		lblBottomLabel_1 = new JLabel("Alert Active");
 		lblBottomLabel_1.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblBottomLabel_1.setForeground(Color.WHITE);
 		panel_1.add(lblBottomLabel_1, BorderLayout.SOUTH);
@@ -218,10 +257,10 @@ public class IoTTiles {
 		lblIconLabel_1.setForeground(Color.WHITE);
 		lblIconLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_1.add(lblIconLabel_1, BorderLayout.CENTER);
-		lblIconLabel_1.setIcon(doorIcon);
+		lblIconLabel_1.setIcon(textfield_addIcon);
 
 		panel_2 = new JPanel();
-		panel_2.setToolTipText("Create a function for me.");
+		panel_2.setToolTipText("The Arduino Tron IoT Things activity and behaviour is fully control from IoT Tiles.");
 		panel_2.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -233,12 +272,12 @@ public class IoTTiles {
 		frame.getContentPane().add(panel_2);
 		panel_2.setLayout(new BorderLayout(0, 0));
 
-		JLabel lblTopLabel_2 = new JLabel("-Office Mode");
+		JLabel lblTopLabel_2 = new JLabel("Arduino Tron Mode");
 		lblTopLabel_2.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblTopLabel_2.setForeground(Color.WHITE);
 		panel_2.add(lblTopLabel_2, BorderLayout.NORTH);
 
-		lblBottomLabel_2 = new JLabel("Office-Day");
+		lblBottomLabel_2 = new JLabel("Active");
 		lblBottomLabel_2.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblBottomLabel_2.setForeground(Color.WHITE);
 		panel_2.add(lblBottomLabel_2, BorderLayout.SOUTH);
@@ -248,7 +287,7 @@ public class IoTTiles {
 		lblIconLabel_2.setForeground(Color.WHITE);
 		lblIconLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_2.add(lblIconLabel_2, BorderLayout.CENTER);
-		lblIconLabel_2.setIcon(doorIcon);
+		lblIconLabel_2.setIcon(computerIcon);
 
 		panel_3 = new JPanel();
 		panel_3.setToolTipText(
@@ -282,7 +321,7 @@ public class IoTTiles {
 		lblIconLabel_3.setIcon(personalIcon);
 
 		panel_4 = new JPanel();
-		panel_4.setToolTipText("Create a function for me.");
+		panel_4.setToolTipText("Arduino Tron IoT Tiles control smart office automation and monitoring, including smart desks in your office.");
 		panel_4.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -294,12 +333,12 @@ public class IoTTiles {
 		frame.getContentPane().add(panel_4);
 		panel_4.setLayout(new BorderLayout(0, 0));
 
-		JLabel lblTopLabel_4 = new JLabel("-Smart Office Monitor");
+		JLabel lblTopLabel_4 = new JLabel("Smart Office Monitor");
 		lblTopLabel_4.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblTopLabel_4.setForeground(Color.WHITE);
 		panel_4.add(lblTopLabel_4, BorderLayout.NORTH);
 
-		lblBottomLabel_4 = new JLabel("Office Armed (Stay)");
+		lblBottomLabel_4 = new JLabel("Office Day");
 		lblBottomLabel_4.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblBottomLabel_4.setForeground(Color.WHITE);
 		panel_4.add(lblBottomLabel_4, BorderLayout.SOUTH);
@@ -309,7 +348,7 @@ public class IoTTiles {
 		lblIconLabel_4.setForeground(Color.WHITE);
 		lblIconLabel_4.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_4.add(lblIconLabel_4, BorderLayout.CENTER);
-		lblIconLabel_4.setIcon(lightbulbIcon);
+		lblIconLabel_4.setIcon(time_addIcon);
 
 		panel_5 = new JPanel();
 		panel_5.setToolTipText(
@@ -460,7 +499,7 @@ public class IoTTiles {
 		lblIconLabel_9.setForeground(Color.WHITE);
 		lblIconLabel_9.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_9.add(lblIconLabel_9, BorderLayout.CENTER);
-		lblIconLabel_9.setIcon(lockIcon);
+		lblIconLabel_9.setIcon(doorIcon);
 
 		panel_10 = new JPanel();
 		panel_10.setToolTipText(
@@ -745,7 +784,7 @@ public class IoTTiles {
 		lblIconLabel_19.setForeground(Color.WHITE);
 		lblIconLabel_19.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_19.add(lblIconLabel_19, BorderLayout.CENTER);
-		lblIconLabel_19.setIcon(bulbIcon);
+		lblIconLabel_19.setIcon(lightbulb_offIcon);
 
 		return frame;
 	}
@@ -754,10 +793,32 @@ public class IoTTiles {
 		this.frameIoT.setVisible(true);
 	}
 
+	// Arduino Tron IoT Tiles
 	public void panel_1Clicked(MouseEvent e) {
+		String alert = com.iotbpm.model.StateList.getInstance().getState("Alert");
+		if (alert.indexOf("Quite") != -1) {
+			com.iotbpm.model.StateList.getInstance().putState("Alert", "Active");
+			lblBottomLabel_1.setText("Alert Active");
+			lblIconLabel_1.setIcon(textfield_addIcon);
+		} else {
+			com.iotbpm.model.StateList.getInstance().putState("Alert", "Quite");
+			lblBottomLabel_1.setText("Quite Alert");
+			lblIconLabel_1.setIcon(textfield_deleteIcon);
+		}
 	}
 
+	// Arduino Tron Mode
 	public void panel_2Clicked(MouseEvent e) {
+		String mode = com.iotbpm.model.StateList.getInstance().getState("Mode");
+		if (mode.indexOf("Lock") != -1) {
+			com.iotbpm.model.StateList.getInstance().putState("Mode", "Active");
+			lblBottomLabel_2.setText("Active");
+			lblIconLabel_2.setIcon(computerIcon);
+		} else {
+			com.iotbpm.model.StateList.getInstance().putState("Mode", "Lock");
+			lblBottomLabel_2.setText("Lock");
+			lblIconLabel_2.setIcon(computer_keyIcon);
+		}
 	}
 
 	// RFID-RC522 Smart Card
@@ -774,7 +835,18 @@ public class IoTTiles {
 		}
 	}
 
+	// Smart Office Monitor
 	public void panel_4Clicked(MouseEvent e) {
+		String office = com.iotbpm.model.StateList.getInstance().getState("Office");
+		if (office.indexOf("Night") != -1) {
+			com.iotbpm.model.StateList.getInstance().putState("Office", "Day");
+			lblBottomLabel_4.setText("Office Day");
+			lblIconLabel_4.setIcon(time_addIcon);
+		} else {
+			com.iotbpm.model.StateList.getInstance().putState("Office", "Night");
+			lblBottomLabel_4.setText("Office Night");
+			lblIconLabel_4.setIcon(time_deleteIcon);
+		}
 	}
 
 	// Office Temperature
@@ -1020,8 +1092,10 @@ public class IoTTiles {
 
 	// Device Control
 	public void panel_19Clicked(MouseEvent e) {
+		lblIconLabel_19.setIcon(lightbulb_addIcon);
 		JOptionPane.showMessageDialog(null,
 				"The little IoT ESP-01S Relay Expansion Module is a simple and easy-to-use expansion board that uses the ESP-01S breakout board to drive a relay and operate devices or machines wirelessly.",
 				"IoT ESP-01S WiFi Relay Expansion Module Board", JOptionPane.INFORMATION_MESSAGE);
+		lblIconLabel_19.setIcon(lightbulb_offIcon);
 	}
 }
