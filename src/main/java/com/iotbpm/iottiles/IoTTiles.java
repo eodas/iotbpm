@@ -178,7 +178,7 @@ public class IoTTiles {
 
 		notification_bellIcon = new ImageIcon("icons" + File.separator + "notification_bell.png");
 		personalIcon = new ImageIcon("icons" + File.separator + "personal.png");
-		personal2Icon = new ImageIcon("icons" + File.separator + "personal-2.png");
+		personal2Icon = new ImageIcon("icons" + File.separator + "personal2.png");
 		phone_openIcon = new ImageIcon("icons" + File.separator + "phone_open.png");
 
 		weather_cloudsIcon = new ImageIcon("icons" + File.separator + "weather_clouds.png");
