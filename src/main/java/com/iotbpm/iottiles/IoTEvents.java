@@ -36,7 +36,7 @@ public class IoTEvents {
 			String response = "";
 			response = jbpmRules.receive(serverEvent);
 			if ((response != null) && (response.length() > 0)) {
-				System.out.println("> EVENT RSP " + response);
+				System.out.println("> RESPONSE " + response);
 			}
 		}
 	}

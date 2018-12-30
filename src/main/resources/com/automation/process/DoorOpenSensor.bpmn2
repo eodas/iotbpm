@@ -89,7 +89,7 @@ com.iotbpm.server.AgentConnect.getInstance().sendPost(&quot;DoorLock&quot;,&quot
       </bpmn2:extensionElements>
       <bpmn2:incoming>SequenceFlow_2</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_5</bpmn2:outgoing>
-      <bpmn2:script>com.iotbpm.iottiles.IoTTiles.getInstance().panel_7DoorOpened();</bpmn2:script>
+      <bpmn2:script>com.iotbpm.iottiles.IoTTiles.getInstance().panel_9DoorOpened();</bpmn2:script>
     </bpmn2:scriptTask>
     <bpmn2:sequenceFlow id="SequenceFlow_5" tns:priority="1" sourceRef="ScriptTask_4" targetRef="ExclusiveGateway_1"/>
   </bpmn2:process>

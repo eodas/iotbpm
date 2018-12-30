@@ -260,7 +260,7 @@ public class IoTTiles {
 		lblIconLabel_1.setIcon(textfield_addIcon);
 
 		panel_2 = new JPanel();
-		panel_2.setToolTipText("The Arduino Tron IoT Things activity and behaviour is fully control from IoT Tiles.");
+		panel_2.setToolTipText("The Arduino Tron IoT Things activity and behavior is fully control from IoT Tiles.");
 		panel_2.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -321,7 +321,8 @@ public class IoTTiles {
 		lblIconLabel_3.setIcon(personalIcon);
 
 		panel_4 = new JPanel();
-		panel_4.setToolTipText("Arduino Tron IoT Tiles control smart office automation and monitoring, including smart desks in your office.");
+		panel_4.setToolTipText(
+				"Arduino Tron IoT Tiles control smart office automation and monitoring, including smart desks in your office.");
 		panel_4.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -888,7 +889,7 @@ public class IoTTiles {
 		lblIconLabel_7.setIcon(door_inIcon);
 		lblBottomLabel_7.setText("Opened");
 		panel_7.setBackground(Color.RED);
-		panel_7Clear();
+		panel_7Blink();
 	}
 
 	public void panel_7DoorClosed() {
@@ -897,13 +898,23 @@ public class IoTTiles {
 		panel_7.setBackground(Color.BLUE);
 	}
 
-	public void panel_7Clear() {
+	public void panel_7Blink() {
 		new Thread(new Runnable() {
+			@Override
 			public void run() {
-				for (int i = 0; i <= 4; i++) {
-					if (i == 4) {
-						panel_7DoorClosed();
+				boolean blink = true;
+				for (int i = 0; i < 16; i++) {
+					if (i > 7)
+						lblIconLabel_7.setIcon(door_outIcon);
+					if (blink) {
+						panel_7.setBackground(Color.RED);
+					} else {
+						panel_7.setBackground(Color.BLUE);
+						if (i == 15) {
+							panel_7DoorClosed();
+						}
 					}
+					blink = !blink;
 					try {
 						Thread.sleep(500L);
 					} catch (InterruptedException e) {
@@ -942,7 +953,7 @@ public class IoTTiles {
 		lblIconLabel_9.setIcon(door_inIcon);
 		lblBottomLabel_9.setText("Opened");
 		panel_9.setBackground(Color.RED);
-		panel_9Clear();
+		panel_9Blink();
 	}
 
 	public void panel_9DoorClosed() {
@@ -951,13 +962,23 @@ public class IoTTiles {
 		panel_9.setBackground(Color.BLUE);
 	}
 
-	public void panel_9Clear() {
+	public void panel_9Blink() {
 		new Thread(new Runnable() {
+			@Override
 			public void run() {
-				for (int i = 0; i <= 4; i++) {
-					if (i == 4) {
-						panel_9DoorClosed();
+				boolean blink = true;
+				for (int i = 0; i < 16; i++) {
+					if (i > 7)
+						lblIconLabel_9.setIcon(door_outIcon);
+					if (blink) {
+						panel_9.setBackground(Color.RED);
+					} else {
+						panel_9.setBackground(Color.BLUE);
+						if (i == 15) {
+							panel_9DoorClosed();
+						}
 					}
+					blink = !blink;
 					try {
 						Thread.sleep(500L);
 					} catch (InterruptedException e) {
@@ -1045,6 +1066,7 @@ public class IoTTiles {
 
 	public void panel_16Blink() {
 		new Thread(new Runnable() {
+			@Override
 			public void run() {
 				boolean blink = true;
 				for (int i = 0; i < 6; i++) {
