@@ -33,7 +33,7 @@ import com.iotbpm.iottiles.IoTTiles;
  * Executive Order Corporation - Arduino Tron ESP8266 MQTT Telemetry Transport Machine-to-Machine(M2M)/Internet of Things(IoT)
  *
  * Executive Order Corporation
- * Copyright � 1978, 2018: Executive Order Corporation, All Rights Reserved
+ * Copyright (c) 1978, 2019: Executive Order Corporation, All Rights Reserved
  */
 
 /**

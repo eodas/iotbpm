@@ -79,4 +79,4 @@ For testing messages syntax to the IoTBPM server, use the cURL command line tool
 </code></pre>
 
 - Executive Order Corporation
-- Copyright - 1978, 2018: Executive Order Corporation, All Rights Reserved
+- Copyright - 1978, 2019: Executive Order Corporation, All Rights Reserved
