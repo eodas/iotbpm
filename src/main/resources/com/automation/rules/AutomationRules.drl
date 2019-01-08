@@ -8,20 +8,13 @@ import com.iotbpm.model.StateList;
 // default dialect for the semantic code will be MVEL
 dialect "mvel"
 
-// 100111 - Arduino Tron IoT <-open for update
+// 100111 - Arduino Tron IoT
 
 rule "processID rule for device ID: 100222 - Temperature-Humidity"
 	when
 		$event : ServerEvent( $eventId : id, $eventId == "100222" )
 	then
 		com.iotbpm.model.StateList.getInstance().putState("processID", "com.Temperature");
-end
-
-rule "processID rule for device ID: 100223 - Temperature-Humidity"
-	when
-		$event : ServerEvent( $eventId : id, $eventId == "100223" )
-	then
-		com.iotbpm.model.StateList.getInstance().putState("processID", "com.TemperatureOutside");
 end
 
 rule "Rules for device ID: 100222 - Temperature-Humidity"
@@ -37,6 +30,13 @@ rule "Rules for device ID: 100222 - Temperature-Humidity"
 		com.iotbpm.ui.MainWindow.getInstance().log(results);
 		modify( $device )
 		update( $device );
+end
+
+rule "processID rule for device ID: 100223 - Temperature-Humidity"
+	when
+		$event : ServerEvent( $eventId : id, $eventId == "100223" )
+	then
+		com.iotbpm.model.StateList.getInstance().putState("processID", "com.TemperatureOutside");
 end
 
 rule "processID rule for device ID: 100333 - Door Lock IoT-MCU"
@@ -61,7 +61,7 @@ rule "Rules for device ID: 100333 - Door Lock IoT-MCU"
 		update( $device );
 end
 
-// 100444 - Arduino IoT-SensorTag <-open for update
+// 100444 - Arduino IoT-SensorTag
 
 rule "processID rule for device ID: 100555 - Arduino Dash Button"
 	when
@@ -127,4 +127,9 @@ rule "Rules for device ID: 100777 - Light Module IoT-MCU"
 		update( $device );
 end
 
-// 100888 - Tron IoT OLED Display <-open for update
+rule "processID rule for device ID: 100888 - Arduino Tron IoT Display"
+	when
+		$event : ServerEvent( $eventId : id, $eventId == "100888" )
+	then
+		com.iotbpm.model.StateList.getInstance().putState("processID", "com.TronIoTDisplay");
+end

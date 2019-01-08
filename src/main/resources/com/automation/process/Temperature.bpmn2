@@ -39,7 +39,7 @@
       <bpmn2:incoming>SequenceFlow_2</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_7</bpmn2:outgoing>
       <bpmn2:script>com.iotbpm.ui.MainWindow.getInstance().log(&quot;IoT &quot; +  kcontext.getVariable(&quot;name&quot;) + &quot; Temperature &quot; + kcontext.getVariable(&quot;temp&quot;) + &quot;' Humidity &quot; + kcontext.getVariable(&quot;humidity&quot;) + &quot;%&quot;);
-com.iotbpm.server.AgentConnect.getInstance().sendOLED(&quot;IoTOLED&quot;,&quot;&amp;temp=&quot;+kcontext.getVariable(&quot;temp&quot;)+&quot;&amp;humidity=&quot;+kcontext.getVariable(&quot;humidity&quot;)+&quot;&amp;&quot;);
+com.iotbpm.server.AgentConnect.getInstance().sendTronIoT(&quot;TronIoT&quot;,&quot;&amp;temp=&quot;+kcontext.getVariable(&quot;temp&quot;)+&quot;&amp;humidity=&quot;+kcontext.getVariable(&quot;humidity&quot;)+&quot;&amp;&quot;);
 com.iotbpm.iottiles.IoTTiles.getInstance().panel_5Temp(kcontext.getVariable(&quot;temp&quot;)+&quot;' &quot;+kcontext.getVariable(&quot;humidity&quot;)+&quot;%&quot;);
 </bpmn2:script>
     </bpmn2:scriptTask>

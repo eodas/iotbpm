@@ -322,7 +322,7 @@ public class IoTTiles {
 
 		panel_4 = new JPanel();
 		panel_4.setToolTipText(
-				"Arduino Tron IoT Tiles control smart office automation and monitoring, including smart desks in your office.");
+				"Arduino Tron IoT Tiles control smart office automation and monitoring, including IoT smart desks in your office.");
 		panel_4.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -353,7 +353,7 @@ public class IoTTiles {
 
 		panel_5 = new JPanel();
 		panel_5.setToolTipText(
-				"The IoT DHT11 WiFi wireless module sends temperature and humidity environment information to the IoT Tiles Panel and Tron IoT OLED display.");
+				"The IoT DHT11 WiFi wireless module sends temperature and humidity environment information to the IoT Tiles Panel and Tron IoT Display.");
 		panel_5.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -602,12 +602,12 @@ public class IoTTiles {
 		frame.getContentPane().add(panel_13);
 		panel_13.setLayout(new BorderLayout(0, 0));
 
-		JLabel lblTopLabel_13 = new JLabel("Tron IoT OLED Display");
+		JLabel lblTopLabel_13 = new JLabel("Tron IoT Display");
 		lblTopLabel_13.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblTopLabel_13.setForeground(Color.WHITE);
 		panel_13.add(lblTopLabel_13, BorderLayout.NORTH);
 
-		lblBottomLabel_13 = new JLabel("Send IoT OLED Message");
+		lblBottomLabel_13 = new JLabel("Send IoT Message");
 		lblBottomLabel_13.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblBottomLabel_13.setForeground(Color.WHITE);
 		panel_13.add(lblBottomLabel_13, BorderLayout.SOUTH);
@@ -853,7 +853,7 @@ public class IoTTiles {
 	// Office Temperature
 	public void panel_5Clicked(MouseEvent e) {
 		JOptionPane.showMessageDialog(null,
-				"The IoT DHT11 WiFi wireless module sends temperature and humidity environment information to the IoT Tiles Panel and Tron IoT OLED display.",
+				"The IoT DHT11 WiFi wireless module sends temperature and humidity environment information to the IoT Tiles Panel and Tron IoT Display.",
 				"IoT DHT11 Temperature Humidity Sensor", JOptionPane.INFORMATION_MESSAGE);
 	}
 
@@ -1021,21 +1021,21 @@ public class IoTTiles {
 				"The Arduino Tron IoT is used to Connect to External Devices", JOptionPane.INFORMATION_MESSAGE);
 	}
 
-	// IoTOLED Message
+	// Tron IoT Message
 	public void panel_13Clicked(MouseEvent e) {
-		com.iotbpm.server.AgentConnect.getInstance().sendOLED("IoTOLED", "&message=*_Message_IoT_Tiles_*&");
+		com.iotbpm.server.AgentConnect.getInstance().sendTronIoT("TronIoT", "&message=*_Message_IoT_Tiles_*&");
 	}
 
-	// DoorOpen, Chime-OLED
+	// DoorOpen, Chime-Tron IoT
 	public void panel_14Clicked(MouseEvent e) {
 		String doorOpen = com.iotbpm.model.StateList.getInstance().getState("DoorOpen");
-		if (doorOpen.indexOf("OLED") != -1) {
+		if (doorOpen.indexOf("Tron") != -1) {
 			com.iotbpm.model.StateList.getInstance().putState("DoorOpen", "Chime");
 			lblBottomLabel_14.setText("Chime Signal");
 			lblIconLabel_14.setIcon(notification_bellIcon);
 		} else {
-			com.iotbpm.model.StateList.getInstance().putState("DoorOpen", "OLED");
-			lblBottomLabel_14.setText("IoT OLED Display");
+			com.iotbpm.model.StateList.getInstance().putState("DoorOpen", "Tron");
+			lblBottomLabel_14.setText("IoT Display");
 			lblIconLabel_14.setIcon(phone_openIcon);
 		}
 	}
@@ -1094,7 +1094,7 @@ public class IoTTiles {
 	// Outside Temperature
 	public void panel_18Clicked(MouseEvent e) {
 		JOptionPane.showMessageDialog(null,
-				"The IoT DHT11 WiFi wireless module sends temperature and humidity environment information to IoT Tiles and Tron IoT OLED Display.",
+				"The IoT DHT11 WiFi wireless module sends temperature and humidity environment information to IoT Tiles and Tron IoT Display.",
 				"IoT DHT11 Temperature and Humidity WiFi Module Wireless Module ESP-01S",
 				JOptionPane.INFORMATION_MESSAGE);
 	}

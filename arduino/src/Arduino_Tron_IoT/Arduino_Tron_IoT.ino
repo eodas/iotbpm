@@ -84,7 +84,7 @@ void setup() {
   // Connect to WiFi network
   //Serial.println("Executive Order Corporation - Arduino Tron ESP8266 MQTT Telemetry Transport Machine-to-Machine(M2M)/Internet of Things(IoT)");
   //Serial.println("Arduino Tron Drools-jBPM :: Executive Order Arduino Tron Sensor Processor MQTT AI-IoTBPM Client using AI-IoTBPM Drools-jBPM");
-  //Serial.println("- Arduino Tron IoT OLED ver " + ver);
+  //Serial.println("- Arduino Tron IoT ver " + ver);
   //Serial.println("Copyright © 1978, 2019: Executive Order Corporation, All Rights Reserved");
 
   Wire.begin(2, 0); // set I2C pins (SDA = GPIO2, SCL = GPIO0), default clock is 100kHz
@@ -106,7 +106,7 @@ void setup() {
 
   // Start the arduino tron agent
   webserver.begin();
-  //Serial.println("Arduino Tron IoT OLED started");
+  //Serial.println("Arduino Tron IoT started");
 
   // Clear the buffer
   display.clearDisplay();
@@ -121,7 +121,7 @@ void setup() {
 
   display.print("http://");
   display.println(WiFi.localIP());
-  display.println("Tron IoT OLED  " + ver);
+  display.println("Tron IoT " + ver);
   display.display();
 
   delay(2000);
@@ -236,7 +236,7 @@ void arduinoWebserver() {
 
           // Display the HTML web page
           client.println("<!DOCTYPE html><html>");
-          client.println("<head><title>Arduino Tron IoT OLED Display</title>");
+          client.println("<head><title>Arduino Tron IoT Display</title>");
           client.println("Arduino Tron Agent AI-IoTBPM :: Internet of Things using AI-IoTBPM Drools-jBPM</head><br>");
           client.println("<body>Loop Counter ");
           client.println(loopCounter);
