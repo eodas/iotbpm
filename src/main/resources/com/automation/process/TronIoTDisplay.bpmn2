@@ -30,17 +30,17 @@
       <bpmn2:outgoing>SequenceFlow_2</bpmn2:outgoing>
       <bpmn2:script>kcontext.getKnowledgeRuntime().insert(kcontext.getProcessInstance());</bpmn2:script>
     </bpmn2:scriptTask>
-    <bpmn2:scriptTask id="ScriptTask_2" name="Tron IoT Temperature-Humidity">
+    <bpmn2:scriptTask id="ScriptTask_2" name="Temperature-Humidity">
       <bpmn2:extensionElements>
         <tns:metaData name="elementname">
-          <tns:metaValue><![CDATA[Tron IoT Temperature-Humidity]]></tns:metaValue>
+          <tns:metaValue><![CDATA[Temperature-Humidity]]></tns:metaValue>
         </tns:metaData>
       </bpmn2:extensionElements>
       <bpmn2:incoming>SequenceFlow_2</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_7</bpmn2:outgoing>
-      <bpmn2:script>com.iotbpm.ui.MainWindow.getInstance().log(&quot;IoT &quot; +  kcontext.getVariable(&quot;name&quot;) + &quot; Temperature &quot; + kcontext.getVariable(&quot;temp&quot;) + &quot;' Humidity &quot; + kcontext.getVariable(&quot;humidity&quot;) + &quot;%&quot;);
+      <bpmn2:script>com.iotbpm.ui.MainWindow.getInstance().log(&quot;DHT11 &quot; +  kcontext.getVariable(&quot;name&quot;) + &quot; Temperature &quot; + kcontext.getVariable(&quot;temp&quot;) + &quot;' Humidity &quot; + kcontext.getVariable(&quot;humidity&quot;) + &quot;%&quot;);
 // com.iotbpm.server.AgentConnect.getInstance().sendTronIoT(&quot;TronIoT&quot;,&quot;&amp;&quot;);   // temp=&quot;+kcontext.getVariable(&quot;temp&quot;)+&quot;&amp;humidity=&quot;+kcontext.getVariable(&quot;humidity&quot;)+&quot;&amp;&quot;);
-com.iotbpm.iottiles.IoTTiles.getInstance().panel_5Temp(kcontext.getVariable(&quot;temp&quot;)+&quot;' &quot;+kcontext.getVariable(&quot;humidity&quot;)+&quot;%&quot;);
+com.iotbpm.iottiles.IoTTiles.getInstance().panel_5Temp(&quot;Tron IoT Office Temperature&quot;, kcontext.getVariable(&quot;temp&quot;)+&quot;' &quot;+kcontext.getVariable(&quot;humidity&quot;)+&quot;%&quot;);
 </bpmn2:script>
     </bpmn2:scriptTask>
     <bpmn2:sequenceFlow id="SequenceFlow_1" sourceRef="StartEvent_1" targetRef="ScriptTask_1"/>
@@ -72,7 +72,7 @@ com.iotbpm.iottiles.IoTTiles.getInstance().panel_5Temp(kcontext.getVariable(&quo
       <bpmndi:BPMNShape id="BPMNShape_ScriptTask_3" bpmnElement="ScriptTask_2" isExpanded="true">
         <dc:Bounds height="50.0" width="119.0" x="282.0" y="113.0"/>
         <bpmndi:BPMNLabel id="BPMNLabel_4" labelStyle="BPMNLabelStyle_1">
-          <dc:Bounds height="45.0" width="77.0" x="303.0" y="115.0"/>
+          <dc:Bounds height="30.0" width="77.0" x="303.0" y="123.0"/>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_EndEvent_1" bpmnElement="EndEvent_1">

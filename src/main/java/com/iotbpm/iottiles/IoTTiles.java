@@ -94,6 +94,7 @@ public class IoTTiles {
 	private JLabel lblIconLabel_4;
 
 	private JPanel panel_5;
+	private JLabel lblTopLabel_5;
 	private JLabel lblBottomLabel_5;
 	private JLabel lblIconLabel_5;
 
@@ -146,6 +147,7 @@ public class IoTTiles {
 	private JLabel lblIconLabel_17;
 
 	private JPanel panel_18;
+	private JLabel lblTopLabel_18;
 	private JLabel lblBottomLabel_18;
 	private JLabel lblIconLabel_18;
 
@@ -365,7 +367,7 @@ public class IoTTiles {
 		frame.getContentPane().add(panel_5);
 		panel_5.setLayout(new BorderLayout(0, 0));
 
-		JLabel lblTopLabel_5 = new JLabel("Office Temperature");
+		lblTopLabel_5 = new JLabel("Office Temperature");
 		lblTopLabel_5.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblTopLabel_5.setForeground(Color.WHITE);
 		panel_5.add(lblTopLabel_5, BorderLayout.NORTH);
@@ -742,7 +744,7 @@ public class IoTTiles {
 		frame.getContentPane().add(panel_18);
 		panel_18.setLayout(new BorderLayout(0, 0));
 
-		JLabel lblTopLabel_18 = new JLabel("Outside Temperature");
+		lblTopLabel_18 = new JLabel("Outside Temperature");
 		lblTopLabel_18.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblTopLabel_18.setForeground(Color.WHITE);
 		panel_18.add(lblTopLabel_18, BorderLayout.NORTH);
@@ -861,6 +863,11 @@ public class IoTTiles {
 		lblIconLabel_5.setText(temp);
 	}
 
+	public void panel_5Temp(String topLabel, String temp) {
+		lblTopLabel_5.setText(topLabel);
+		panel_5Temp(temp);
+	}
+	
 	// Front Door Locked
 	public void panel_6Clicked(MouseEvent e) {
 		iotEvents.IoTServerEvent("GET /?id=100334&timestamp=0&event=DoorLock");
@@ -1110,6 +1117,11 @@ public class IoTTiles {
 			lblIconLabel_18.setIcon(weather_cloudyIcon);
 		if (iTemp > 70)
 			lblIconLabel_18.setIcon(weather_sunIcon);
+	}
+
+	public void panel_18Temp(String topLabel, String temp) {
+		lblTopLabel_18.setText(topLabel);
+		panel_18Temp(temp);
 	}
 
 	// Device Control

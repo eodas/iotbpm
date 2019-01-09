@@ -133,3 +133,19 @@ rule "processID rule for device ID: 100888 - Arduino Tron IoT Display"
 	then
 		com.iotbpm.model.StateList.getInstance().putState("processID", "com.TronIoTDisplay");
 end
+
+rule "Rules for device ID: 100888 - Arduino Tron IoT Display - Temperature-Humidity"
+ 	no-loop
+    when
+    	// event used to change update Temperature-Humidity
+		$event : ServerEvent( $eventId : id, $eventId == "100888", $temp : temp, $humidity : humidity )
+       	$device : Devices( $deviceId : id, $eventId == id )
+	then
+		$device.action = "Tron IoT";
+		$device.status = "Temp " + $temp; 
+		String results = $event.getName() + " Temp:" + $temp + "  Humidity:" + $humidity;
+		com.iotbpm.ui.MainWindow.getInstance().log(results);
+		modify( $device )
+		update( $device );
+end
+
