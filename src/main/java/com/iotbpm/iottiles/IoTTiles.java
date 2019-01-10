@@ -171,8 +171,7 @@ public class IoTTiles {
 		frame.setResizable(false);
 
 		frame.getContentPane().setBackground(Color.BLACK);
-		frame.setTitle(
-				"Arduino Tron AI-IoTBPM :: IoT Tiles Internet of Things Drools-jBPM using Arduino Tron AI-IoTBPM");
+		frame.setTitle("Arduino Tron AI-IoTBPM :: IoT Tiles Internet of Things Drools-jBPM using Arduino Tron AI-IoTBPM");
 		frame.setBounds(100, 100, 745, 455);
 		frame.setDefaultCloseOperation(exitOnClose ? JFrame.EXIT_ON_CLOSE : WindowConstants.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
@@ -952,7 +951,7 @@ public class IoTTiles {
 	// Lobby Door Open
 	public void panel_9Clicked(MouseEvent e) {
 		JOptionPane.showMessageDialog(null,
-				"The IoT Door Open Sensor jBPM Automation process is triggered by an Arduino Tron event.",
+				"The IoT Door Open Sensor jBPM Automation process is triggered by an Arduino Tron contact switch event.",
 				"IoT Door Sensor", JOptionPane.INFORMATION_MESSAGE);
 	}
 
