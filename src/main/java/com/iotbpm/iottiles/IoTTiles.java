@@ -171,7 +171,8 @@ public class IoTTiles {
 		frame.setResizable(false);
 
 		frame.getContentPane().setBackground(Color.BLACK);
-		frame.setTitle("Arduino Tron AI-IoTBPM :: IoT Tiles Internet of Things Drools-jBPM using Arduino Tron AI-IoTBPM");
+		frame.setTitle(
+				"Arduino Tron AI-IoTBPM :: IoT Tiles Internet of Things Drools-jBPM using Arduino Tron AI-IoTBPM");
 		frame.setBounds(100, 100, 745, 455);
 		frame.setDefaultCloseOperation(exitOnClose ? JFrame.EXIT_ON_CLOSE : WindowConstants.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
@@ -564,6 +565,8 @@ public class IoTTiles {
 		lblIconLabel_11.setIcon(autosIcon);
 
 		panel_12 = new JPanel();
+		panel_12.setToolTipText(
+				"The Arduino Tron IoT is used connect to Office Door Locks, Activate Security Alarms, Turn Office Lights: ON, Control Thermostats, Answer Doorbell, Open Window Shades, Activate Motion Sensors.");
 		panel_12.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -592,6 +595,8 @@ public class IoTTiles {
 		lblIconLabel_12.setIcon(bluetoothIcon);
 
 		panel_13 = new JPanel();
+		panel_13.setToolTipText(
+				"The Arduino Tron IoT Display is a small device that can sit on your desk or be mounted to a wall. It provides situational awareness, alerts and notification messages from your IoT devices.");
 		panel_13.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -620,6 +625,8 @@ public class IoTTiles {
 		lblIconLabel_13.setIcon(phone_openIcon);
 
 		panel_14 = new JPanel();
+		panel_14.setToolTipText(
+				"The Arduino Tron Wireless Alert Sensor provides for audio (door chime) and can be integrated with any wireless security system, driveway alarms, motion sensor, delivery detect alerts, wireless door entry chime, doorbell or panic button alarms.");
 		panel_14.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -732,6 +739,8 @@ public class IoTTiles {
 		lblIconLabel_17.setIcon(web_conciergeIcon);
 
 		panel_18 = new JPanel();
+		panel_14.setToolTipText(
+				"IoT DHT11 Temperature and Humidity WiFi Module Wireless Module ESP-01S sends temperature and humidity environment information to the IoT Tiles Panel and Tron IoT Display.");
 		panel_18.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -799,10 +808,12 @@ public class IoTTiles {
 	public void panel_1Clicked(MouseEvent e) {
 		String alert = com.iotbpm.model.StateList.getInstance().getState("Alert");
 		if (alert.indexOf("Quite") != -1) {
+			com.iotbpm.server.AgentConnect.getInstance().sendTronIoT("TronIoT", "&message=*_Tiles_Alert_Active&");
 			com.iotbpm.model.StateList.getInstance().putState("Alert", "Active");
 			lblBottomLabel_1.setText("Alert Active");
 			lblIconLabel_1.setIcon(textfield_addIcon);
 		} else {
+			com.iotbpm.server.AgentConnect.getInstance().sendTronIoT("TronIoT", "&message=*_Tiles_Quite_Alert_*&");
 			com.iotbpm.model.StateList.getInstance().putState("Alert", "Quite");
 			lblBottomLabel_1.setText("Quite Alert");
 			lblIconLabel_1.setIcon(textfield_deleteIcon);
@@ -813,10 +824,12 @@ public class IoTTiles {
 	public void panel_2Clicked(MouseEvent e) {
 		String mode = com.iotbpm.model.StateList.getInstance().getState("Mode");
 		if (mode.indexOf("Lock") != -1) {
+			com.iotbpm.server.AgentConnect.getInstance().sendTronIoT("TronIoT", "&message=*_Arduino_Tron_Active&");
 			com.iotbpm.model.StateList.getInstance().putState("Mode", "Active");
 			lblBottomLabel_2.setText("Active");
 			lblIconLabel_2.setIcon(computerIcon);
 		} else {
+			com.iotbpm.server.AgentConnect.getInstance().sendTronIoT("TronIoT", "&message=*_Arduino_Tron_Lock_*&");
 			com.iotbpm.model.StateList.getInstance().putState("Mode", "Lock");
 			lblBottomLabel_2.setText("Lock");
 			lblIconLabel_2.setIcon(computer_keyIcon);
@@ -827,10 +840,12 @@ public class IoTTiles {
 	public void panel_3Clicked(MouseEvent e) {
 		String personal = com.iotbpm.model.StateList.getInstance().getState("Personal");
 		if (personal.indexOf("Occupied") != -1) {
+			com.iotbpm.server.AgentConnect.getInstance().sendTronIoT("TronIoT", "&message=*_Employee_Present_*&");
 			com.iotbpm.model.StateList.getInstance().putState("Personal", "Present");
 			lblBottomLabel_3.setText("Present");
 			lblIconLabel_3.setIcon(personalIcon);
 		} else {
+			com.iotbpm.server.AgentConnect.getInstance().sendTronIoT("TronIoT", "&message=*_Employee_Occupied&");
 			com.iotbpm.model.StateList.getInstance().putState("Personal", "Occupied");
 			lblBottomLabel_3.setText("Occupied");
 			lblIconLabel_3.setIcon(personal2Icon);
@@ -841,10 +856,12 @@ public class IoTTiles {
 	public void panel_4Clicked(MouseEvent e) {
 		String office = com.iotbpm.model.StateList.getInstance().getState("Office");
 		if (office.indexOf("Night") != -1) {
+			com.iotbpm.server.AgentConnect.getInstance().sendTronIoT("TronIoT", "&message=*_Office_Day_Mode_*&");
 			com.iotbpm.model.StateList.getInstance().putState("Office", "Day");
 			lblBottomLabel_4.setText("Office Day");
 			lblIconLabel_4.setIcon(time_addIcon);
 		} else {
+			com.iotbpm.server.AgentConnect.getInstance().sendTronIoT("TronIoT", "&message=*_Office_Night_Mode_*&");
 			com.iotbpm.model.StateList.getInstance().putState("Office", "Night");
 			lblBottomLabel_4.setText("Office Night");
 			lblIconLabel_4.setIcon(time_deleteIcon);
@@ -866,7 +883,7 @@ public class IoTTiles {
 		lblTopLabel_5.setText(topLabel);
 		panel_5Temp(temp);
 	}
-	
+
 	// Front Door Locked
 	public void panel_6Clicked(MouseEvent e) {
 		iotEvents.IoTServerEvent("GET /?id=100334&timestamp=0&event=DoorLock");
@@ -1029,7 +1046,7 @@ public class IoTTiles {
 
 	// Tron IoT Message
 	public void panel_13Clicked(MouseEvent e) {
-		com.iotbpm.server.AgentConnect.getInstance().sendTronIoT("TronIoT", "&message=*_Message_IoT_Tiles_*&");
+		com.iotbpm.server.AgentConnect.getInstance().sendTronIoT("TronIoT", "&message=*_IoT_Tiles_Message_*&");
 	}
 
 	// DoorOpen, Chime-Tron IoT
@@ -1100,7 +1117,7 @@ public class IoTTiles {
 	// Outside Temperature
 	public void panel_18Clicked(MouseEvent e) {
 		JOptionPane.showMessageDialog(null,
-				"The IoT DHT11 WiFi wireless module sends temperature and humidity environment information to IoT Tiles and Tron IoT Display.",
+				"The IoT DHT11 WiFi wireless module sends temperature and humidity environment information to the IoT Tiles Panel and Tron IoT Display.",
 				"IoT DHT11 Temperature and Humidity WiFi Module Wireless Module ESP-01S",
 				JOptionPane.INFORMATION_MESSAGE);
 	}

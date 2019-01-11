@@ -94,10 +94,12 @@ public class ScrollingBanner extends JComponent implements Runnable {
 
 	private int drawString(Graphics g, final int y, int width, ServerEvent event, String toDraw) {
 		int size = g.getFontMetrics().stringWidth(toDraw);
-		if (event.getEvent().equals(event_CONST)) {
-			g.setColor(Color.red);
-		} else {
-			g.setColor(Color.green);
+		if (event.getEvent() != null && !event.getEvent().isEmpty()) {
+			if (event.getEvent().equals(event_CONST)) {
+				g.setColor(Color.red);
+			} else {
+				g.setColor(Color.green);
+			}
 		}
 		g.drawString(toDraw, width, y);
 		return size;
