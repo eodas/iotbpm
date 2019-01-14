@@ -229,19 +229,14 @@ public class jBPMRules {
 				droolsProcessID = true;
 			}
 
-//			if (processID.equals("com.IoTAutomation")) {
-//				System.out.println("> SKIP> " + processID);
-//			} else {
-
-				// go! - start jBPM processID
-				if (processID != null && !processID.isEmpty()) {
-					// Start the process with knowledge session
-					instance = kSession.startProcess(processID, params);
-				}
-				if (instance.getState() != 2) {
-					System.out.println(">>" + instance.getState());
-				}
-//			}
+			// go! - start jBPM processID
+			if (processID != null && !processID.isEmpty()) {
+				// Start the process with knowledge session
+				instance = kSession.startProcess(processID, params);
+			}
+			if (instance.getState() != 2) {
+				System.out.println(">>" + instance.getState());
+			}
 
 			if (droolsProcessID) {
 				stateList.delState("processID");
