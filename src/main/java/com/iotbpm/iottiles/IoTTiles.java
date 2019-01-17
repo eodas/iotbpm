@@ -655,6 +655,8 @@ public class IoTTiles {
 		lblIconLabel_14.setIcon(notification_bellIcon);
 
 		panel_15 = new JPanel();
+		panel_15.setToolTipText(
+				"The Arduino Tron IoT Dash Button is a programmable button based on the Arduino Tron WiFi Dash Button alert and can be configured in Arduino Tron AI-IoTBPM Drools-jBPM Server IoT cloud services.");
 		panel_15.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -739,7 +741,7 @@ public class IoTTiles {
 		lblIconLabel_17.setIcon(web_conciergeIcon);
 
 		panel_18 = new JPanel();
-		panel_14.setToolTipText(
+		panel_18.setToolTipText(
 				"IoT DHT11 Temperature and Humidity WiFi Module Wireless Module ESP-01S sends temperature and humidity environment information to the IoT Tiles Panel and Tron IoT Display.");
 		panel_18.addMouseListener(new MouseAdapter() {
 			@Override
