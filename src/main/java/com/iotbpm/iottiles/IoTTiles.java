@@ -685,6 +685,8 @@ public class IoTTiles {
 		lblIconLabel_15.setIcon(web_conciergeIcon);
 
 		panel_16 = new JPanel();
+		panel_16.setToolTipText(
+				"This is the default IoT Sensors jBPM Automation extended process. Use Drools Rules to start a specific IoT jBPM Automation process for this IoT sensor event.");
 		panel_16.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -713,6 +715,8 @@ public class IoTTiles {
 		lblIconLabel_16.setIcon(emblem_systemIcon);
 
 		panel_17 = new JPanel();
+		panel_17.setToolTipText(
+				"The Arduino Tron IoT Dash Button is a programmable button based on the Arduino Tron WiFi Dash Button alert and can be configured in Arduino Tron AI-IoTBPM Drools-jBPM Server IoT cloud services.");
 		panel_17.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -772,6 +776,8 @@ public class IoTTiles {
 		lblIconLabel_18.setIcon(weather_sunIcon);
 
 		panel_19 = new JPanel();
+		panel_19.setToolTipText(
+				"The Arduino Tron Web Server is a cloud-connected complete SoC System on a Chip architecture that integrates all components of a computer.");
 		panel_19.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
