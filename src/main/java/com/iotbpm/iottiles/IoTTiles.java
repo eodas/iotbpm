@@ -1062,7 +1062,7 @@ public class IoTTiles {
 
 	// Tron IoT Message
 	public void panel_13Clicked(MouseEvent e) {
-		com.iotbpm.server.AgentConnect.getInstance().sendTronIoT("TronIoT", "&message=*_IoT_Tiles_Message_*&");
+		com.iotbpm.server.AgentConnect.getInstance().sendTronIoT("TronIoT", "&message=*_IoT_Tiles_Message_*^^^^^^^^^^^^^^^^^^^^^&");
 	}
 
 	// DoorOpen, Chime-Tron IoT
