@@ -6,10 +6,9 @@
   - Copyright © 1978, 2019: Executive Order Corporation, All Rights Reserved
 ********************/
 
-// VOX for Serial MP3 Player Catalex (YX5300 chip)
+// VOX for Serial MP3 Player (YX5300 chip)
 // Hardware: Serial MP3 Player *1
-// Board:  Arduino UNO
-// http://www.dx.com/p/uart-control-serial-mp3-music-player-module-for-arduino-avr-arm-pic-blue-silver-342439#.VfHyobPh5z0
+// Board: Arduino MP3 YX5300 Player
 
 // Load Wi-Fi library
 #include <ESP8266WiFi.h>
