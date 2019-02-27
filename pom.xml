@@ -9,8 +9,8 @@
 	<artifactId>IoTBPM</artifactId>
 	<version>1.0.1-SNAPSHOT</version>
 
-	<name>Arduino Tron AI–IoTBPM :: Internet of Things Drools-jBPM Expert System using EOSpy Arduino Tron AI-IoTBPMBPM</name>
-	<description>Arduino Tron AI-IoTBPMBPM :: AI-IoTBPMBPM Application using the jBPM and Drools Rules Engine for EOSpy Arduino Tron and AI-IoTBPMBPM Executive Order Corp</description>
+	<name>Arduino Tron AI–IoTBPM :: Internet of Things Drools-jBPM Expert System using EOSpy Arduino Tron AI-IoTBPM</name>
+	<description>Arduino Tron AI-IoTBPM :: AI-IoTBPM Application using the jBPM and Drools Rules Engine for EOSpy Arduino Tron and AI-IoTBPM Executive Order Corp</description>
 
 	<properties>
 		<runtime.version>7.16.0.Final</runtime.version>

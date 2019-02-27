@@ -95,7 +95,7 @@ public class AgentConnect {
 			con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
 			con.setRequestProperty("Content-Type", "application/json");
 
-			String postJsonData = "AI-IoTBPMbpm";
+			String postJsonData = "AI-IoTBPM";
 
 			// Send post request
 			con.setDoOutput(true);
