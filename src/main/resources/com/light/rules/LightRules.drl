@@ -2,14 +2,14 @@ package com.Light
 
 // list import classes
 import com.iotbpm.model.Devices;
-import com.iotbpm.model.ServerEvent;
+import com.iotbpm.model.DeviceEvent;
 
 // default dialect for the semantic code will be MVEL
 dialect "mvel"
 
 rule "event=allEvents Rule"
     when
-        $event : ServerEvent( $eventId : id, event == "allEvents" )
+        $event : DeviceEvent( $eventId : id, event == "allEvents" )
       	$device : Devices( $deviceId : id,  $eventId == id )
     then
 		$device.action = "allEvents"; 
@@ -20,7 +20,7 @@ end
 
 rule "keypress1.0 Rule"
     when
-        $event : ServerEvent( $eventId : id, event == "keypress1.0" )
+        $event : DeviceEvent( $eventId : id, event == "keypress1.0" )
       	$device : Devices( $deviceId : id,  $eventId == id )
     then
 		$device.action = "keypress1.0"; 
@@ -31,7 +31,7 @@ end
 
 rule "keypress2.0 Rule"
     when
-        $event : ServerEvent( $eventId : id, event == "keypress2.0" )
+        $event : DeviceEvent( $eventId : id, event == "keypress2.0" )
       	$device : Devices( $deviceId : id,  $eventId == id )
     then
 		$device.action = "keypress2.0"; 
@@ -42,7 +42,7 @@ end
 
 rule "keypress4.0 reedRelay"
     when
-        $event : ServerEvent( $eventId : id, event == "keypress4.0")
+        $event : DeviceEvent( $eventId : id, event == "keypress4.0")
       	$device : Devices( $deviceId : id,  $eventId == id )
     then
 		$device.action = "reedRelay"; 
@@ -53,7 +53,7 @@ end
 
 rule "keypress8.0 proximity"
     when
-        $event : ServerEvent( $eventId : id, event == "keypress8.0") 
+        $event : DeviceEvent( $eventId : id, event == "keypress8.0") 
       	$device : Devices( $deviceId : id,  $eventId == id )
     then
 		$device.action = "proximity"; 
@@ -66,7 +66,7 @@ end
 rule "Rule for device ID: 100111"
 	ruleflow-group "Light Rule Flow"
 	when
-		$event : ServerEvent( $eventId : id, $eventId == "100111" )
+		$event : DeviceEvent( $eventId : id, $eventId == "100111" )
 	then
 		com.iotbpm.ui.MainWindow.getInstance().log("ruleflow-group device ID: 100111 " + $event.getName() + " - " + $event.getEvent());
 end
@@ -74,7 +74,7 @@ end
 rule "Rule for device ID: 100222"
 	ruleflow-group "Light Rule Flow"
 	when
-		$event : ServerEvent( $eventId : id, $eventId == "100222" )
+		$event : DeviceEvent( $eventId : id, $eventId == "100222" )
 	then
 		com.iotbpm.ui.MainWindow.getInstance().log("ruleflow-group device ID: 100222 " + $event.getName() + " - " + $event.getEvent());
 end

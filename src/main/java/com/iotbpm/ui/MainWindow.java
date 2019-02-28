@@ -8,7 +8,7 @@ import java.util.Properties;
 
 import com.iotbpm.bpmrules.IoTBPM;
 import com.iotbpm.model.Devices;
-import com.iotbpm.model.ServerEvent;
+import com.iotbpm.model.DeviceEvent;
 import com.iotbpm.util.WebBrowser;
 
 import javax.swing.JFrame;
@@ -271,7 +271,7 @@ public class MainWindow {
 		this.logPanel.log(message);
 	}
 
-	public void updateEvent(ServerEvent event) {
+	public void updateEvent(DeviceEvent event) {
 		this.banner.addEvent(event);
 	}
 }

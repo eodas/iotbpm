@@ -9,9 +9,9 @@ import org.slf4j.LoggerFactory;
 /**
  * An event informing of a state change due to some operation
  */
-public class ServerEvent {
+public class DeviceEvent {
 
-	private final Logger logger = LoggerFactory.getLogger(ServerEvent.class);
+	private final Logger logger = LoggerFactory.getLogger(DeviceEvent.class);
 
 	public Map<String, String> map = new HashMap<>();
 
@@ -58,7 +58,7 @@ public class ServerEvent {
 	public double agentCount;
 	public boolean motion;
 
-	public ServerEvent() {
+	public DeviceEvent() {
 	}
 
 	public void add(String key, String value) {

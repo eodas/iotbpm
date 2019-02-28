@@ -2,7 +2,7 @@ package com.movement
 
 // list import classes
 import com.iotbpm.model.Devices;
-import com.iotbpm.model.ServerEvent;
+import com.iotbpm.model.DeviceEvent;
 
 // default dialect for the semantic code will be MVEL
 dialect "mvel"
@@ -11,7 +11,7 @@ rule "Move-Stop Train Motion Rule"
  	no-loop
     when
     	// event keypress1.0 used to change state Move/Stop
-		$event : ServerEvent( $eventId : id, (event == "keypress1.0" || event == "keypress2.0") )
+		$event : DeviceEvent( $eventId : id, (event == "keypress1.0" || event == "keypress2.0") )
       	$device : Devices( $deviceId : id,  $eventId == id )
     then
 		String result = ($device.status == "Move") ? "Stop" : "Move";
@@ -46,7 +46,7 @@ end
 //declare rule to fire when Device in Motion
 rule "Device in Motion Rule"
     when
-        $event : ServerEvent( $eventId : id, $motion : motion, $motion == true )
+        $event : DeviceEvent( $eventId : id, $motion : motion, $motion == true )
       	$device : Devices( $deviceId : id,  $eventId == id )
     then
 		com.iotbpm.ui.MainWindow.getInstance().log("<Device " + $device.getName() + " in Motion>");

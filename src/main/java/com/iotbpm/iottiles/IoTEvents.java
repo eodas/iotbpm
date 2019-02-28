@@ -2,7 +2,7 @@ package com.iotbpm.iottiles;
 
 import java.util.regex.Pattern;
 import com.iotbpm.bpmrules.jBPMRules;
-import com.iotbpm.model.ServerEvent;
+import com.iotbpm.model.DeviceEvent;
 
 public class IoTEvents {
 	jBPMRules jbpmRules;
@@ -11,10 +11,10 @@ public class IoTEvents {
 		this.jbpmRules = jbpmRules;
 	}
 
-	public void IoTServerEvent(String request) {
+	public void IoTDeviceEvent(String request) {
 		System.out.println("> EVENT " + request);
 
-		ServerEvent serverEvent = new ServerEvent();
+		DeviceEvent deviceEvent = new DeviceEvent();
 		String[] req = Pattern.compile(" ").split(request);
 
 		if (req[0].equals("GET")) {
@@ -26,7 +26,7 @@ public class IoTEvents {
 				try {
 					String key = token.substring(0, token.indexOf('='));
 					String value = token.substring(token.indexOf('=') + 1);
-					serverEvent.add(key, value);
+					deviceEvent.add(key, value);
 
 				} catch (IndexOutOfBoundsException e) {
 					System.err.println("Error: Unexpected exception caught: " + e.getMessage());
@@ -34,7 +34,7 @@ public class IoTEvents {
 				}
 			}
 			String response = "";
-			response = jbpmRules.receive(serverEvent);
+			response = jbpmRules.receive(deviceEvent);
 			if ((response != null) && (response.length() > 0)) {
 				System.out.println("> RESPONSE " + response);
 			}

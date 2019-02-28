@@ -11,7 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.iotbpm.bpmrules.jBPMRules;
-import com.iotbpm.model.ServerEvent;
+import com.iotbpm.model.DeviceEvent;
 
 public class IoTServerThread extends Thread {
 	jBPMRules jbpmRules;
@@ -54,7 +54,7 @@ public class IoTServerThread extends Thread {
 					}
 				}
 
-				ServerEvent serverEvent = new ServerEvent();
+				DeviceEvent deviceEvent = new DeviceEvent();
 				String[] req = Pattern.compile(" ").split(request);
 
 				if (req[0].equals("GET")) {
@@ -66,14 +66,14 @@ public class IoTServerThread extends Thread {
 						try {
 							String key = token.substring(0, token.indexOf('='));
 							String value = token.substring(token.indexOf('=') + 1);
-							serverEvent.add(key, value);
+							deviceEvent.add(key, value);
 
 						} catch (IndexOutOfBoundsException e) {
 							System.err.println("Error: Unexpected exception caught: " + e.getMessage());
 							e.printStackTrace();
 						}
 					}
-					response = jbpmRules.receive(serverEvent);
+					response = jbpmRules.receive(deviceEvent);
 					if ((response != null) && (response.length() > 0)) {
 						out.println(response);
 						System.out.println("> TRACE RSP " + response);

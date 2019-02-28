@@ -14,7 +14,7 @@ import javax.swing.JTextField;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.iotbpm.model.ServerEvent;
+import com.iotbpm.model.DeviceEvent;
 
 /**
  * A simple component to show the incoming alert events
@@ -24,10 +24,10 @@ public class ScrollingBanner extends JComponent implements Runnable {
 	private static final long serialVersionUID = 510l;
 	private static final long SPACE = 10;
 
-	private Queue<ServerEvent> events;
+	private Queue<DeviceEvent> events;
 	private volatile boolean shutdown = false;
 	private AtomicInteger headOffset = new AtomicInteger(0);
-	private ServerEvent headEvent = null;
+	private DeviceEvent headEvent = null;
 
 	private String event_CONST = "keypress2.0";
 
@@ -35,7 +35,7 @@ public class ScrollingBanner extends JComponent implements Runnable {
 
 	public ScrollingBanner() {
 		super();
-		events = new ConcurrentLinkedQueue<ServerEvent>();
+		events = new ConcurrentLinkedQueue<DeviceEvent>();
 		setBackground(Color.BLACK);
 		setForeground(Color.GREEN);
 		setFont(new JTextField().getFont().deriveFont(Font.BOLD));
@@ -59,7 +59,7 @@ public class ScrollingBanner extends JComponent implements Runnable {
 		shutdown = true;
 	}
 
-	public void addEvent(ServerEvent event) {
+	public void addEvent(DeviceEvent event) {
 		events.add(event);
 	}
 
@@ -80,7 +80,7 @@ public class ScrollingBanner extends JComponent implements Runnable {
 			String toDraw = headEvent.toString().substring(headOffset.get());
 			width += SPACE + drawString(g, y, width, headEvent, toDraw);
 		}
-		for (ServerEvent event : events) {
+		for (DeviceEvent event : events) {
 			String toDraw = event.toString();
 			width += SPACE + drawString(g, y, width, event, toDraw);
 			if (width > dim.width) {
@@ -92,7 +92,7 @@ public class ScrollingBanner extends JComponent implements Runnable {
 		}
 	}
 
-	private int drawString(Graphics g, final int y, int width, ServerEvent event, String toDraw) {
+	private int drawString(Graphics g, final int y, int width, DeviceEvent event, String toDraw) {
 		int size = g.getFontMetrics().stringWidth(toDraw);
 		if (event.getEvent() != null && !event.getEvent().isEmpty()) {
 			if (event.getEvent().equals(event_CONST)) {

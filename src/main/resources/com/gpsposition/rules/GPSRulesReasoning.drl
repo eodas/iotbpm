@@ -2,14 +2,14 @@ package com.device
 
 // list import classes
 import com.iotbpm.model.Devices;
-import com.iotbpm.model.ServerEvent;
+import com.iotbpm.model.DeviceEvent;
 
 // default dialect for the semantic code will be MVEL
 dialect "mvel"
 
 rule "GPS Device Distance"
 	when
-        $event : ServerEvent( $eventId : id, $lat : lat, $lon : lon, $altitude : altitude, $distance : distance, $totalDistance : totalDistance )
+        $event : DeviceEvent( $eventId : id, $lat : lat, $lon : lon, $altitude : altitude, $distance : distance, $totalDistance : totalDistance )
       	$device : Devices( $deviceId : id,  $eventId == id )
 	then
 		$device.action = "GPS";
@@ -21,7 +21,7 @@ end
 //declare rule to fire when Device speed is over 60
 rule "GPS Device Speed Alert"
 	when
-        $event : ServerEvent( $eventId : id, $lat : lat, $lon : lon, $altitude : altitude, $speed : speed, $speed > "60" )
+        $event : DeviceEvent( $eventId : id, $lat : lat, $lon : lon, $altitude : altitude, $speed : speed, $speed > "60" )
       	$device : Devices( $deviceId : id,  $eventId == id )
 	then
 		$device.action = "Alert";
@@ -32,7 +32,7 @@ end
 
 rule "GPS Device Fix Information"
 	when
-        $event : ServerEvent( $eventId : id, $serverTime : serverTime, $deviceTime : deviceTime, $fixTime : fixTime, $outdated : outdated, $valid : valid ) 
+        $event : DeviceEvent( $eventId : id, $serverTime : serverTime, $deviceTime : deviceTime, $fixTime : fixTime, $outdated : outdated, $valid : valid ) 
       	$device : Devices( $deviceId : id,  $eventId == id )
 	then
 		com.iotbpm.ui.MainWindow.getInstance().log($event.getName() + " GPS Fix on " + $fixTime);
@@ -40,7 +40,7 @@ end
 
 rule "GPS Device Address Location"
 	when
-        $event : ServerEvent( $eventId : id, $address : address, $address != "null" )
+        $event : DeviceEvent( $eventId : id, $address : address, $address != "null" )
       	$device : Devices( $deviceId : id,  $eventId == id )
 	then
 		com.iotbpm.ui.MainWindow.getInstance().log($event.getName() + " location " + $address);
@@ -48,7 +48,7 @@ end
 
 rule "GPS Device Sent Text Message"
 	when
-        $event : ServerEvent( $eventId : id, $textMessage : textMessage, $textMessage != null )
+        $event : DeviceEvent( $eventId : id, $textMessage : textMessage, $textMessage != null )
       	$device : Devices( $deviceId : id,  $eventId == id )
 	then
 		com.iotbpm.ui.MainWindow.getInstance().log($event.getName() + " Text Message: " + $textMessage);
@@ -56,7 +56,7 @@ end
 
 rule "GPS Device Sent Alarm"
 	when
-        $event : ServerEvent( $eventId : id, $alarm : alarm, $alarm != null )
+        $event : DeviceEvent( $eventId : id, $alarm : alarm, $alarm != null )
       	$device : Devices( $deviceId : id,  $eventId == id )
 	then
 		com.iotbpm.ui.MainWindow.getInstance().log($event.getName() + " Sent Alarm: " + $alarm);
@@ -65,7 +65,7 @@ end
 //declare rule to fire when Device in Motion
 rule "GPS Device is in Motion"
     when
-        $event : ServerEvent( $eventId : id, $motion : motion, $motion == true )
+        $event : DeviceEvent( $eventId : id, $motion : motion, $motion == true )
       	$device : Devices( $deviceId : id,  $eventId == id )
     then
 		com.iotbpm.ui.MainWindow.getInstance().log("GPS Device " + $device.getName() + " in Motion");

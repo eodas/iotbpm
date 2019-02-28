@@ -2,14 +2,14 @@ package com.device
 
 // list import classes
 import com.iotbpm.model.Devices;
-import com.iotbpm.model.ServerEvent;
+import com.iotbpm.model.DeviceEvent;
 
 // default dialect for the semantic code will be MVEL
 dialect "mvel"
 
 rule "Device Gyroscope Readings"
 	when
-        $event : ServerEvent( $eventId : id, $accel_x : accel_x, $accel_y : accel_y, $accel_z : accel_z, $gyro_x : gyro_x, $gyro_y : gyro_y, $gyro_z : gyro_z, $magnet_x : magnet_x, $magnet_y : magnet_y, $magnet_z : magnet_z )
+        $event : DeviceEvent( $eventId : id, $accel_x : accel_x, $accel_y : accel_y, $accel_z : accel_z, $gyro_x : gyro_x, $gyro_y : gyro_y, $gyro_z : gyro_z, $magnet_x : magnet_x, $magnet_y : magnet_y, $magnet_z : magnet_z )
       	$device : Devices( $deviceId : id,  $eventId == id )
 	then
 		$device.action = $event.getEvent(); 
@@ -19,7 +19,7 @@ end
 
 rule "Device Gyroscope Positive zBias"
 	when
-        $event : ServerEvent( $eventId : id, $magnet_z : magnet_z, $magnet_z > 0 )
+        $event : DeviceEvent( $eventId : id, $magnet_z : magnet_z, $magnet_z > 0 )
       	$device : Devices( $deviceId : id,  $eventId == id )
 	then
 		$device.action = $event.getEvent(); 
@@ -29,7 +29,7 @@ end
 
 rule "Device Gyroscope Negative zBias"
 	when
-        $event : ServerEvent( $eventId : id, $magnet_z : magnet_z, $magnet_z < 0 )
+        $event : DeviceEvent( $eventId : id, $magnet_z : magnet_z, $magnet_z < 0 )
       	$device : Devices( $deviceId : id,  $eventId == id )
 	then
 		$device.action = $event.getEvent(); 
@@ -39,7 +39,7 @@ end
 
 rule "Device Address Location"
 	when
-        $event : ServerEvent( $eventId : id, $address : address, $address != "null" )
+        $event : DeviceEvent( $eventId : id, $address : address, $address != "null" )
       	$device : Devices( $deviceId : id,  $eventId == id )
 	then
 		com.iotbpm.ui.MainWindow.getInstance().log($event.getName() + " location " + $address);
@@ -47,7 +47,7 @@ end
 
 rule "Device is in Motion"
 	when
-        $event : ServerEvent( $eventId : id, $gyro_x : gyro_x, $gyro_y : gyro_y, $gyro_z : gyro_z, gyro_x > 0, gyro_y > 0, gyro_z > 0 )
+        $event : DeviceEvent( $eventId : id, $gyro_x : gyro_x, $gyro_y : gyro_y, $gyro_z : gyro_z, gyro_x > 0, gyro_y > 0, gyro_z > 0 )
       	$device : Devices( $deviceId : id,  $eventId == id )
 	then
 		com.iotbpm.ui.MainWindow.getInstance().log("Device " + $device.getName() + " in Motion");

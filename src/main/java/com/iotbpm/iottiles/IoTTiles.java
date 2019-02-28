@@ -902,7 +902,7 @@ public class IoTTiles {
 
 	// Front Door Locked
 	public void panel_6Clicked(MouseEvent e) {
-		iotEvents.IoTServerEvent("GET /?id=100334&timestamp=0&event=DoorLock");
+		iotEvents.IoTDeviceEvent("GET /?id=100334&timestamp=0&event=DoorLock");
 	}
 
 	public void panel_6DoorLocked() {
@@ -966,7 +966,7 @@ public class IoTTiles {
 
 	// Lobby Door Locked
 	public void panel_8Clicked(MouseEvent e) {
-		iotEvents.IoTServerEvent("GET /?id=100333&timestamp=0&event=DoorLobby");
+		iotEvents.IoTDeviceEvent("GET /?id=100333&timestamp=0&event=DoorLobby");
 	}
 
 	public void panel_8DoorLocked() {
@@ -1030,7 +1030,7 @@ public class IoTTiles {
 
 	// Lobby Light
 	public void panel_10Clicked(MouseEvent e) {
-		iotEvents.IoTServerEvent("GET /?id=100777&keypress=1.0&event=LightModule");
+		iotEvents.IoTDeviceEvent("GET /?id=100777&keypress=1.0&event=LightModule");
 	}
 
 	public void panel_10LightOn() {
@@ -1127,7 +1127,7 @@ public class IoTTiles {
 
 	// Dash Button
 	public void panel_17Clicked(MouseEvent e) {
-		iotEvents.IoTServerEvent("GET /?id=100555&agentCount=0&alarm=IoTTiles&keypress=1.0");
+		iotEvents.IoTDeviceEvent("GET /?id=100555&agentCount=0&alarm=IoTTiles&keypress=1.0");
 	}
 
 	// Outside Temperature
