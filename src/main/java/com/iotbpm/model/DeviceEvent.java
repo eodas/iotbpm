@@ -425,13 +425,13 @@ public class DeviceEvent {
 			setProtocol(value);
 			break;
 		case "servertime":
-  			setServerTime(parseDate(value));
+			setServerTime(parseDate(value));
 			break;
 		case "timestamp":
-  			setDeviceTime(parseDate(value));
+			setDeviceTime(parseDate(value));
 			break;
 		case "fixtime":
-  			setFixTime(parseDate(value));
+			setFixTime(parseDate(value));
 			break;
 		case "outdated":
 			setOutdated(Boolean.parseBoolean(value));
@@ -540,10 +540,10 @@ public class DeviceEvent {
 
 	private String parseDate(String date) {
 		long ldate = Long.parseLong(date);
-		String sdate = new java.text.SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(new java.util.Date (ldate*1000));
+		String sdate = new java.text.SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(new java.util.Date(ldate * 1000));
 		return sdate;
 	}
-	
+
 	@Override
 	public String toString() {
 		String s = name + " - " + event;

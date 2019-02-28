@@ -74,7 +74,7 @@ public class IoTServer extends Thread {
 	public synchronized int getTotalConnection() {
 		return totalConnections;
 	}
-	
+
 	public void killServer() {
 		alive = false;
 		System.out.println("Arduino Tron Drools-jBPM AI-IoTBPM Server, Stopped");
