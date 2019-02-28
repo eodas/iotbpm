@@ -11,6 +11,7 @@ import com.iotbpm.bpmrules.jBPMRules;
 
 public class IoTServer extends Thread {
 	private int currrentConnections = 0;
+	private int totalConnections = 0; // Total number of connection
 	private int maxConnections = 30;
 
 	private int port;
@@ -37,9 +38,9 @@ public class IoTServer extends Thread {
 					"Error: Port " + port + " is already in use.\n" + "Please select another port for IoT Server.");
 		}
 		while (alive) {
-			if (getConnection() >= maxConnections) {
+			if (getCurrentConnection() >= maxConnections) {
 				System.err.println("Error: Too many connections...");
-				while (getConnection() >= maxConnections)
+				while (getCurrentConnection() >= maxConnections)
 					try {
 						Thread.sleep(50L);
 					} catch (Exception localException1) {
@@ -59,16 +60,21 @@ public class IoTServer extends Thread {
 
 	public synchronized void incConnection() {
 		currrentConnections += 1;
+		totalConnections += 1;
 	}
 
 	public synchronized void decConnection() {
 		currrentConnections -= 1;
 	}
 
-	public synchronized int getConnection() {
+	public synchronized int getCurrentConnection() {
 		return currrentConnections;
 	}
 
+	public synchronized int getTotalConnection() {
+		return totalConnections;
+	}
+	
 	public void killServer() {
 		alive = false;
 		System.out.println("Arduino Tron Drools-jBPM AI-IoTBPM Server, Stopped");
