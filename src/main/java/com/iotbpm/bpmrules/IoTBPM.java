@@ -177,7 +177,7 @@ public class IoTBPM {
 				if (key.indexOf("processID") != -1) {
 					processID = value;
 				}
-				if (key.indexOf("arduinoAgent") != -1) {
+				if (key.indexOf("agentDevice") != -1) {
 					agentsList.parseAgents(value);
 				}
 				if (key.indexOf("iotTilesWindow") != -1) {

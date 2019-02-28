@@ -153,6 +153,6 @@ public class AgentConnect {
 
 	public void agentNotDefined(String agentName) {
 		System.err.println("Error: Send Arduino Command " + agentName
-				+ " in arduinoAgent=[AgentName,http://10.0.0.2,...] defined in iotbpm.properties file.");
+				+ " in agentDevice=[AgentName,http://10.0.0.2,...] defined in iotbpm.properties file.");
 	}
 }
