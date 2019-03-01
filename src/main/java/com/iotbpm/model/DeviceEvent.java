@@ -15,10 +15,10 @@ public class DeviceEvent {
 
 	public Map<String, String> map = new HashMap<>();
 
-	public String name;
-
 	public String id;
+	public String name;
 	public String event;
+	public String session;
 	public String protocol;
 	public String serverTime;
 	public String deviceTime;
@@ -90,14 +90,6 @@ public class DeviceEvent {
 		System.out.println();
 	}
 
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
 	public String getId() {
 		return id;
 	}
@@ -106,12 +98,28 @@ public class DeviceEvent {
 		this.id = id;
 	}
 
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
 	public String getEvent() {
 		return event;
 	}
 
 	public void setEvent(String event) {
 		this.event = event;
+	}
+
+	public String getSession() {
+		return session;
+	}
+
+	public void setSession(String session) {
+		this.session = session;
 	}
 
 	public String getProtocol() {
@@ -420,6 +428,9 @@ public class DeviceEvent {
 			break;
 		case "event":
 			setEvent(value);
+			break;
+		case "session":
+			setSession(value);
 			break;
 		case "protocol":
 			setProtocol(value);
