@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.InputStreamReader;
-import java.time.LocalDateTime;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -129,26 +128,6 @@ public class AgentConnect {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	}
-
-	// HTTP Post for Tron IoT Display request
-	public void sendTronIoT(String agentName, String command) {
-		LocalDateTime now = LocalDateTime.now();
-		int month = now.getMonthValue();
-		int day = now.getDayOfMonth();
-		int year = now.getYear();
-		int wday = now.getDayOfWeek().getValue();
-
-		int hour = now.getHour();
-		int minute = now.getMinute();
-		int second = now.getSecond();
-
-		String Tron = "/&datetime=" + (month < 10 ? "0" + Integer.toString(month) : Integer.toString(month)) + "-"
-				+ (day < 10 ? "0" + Integer.toString(day) : Integer.toString(day)) + "-" + year + "_" + wday + "_"
-				+ (hour < 10 ? "0" + Integer.toString(hour) : Integer.toString(hour)) + ":"
-				+ (minute < 10 ? "0" + Integer.toString(minute) : Integer.toString(minute)) + ":"
-				+ (second < 10 ? "0" + Integer.toString(second) : Integer.toString(second)) + command;
-		sendPost(agentName, Tron);
 	}
 
 	public void agentNotDefined(String agentName) {

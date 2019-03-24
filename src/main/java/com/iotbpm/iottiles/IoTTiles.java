@@ -816,13 +816,13 @@ public class IoTTiles {
 	public void panel_1Clicked(MouseEvent e) {
 		String alert = com.iotbpm.model.StateList.getInstance().getState("Alert");
 		if (alert.indexOf("Quite") != -1) {
-			com.iotbpm.server.AgentConnect.getInstance().sendTronIoT("TronIoT",
+			com.iotbpm.server.AgentConnect.getInstance().sendPost("TronIoT",
 					"&message=*_Tiles_Alert_Active*^^^^^^^^^^^^^^^^^^^^^&");
 			com.iotbpm.model.StateList.getInstance().putState("Alert", "Active");
 			lblBottomLabel_1.setText("Alert Active");
 			lblIconLabel_1.setIcon(textfield_addIcon);
 		} else {
-			com.iotbpm.server.AgentConnect.getInstance().sendTronIoT("TronIoT",
+			com.iotbpm.server.AgentConnect.getInstance().sendPost("TronIoT",
 					"&message=*_Tiles_Quite_Alert_*^^^^^^^^^^^^^^^^^^^^^&");
 			com.iotbpm.model.StateList.getInstance().putState("Alert", "Quite");
 			lblBottomLabel_1.setText("Quite Alert");
@@ -834,13 +834,13 @@ public class IoTTiles {
 	public void panel_2Clicked(MouseEvent e) {
 		String mode = com.iotbpm.model.StateList.getInstance().getState("Mode");
 		if (mode.indexOf("Lock") != -1) {
-			com.iotbpm.server.AgentConnect.getInstance().sendTronIoT("TronIoT",
+			com.iotbpm.server.AgentConnect.getInstance().sendPost("TronIoT",
 					"&message=*_Arduino_Tron_Active^^^^^^^^^^^^^^^^^^^^^&");
 			com.iotbpm.model.StateList.getInstance().putState("Mode", "Active");
 			lblBottomLabel_2.setText("Active");
 			lblIconLabel_2.setIcon(computerIcon);
 		} else {
-			com.iotbpm.server.AgentConnect.getInstance().sendTronIoT("TronIoT",
+			com.iotbpm.server.AgentConnect.getInstance().sendPost("TronIoT",
 					"&message=*_Arduino_Tron_Lock_*^^^^^^^^^^^^^^^^^^^^^&");
 			com.iotbpm.model.StateList.getInstance().putState("Mode", "Lock");
 			lblBottomLabel_2.setText("Lock");
@@ -852,13 +852,13 @@ public class IoTTiles {
 	public void panel_3Clicked(MouseEvent e) {
 		String personal = com.iotbpm.model.StateList.getInstance().getState("Personal");
 		if (personal.indexOf("Occupied") != -1) {
-			com.iotbpm.server.AgentConnect.getInstance().sendTronIoT("TronIoT",
+			com.iotbpm.server.AgentConnect.getInstance().sendPost("TronIoT",
 					"&message=**_Employee_Present_*^^^^^^^^^^^^^^^^^^^^^&");
 			com.iotbpm.model.StateList.getInstance().putState("Personal", "Present");
 			lblBottomLabel_3.setText("Present");
 			lblIconLabel_3.setIcon(personalIcon);
 		} else {
-			com.iotbpm.server.AgentConnect.getInstance().sendTronIoT("TronIoT",
+			com.iotbpm.server.AgentConnect.getInstance().sendPost("TronIoT",
 					"&message=**_Employee_Occupied*^^^^^^^^^^^^^^^^^^^^^&");
 			com.iotbpm.model.StateList.getInstance().putState("Personal", "Occupied");
 			lblBottomLabel_3.setText("Occupied");
@@ -870,13 +870,13 @@ public class IoTTiles {
 	public void panel_4Clicked(MouseEvent e) {
 		String office = com.iotbpm.model.StateList.getInstance().getState("Office");
 		if (office.indexOf("Night") != -1) {
-			com.iotbpm.server.AgentConnect.getInstance().sendTronIoT("TronIoT",
+			com.iotbpm.server.AgentConnect.getInstance().sendPost("TronIoT",
 					"&message=**_Office_Day_Mode_**^^^^^^^^^^^^^^^^^^^^^&");
 			com.iotbpm.model.StateList.getInstance().putState("Office", "Day");
 			lblBottomLabel_4.setText("Office Day");
 			lblIconLabel_4.setIcon(time_addIcon);
 		} else {
-			com.iotbpm.server.AgentConnect.getInstance().sendTronIoT("TronIoT",
+			com.iotbpm.server.AgentConnect.getInstance().sendPost("TronIoT",
 					"&message=*_Office_Night_Mode_*^^^^^^^^^^^^^^^^^^^^^&");
 			com.iotbpm.model.StateList.getInstance().putState("Office", "Night");
 			lblBottomLabel_4.setText("Office Night");
@@ -1062,7 +1062,7 @@ public class IoTTiles {
 
 	// Tron IoT Message
 	public void panel_13Clicked(MouseEvent e) {
-		com.iotbpm.server.AgentConnect.getInstance().sendTronIoT("TronIoT", "&message=*_IoT_Tiles_Message_*^^^^^^^^^^^^^^^^^^^^^&");
+		com.iotbpm.server.AgentConnect.getInstance().sendPost("TronIoT", "&message=*_IoT_Tiles_Message_*^^^^^^^^^^^^^^^^^^^^^&");
 	}
 
 	// DoorOpen, Chime-Tron IoT
