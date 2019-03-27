@@ -1,0 +1,1 @@
+c:\curl\bin\curl -X GET "http://localhost:5055/?id=100111&timestamp=1553642811&lat=33.8547165&lon=-84.3573222&speed=0.0&bearing=0.0&altitude=280.0&batt=93.0&temp=0.0&ir_temp=0.0&humidity=0.0&mbar=983.9&accel_x=-0.10&accel_y=0.09&accel_z=-9.81&gyro_x=-0.00&gyro_y=0.00&gyro_z=-0.00&magnet_x=-0.11&magnet_y=0.10&magnet_z=-9.81&light=30.0&keypress=0.0" -H "accept: application/xml"

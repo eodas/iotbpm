@@ -356,15 +356,15 @@
       </bpmn2:extensionElements>
       <bpmn2:incoming>SequenceFlow_30</bpmn2:incoming>
     </bpmn2:endEvent>
-    <bpmn2:scriptTask id="ScriptTask_15" name="Script Task 5sec Delay">
+    <bpmn2:scriptTask id="ScriptTask_15" name="Script Task 5 Sec Delay">
       <bpmn2:extensionElements>
         <tns:metaData name="elementname">
-          <tns:metaValue><![CDATA[Script Task 5sec Delay]]></tns:metaValue>
+          <tns:metaValue><![CDATA[Script Task 5 Sec Delay]]></tns:metaValue>
         </tns:metaData>
       </bpmn2:extensionElements>
       <bpmn2:incoming>SequenceFlow_29</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_30</bpmn2:outgoing>
-      <bpmn2:script>com.iotbpm.ui.MainWindow.getInstance().log(&quot;Script Task 5sec Delay&quot;);</bpmn2:script>
+      <bpmn2:script>com.iotbpm.ui.MainWindow.getInstance().log(&quot;Script Task 5 Sec Delay&quot;);</bpmn2:script>
     </bpmn2:scriptTask>
     <bpmn2:sequenceFlow id="SequenceFlow_2" tns:priority="1" sourceRef="ParallelGateway_1" targetRef="IntermediateCatchEvent_1"/>
     <bpmn2:sequenceFlow id="SequenceFlow_3" tns:priority="1" sourceRef="ParallelGateway_1" targetRef="ScriptTask_14"/>
@@ -563,7 +563,7 @@
       <bpmndi:BPMNShape id="BPMNShape_ScriptTask_18" bpmnElement="ScriptTask_15" isExpanded="true">
         <dc:Bounds height="50.0" width="110.0" x="677.0" y="117.0"/>
         <bpmndi:BPMNLabel id="BPMNLabel_29">
-          <dc:Bounds height="30.0" width="100.0" x="682.0" y="127.0"/>
+          <dc:Bounds height="30.0" width="107.0" x="678.0" y="127.0"/>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_6" bpmnElement="_5-_6" targetElement="BPMNShape_ExclusiveGateway_6">

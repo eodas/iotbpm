@@ -35,7 +35,7 @@ rule "GPS Device Fix Information"
         $event : DeviceEvent( $eventId : id, $serverTime : serverTime, $deviceTime : deviceTime, $fixTime : fixTime, $outdated : outdated, $valid : valid ) 
       	$device : Devices( $deviceId : id,  $eventId == id )
 	then
-		com.iotbpm.ui.MainWindow.getInstance().log($event.getName() + " GPS Fix on " + $fixTime);
+		com.iotbpm.ui.MainWindow.getInstance().log($event.getName() + " GPS Fix on " + $deviceTime);
 end
 
 rule "GPS Device Address Location"
