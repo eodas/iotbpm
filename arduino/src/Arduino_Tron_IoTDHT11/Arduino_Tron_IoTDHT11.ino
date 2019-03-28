@@ -31,6 +31,7 @@
 
 // Load Wi-Fi library
 #include <ESP8266WiFi.h>
+#include <WiFiUdp.h>
 
 // | RX     VCC
 // A GPIO0  RST
@@ -58,13 +59,11 @@ String id = "100888"; // Arduino Tron Device unique unit id
 const int httpPort = 5055; // Arduino Tron server is running on default port 5055
 // OpenStreetMap Automated Navigation Directions is a map and navigation app for Android default port 5055
 
-String days[] = {"", "Mon", "Tue", "Wed", "Thr", "Fri", "Sat", "Sun"};
-String months[] = {"", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
+String days[] = {"Mon", "Tue", "Wed", "Thr", "Fri", "Sat", "Sun"};
+String months[] = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
 
 byte temp = 0, humidity = 0;
 byte temp_prev = 0, humidity_prev = 0;
-int hour = 0, minute = 0, second = 0;
-int month = 0, day = 0, year = 0, wday = 0;
 String message = ""; // Values for message and time clock
 
 // Values to send in &textMessage= filed
@@ -80,11 +79,27 @@ const String TYPE_PROXIMITY = "8.0"; // proximity
 // Values to send in &alarm= field
 String alarm = "general";
 
+unsigned int localPort = 2390; // local port to listen for UDP packets
+IPAddress timeServerIP;
+const char* ntpServerName = "time.nist.gov";
+
+const int NTP_PACKET_SIZE = 48;
+
+byte packetBuffer[ NTP_PACKET_SIZE];
+WiFiUDP udp;
+
+unsigned long milsec = 0;
+unsigned long epoch = 0;
+unsigned long mpoch = 0;
+
+int timeZone = 4; // timezone offset (EST + DST)
+
 String ver = "1.03E";
 int loopCounter = 1; // loop counter
+int timeCounter = 901; // time counter
 int clientAvail = 0; // client.available() count
 int messageCount = 0; // message counter
-unsigned long milsec = 0;
+
 boolean DHTUpdate = true;
 boolean messageUpdate = false;
 boolean messageFlash = false;
@@ -168,21 +183,18 @@ void setup() {
 }
 
 void loop() {
-  readDHT11(); // read DHT11 digital temperature and humidity sensor
+  getTimeClock();
+  mpoch = mpoch - (3600 * timeZone); // timezone offset (EST + DST)
+  timeCounter++;
+  if (timeCounter > 120) {
+    readDHT11(); // read DHT11 digital temperature and humidity sensor
+    if ((temp != 99) && (humidity != 99)) {
+      timeCounter = 0;
+    }
+  }
+
   if (((temp != temp_prev) || (humidity != humidity_prev)) && ((temp != 99) && (humidity != 99))) {
     DHTUpdate = true;
-  }
-  second = second + clockSecond();
-  if (second > 59) {
-    second = second - 60;
-    minute++;
-  }
-  if (minute > 60) {
-    minute = 0;
-    hour++;
-  }
-  if (hour > 23) {
-    hour = 0;
   }
 
   if (DHTUpdate) {
@@ -362,17 +374,6 @@ void arduinoWebserver() {
 
           if (header.indexOf("favicon") >= 0) {
           } else {
-            c1 = header.indexOf("&datetime=");
-            if (c1 >= 0) {
-              month = header.substring(c1 + 10, c1 + 12).toInt();
-              day = header.substring(c1 + 13, c1 + 15).toInt();
-              year = header.substring(c1 + 16, c1 + 20).toInt();
-              wday = header.substring(c1 + 21, c1 + 22).toInt();
-
-              hour = header.substring(c1 + 23, c1 + 25).toInt();
-              minute = header.substring(c1 + 26, c1 + 28).toInt();
-              second = header.substring(c1 + 29, c1 + 31).toInt();
-            }
             c1 = header.indexOf("&message=");
             if (c1 >= 0) {
               c2 = header.indexOf('&', c1 + 1);
@@ -381,18 +382,17 @@ void arduinoWebserver() {
               messageUpdate = true;
               messageCount = 0;
             }
+            c1 = header.indexOf("&datetime=");
+            if (c1 >= 0) {
+              c2 = header.indexOf('&', c1 + 1);
+            }
             c1 = header.indexOf("&temp=");
             if (c1 >= 0) {
               c2 = header.indexOf('&', c1 + 1);
-              //            temp = header.substring(c1 + 6, c2).toInt();
-              //            if (temp > 0 ) {
-              //              DHTUpdate = true;
-              //            }
             }
             c1 = header.indexOf("&humidity=");
             if (c1 >= 0) {
               c2 = header.indexOf('&', c1 + 1);
-              //            humidity = header.substring(c1 + 10, c2).toInt();
             }
           }
 
@@ -424,6 +424,18 @@ void arduinoWebserver() {
 }
 
 void displayTime() {
+  time_t rawtime = mpoch;
+  struct tm * ti;
+  ti = localtime(&rawtime);
+
+  int day = ti->tm_mday;
+  int year = ti->tm_year + 1900;
+  int hour = ti->tm_hour;
+  int minute = ti->tm_min;
+  int second = ti->tm_sec;
+  int wday = ti->tm_wday;
+  int month = ti->tm_mon;
+
   if (messageUpdate) {
     if (messageFlash) {
       display.setTextColor(BLACK, WHITE); // 'inverted' text
@@ -460,7 +472,7 @@ void displayTime() {
     display.setTextSize(1);
     display.setTextColor(WHITE);
     display.setCursor(25, 0);
-    display.print(days[wday]);
+    display.print(days[wday - 1]);
 
     display.setTextSize(1);
     display.setTextColor(WHITE);
@@ -530,12 +542,62 @@ void displayTemp() {
   display.print("%");
 }
 
-int clockSecond() {
-  if (milsec == 0) {
+// Arduino Time Sync from NTP Server using ESP8266 WiFi module
+void getTimeClock() {
+  if ((milsec == 0) || (epoch == 0) || ((millis() - milsec) > 180000)) { // (3 min) 3600000)) {
+    setNTPServerTime(); // get time clock for event timestamp
     milsec = millis();
+    mpoch = epoch;
+    return;
   }
-  int x = ((millis() - milsec) / 700); // clock seems to always run slow
-  if ( x > 0) {
-    milsec = millis();
-  } return x;
+  mpoch = epoch + ((millis() - milsec) / 1000);
+}
+
+void setNTPServerTime() {
+  WiFi.begin(ssid, password);
+
+  // Wait for connection
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(200);
+    //Serial.print(".");
+  }
+
+  udp.begin(localPort);
+  WiFi.hostByName(ntpServerName, timeServerIP);
+
+  sendNTPpacket(timeServerIP);
+  delay(500);
+
+  int cb = udp.parsePacket();
+  if (!cb) {
+    delay(1);
+  }
+  else {
+    udp.read(packetBuffer, NTP_PACKET_SIZE); // read the packet into the buffer
+    unsigned long highWord = word(packetBuffer[40], packetBuffer[41]);
+    unsigned long lowWord = word(packetBuffer[42], packetBuffer[43]);
+    unsigned long secsSince1900 = highWord << 16 | lowWord;
+    const unsigned long seventyYears = 2208988800UL;
+    epoch = secsSince1900 - seventyYears; // Unix epoch number of seconds since midnight January 1, 1970
+    // Serial.print("UNX ");
+    // Serial.println(epoch);
+    // timestamp = String(epoch);
+  }
+  udp.stop();
+}
+
+unsigned long sendNTPpacket(IPAddress& address) {
+  //Serial.println("Sending NTP packet...");
+  memset(packetBuffer, 0, NTP_PACKET_SIZE);
+  packetBuffer[0] = 0b11100011; // LI, Version, Mode
+  packetBuffer[1] = 0; // Stratum, or type of clock
+  packetBuffer[2] = 6; // Polling Interval
+  packetBuffer[3] = 0xEC; // Peer Clock Precision
+  packetBuffer[12]  = 49;
+  packetBuffer[13]  = 0x4E;
+  packetBuffer[14]  = 49;
+  packetBuffer[15]  = 52;
+  udp.beginPacket(address, 123);
+  udp.write(packetBuffer, NTP_PACKET_SIZE);
+  udp.endPacket();
 }

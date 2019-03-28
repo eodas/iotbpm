@@ -36,7 +36,7 @@ public class AgentConnect {
 	// HTTP GET request
 	public void sendGet(String agentName, String command) {
 		String agentIP = agentsList.getAgent(agentName);
-		if ((agentIP == "") || (agentIP.indexOf("10.0.0.2") != -1)) {
+		if ((agentIP == "") || (agentIP.indexOf("0.0.0.0") != -1)) {
 			agentNotDefined(agentName);
 			return;
 		}
@@ -78,7 +78,7 @@ public class AgentConnect {
 	// HTTP Post request
 	public void sendPost(String agentName, String command) {
 		String agentIP = agentsList.getAgent(agentName);
-		if ((agentIP == "") || (agentIP.indexOf("10.0.0.2") != -1)) {
+		if ((agentIP == "") || (agentIP.indexOf("0.0.0.0") != -1)) {
 			agentNotDefined(agentName);
 			return;
 		}
