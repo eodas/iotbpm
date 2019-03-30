@@ -18,7 +18,7 @@ public class DeviceEvent {
 	public String id;
 	public String name;
 	public String event;
-	public String session;
+	public String process;
 	public String protocol;
 	public String serverTime;
 	public String deviceTime;
@@ -114,12 +114,12 @@ public class DeviceEvent {
 		this.event = event;
 	}
 
-	public String getSession() {
-		return session;
+	public String getProcess() {
+		return process;
 	}
 
-	public void setSession(String session) {
-		this.session = session;
+	public void setProcess(String process) {
+		this.process = process;
 	}
 
 	public String getProtocol() {
@@ -429,8 +429,8 @@ public class DeviceEvent {
 		case "event":
 			setEvent(value);
 			break;
-		case "session":
-			setSession(value);
+		case "process":
+			setProcess(value);
 			break;
 		case "protocol":
 			setProtocol(value);
