@@ -1,4 +1,4 @@
-package com.automation
+package com_automation
 
 // list import classes
 import com.iotbpm.model.Devices;

@@ -1,4 +1,4 @@
-package com.environment.reasoning
+package com_environment
 
 // list import classes
 import com.iotbpm.model.Devices;

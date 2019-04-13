@@ -2,37 +2,37 @@
 <kmodule xmlns="http://jboss.org/kie/6.0.0/kmodule">
 
 	<kbase name="kbaseAutomation"
-		packages="com.automation.rules, com.automation.process">
+		packages="com_automation, com.automation.process">
 		<ksession name="ksession-automation">
 		</ksession>
 	</kbase>
 
 	<kbase name="kbaseEnvironment"
-		packages="com.environment.rules, com.environment.process">
+		packages="com_environment, com.environment.process">
 		<ksession name="ksession-environment">
 		</ksession>
 	</kbase>
 
 	<kbase name="kbaseGPSposition"
-		packages="com.gpsposition.rules, com.gpsposition.process">
+		packages="com_gpsposition, com.gpsposition.process">
 		<ksession name="ksession-gpsposition">
 		</ksession>
 	</kbase>
 
 	<kbase name="kbaseGyroscope"
-		packages="com.gyroscope.rules, com.gyroscope.process">
+		packages="com_gyroscope, com.gyroscope.process">
 		<ksession name="ksession-gyroscope">
 		</ksession>
 	</kbase>
 
 	<kbase name="kbaseLight"
-		packages="com.light.rules, com.light.process">
+		packages="com_light, com.light.process">
 		<ksession name="ksession-light">
 		</ksession>
 	</kbase>
 
 	<kbase name="kbaseMovement"
-		packages="com.movement.rules, com.movement.process">
+		packages="com_movement, com.movement.process">
 		<ksession name="ksession-movement">
 		</ksession>
 	</kbase>

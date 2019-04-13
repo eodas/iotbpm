@@ -1,4 +1,4 @@
-package com.device
+package com_gpsposition
 
 // list import classes
 import com.iotbpm.model.Devices;

@@ -1,4 +1,4 @@
-package com.Light
+package com_light
 
 // list import classes
 import com.iotbpm.model.Devices;
