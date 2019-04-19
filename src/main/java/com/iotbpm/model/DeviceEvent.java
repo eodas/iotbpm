@@ -419,139 +419,148 @@ public class DeviceEvent {
 	}
 
 	public void EventParser(String key, String value) {
-		switch (key) {
-		case "id":
-			setId(value);
-			break;
-		case "name":
-			setName(value);
-			break;
-		case "event":
-			setEvent(value);
-			break;
-		case "process":
-			setProcess(value);
-			break;
-		case "protocol":
-			setProtocol(value);
-			break;
-		case "servertime":
-			setServerTime(parseDate(value));
-			break;
-		case "timestamp":
-			setDeviceTime(parseDate(value));
-			break;
-		case "fixtime":
-			setFixTime(parseDate(value));
-			break;
-		case "outdated":
-			setOutdated(Boolean.parseBoolean(value));
-			break;
-		case "valid":
-			setValid(Boolean.parseBoolean(value));
-			break;
-		case "lat":
-			setLat(Double.parseDouble(value));
-			break;
-		case "lon":
-			setLon(Double.parseDouble(value));
-			break;
-		case "altitude":
-			setAltitude(Double.parseDouble(value));
-			break;
-		case "speed":
-			setSpeed(Double.parseDouble(value));
-			break;
-		case "course":
-			setCourse(Double.parseDouble(value));
-			break;
-		case "address":
-			setAddress(value);
-			break;
-		case "accuracy":
-			setAccuracy(Double.parseDouble(value));
-			break;
-		case "bearing":
-			setBearing(Double.parseDouble(value));
-			break;
-		case "network":
-			setNetwork(value);
-			break;
-		case "batteryLevel":
-		case "batt":
-			setBatteryLevel(Double.parseDouble(value));
-			break;
-		case "textMessage":
-			setTextMessage(value);
-			break;
-		case "temp":
-			setTemp(Double.parseDouble(value));
-			break;
-		case "ir_temp":
-			setIr_temp(Double.parseDouble(value));
-			break;
-		case "humidity":
-			setHumidity(Double.parseDouble(value));
-			break;
-		case "mbar":
-			setMbar(Double.parseDouble(value));
-			break;
-		case "accel_x":
-			setAccel_x(Double.parseDouble(value));
-			break;
-		case "accel_y":
-			setAccel_y(Double.parseDouble(value));
-			break;
-		case "accel_z":
-			setAccel_z(Double.parseDouble(value));
-			break;
-		case "gyro_x":
-			setGyro_x(Double.parseDouble(value));
-			break;
-		case "gyro_y":
-			setGyro_y(Double.parseDouble(value));
-			break;
-		case "gyro_z":
-			setGyro_z(Double.parseDouble(value));
-			break;
-		case "magnet_x":
-			setMagnet_x(Double.parseDouble(value));
-			break;
-		case "magnet_y":
-			setMagnet_y(Double.parseDouble(value));
-			break;
-		case "magnet_z":
-			setMagnet_z(Double.parseDouble(value));
-			break;
-		case "light":
-			setLight(Double.parseDouble(value));
-			break;
-		case "keypress":
-			setKeypress(Double.parseDouble(value));
-			break;
-		case "alarm":
-			setAlarm(value);
-			break;
-		case "distance":
-			setDistance(Double.parseDouble(value));
-			break;
-		case "totalDistance":
-			setTotalDistance(Double.parseDouble(value));
-			break;
-		case "agentCount":
-			setAgentCount(Double.parseDouble(value));
-			break;
-		case "motion":
-			setMotion(Boolean.parseBoolean(value));
-			break;
-		default:
-			System.out.println("> Extended Event Token " + key + "=" + value);
+		try {
+			switch (key) {
+			case "id":
+				setId(value);
+				break;
+			case "name":
+				setName(value);
+				break;
+			case "event":
+				setEvent(value);
+				break;
+			case "process":
+				setProcess(value);
+				break;
+			case "protocol":
+				setProtocol(value);
+				break;
+			case "servertime":
+				setServerTime(parseDate(value));
+				break;
+			case "timestamp":
+				setDeviceTime(parseDate(value));
+				break;
+			case "fixtime":
+				setFixTime(parseDate(value));
+				break;
+			case "outdated":
+				setOutdated(Boolean.parseBoolean(value));
+				break;
+			case "valid":
+				setValid(Boolean.parseBoolean(value));
+				break;
+			case "lat":
+				setLat(Double.parseDouble(value));
+				break;
+			case "lon":
+				setLon(Double.parseDouble(value));
+				break;
+			case "altitude":
+				setAltitude(Double.parseDouble(value));
+				break;
+			case "speed":
+				setSpeed(Double.parseDouble(value));
+				break;
+			case "course":
+				setCourse(Double.parseDouble(value));
+				break;
+			case "address":
+				setAddress(value);
+				break;
+			case "accuracy":
+				setAccuracy(Double.parseDouble(value));
+				break;
+			case "bearing":
+				setBearing(Double.parseDouble(value));
+				break;
+			case "network":
+				setNetwork(value);
+				break;
+			case "batteryLevel":
+			case "batt":
+				setBatteryLevel(Double.parseDouble(value));
+				break;
+			case "textMessage":
+				setTextMessage(value);
+				break;
+			case "temp":
+				setTemp(Double.parseDouble(value));
+				break;
+			case "ir_temp":
+				setIr_temp(Double.parseDouble(value));
+				break;
+			case "humidity":
+				setHumidity(Double.parseDouble(value));
+				break;
+			case "mbar":
+				setMbar(Double.parseDouble(value));
+				break;
+			case "accel_x":
+				setAccel_x(Double.parseDouble(value));
+				break;
+			case "accel_y":
+				setAccel_y(Double.parseDouble(value));
+				break;
+			case "accel_z":
+				setAccel_z(Double.parseDouble(value));
+				break;
+			case "gyro_x":
+				setGyro_x(Double.parseDouble(value));
+				break;
+			case "gyro_y":
+				setGyro_y(Double.parseDouble(value));
+				break;
+			case "gyro_z":
+				setGyro_z(Double.parseDouble(value));
+				break;
+			case "magnet_x":
+				setMagnet_x(Double.parseDouble(value));
+				break;
+			case "magnet_y":
+				setMagnet_y(Double.parseDouble(value));
+				break;
+			case "magnet_z":
+				setMagnet_z(Double.parseDouble(value));
+				break;
+			case "light":
+				setLight(Double.parseDouble(value));
+				break;
+			case "keypress":
+				setKeypress(Double.parseDouble(value));
+				break;
+			case "alarm":
+				setAlarm(value);
+				break;
+			case "distance":
+				setDistance(Double.parseDouble(value));
+				break;
+			case "totalDistance":
+				setTotalDistance(Double.parseDouble(value));
+				break;
+			case "agentCount":
+				setAgentCount(Double.parseDouble(value));
+				break;
+			case "motion":
+				setMotion(Boolean.parseBoolean(value));
+				break;
+			default:
+				System.out.println("> Extended Event Token " + key + "=" + value);
+			}
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
 		}
 	}
 
 	private String parseDate(String date) {
-		long ldate = Long.parseLong(date);
-		String sdate = new java.text.SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(new java.util.Date(ldate * 1000));
+		String sdate = "";
+		try {
+			long ldate = Long.parseLong(date);
+			sdate = new java.text.SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(new java.util.Date(ldate * 1000));
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+		}
 		return sdate;
 	}
 

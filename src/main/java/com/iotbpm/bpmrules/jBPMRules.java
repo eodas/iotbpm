@@ -20,7 +20,6 @@ import org.kie.api.runtime.manager.RuntimeManagerFactory;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.jbpm.test.JBPMHelper;
 import org.jbpm.process.instance.event.listeners.RuleAwareProcessEventLister;
 import org.jbpm.process.instance.event.listeners.TriggerRulesEventListener;
 
@@ -95,7 +94,7 @@ public class jBPMRules {
 		return kSession;
 	}
 
-	private KieSession getKieSession(String bpmn) throws Exception {
+	private KieSession getIoTKieSession(String bpmn) throws Exception {
 		environment = RuntimeEnvironmentBuilder.Factory.get().newEmptyBuilder()
 				.addAsset(KieServices.Factory.get().getResources().newClassPathResource(bpmn), ResourceType.BPMN2)
 				.get();
@@ -105,8 +104,8 @@ public class jBPMRules {
 
 	private RuntimeManager getRuntimeManager(String process) {
 		// load up the knowledge base
-		JBPMHelper.startH2Server();
-		JBPMHelper.setupDataSource();
+		// JBPMHelper.startH2Server();
+		// JBPMHelper.setupDataSource();
 		environment = RuntimeEnvironmentBuilder.Factory.get().newDefaultBuilder()
 				.addAsset(KieServices.Factory.get().getResources().newClassPathResource(process), ResourceType.BPMN2)
 				.get();
@@ -158,7 +157,7 @@ public class jBPMRules {
 				break;
 			case "getKieSession":
 				if (environment == null) {
-					this.kSession = getKieSession(this.kSessionName);
+					this.kSession = getIoTKieSession(this.kSessionName);
 				}
 				break;
 			case "getRuntimeManager":
