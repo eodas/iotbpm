@@ -50,7 +50,7 @@ public class jBPMRules {
 	private String kSessionName = "";
 	private String processID = "";
 	private String _processID = "";
-	private boolean droolsProcessID = false;
+	private boolean modelProcessID = false;
 
 	private final Logger logger = LoggerFactory.getLogger(jBPMRules.class);
 
@@ -222,14 +222,19 @@ public class jBPMRules {
 				params.put(key, state.get(key));
 			}
 
+			// processID from deviceEvent override startProcess
+			if ((deviceEvent.getProcess() != null) && (!deviceEvent.getProcess().isEmpty())) {
+				stateList.putState("processID",deviceEvent.getProcess());
+			}
+			
 			String rules_processID = stateList.getState("processID");
 			if (rules_processID != null && !rules_processID.isEmpty()) {
 				processID = rules_processID;
-				droolsProcessID = true;
+				modelProcessID = true;
 			}
-
+			
 			// go! - start jBPM processID
-			if (processID != null && !processID.isEmpty()) {
+			if ((processID != null) && (!processID.isEmpty())) {
 				// Start the process with knowledge session
 				instance = kSession.startProcess(processID, params);
 			}
@@ -237,10 +242,10 @@ public class jBPMRules {
 				System.out.println(">>" + instance.getState());
 			}
 
-			if (droolsProcessID) {
+			if (modelProcessID) {
 				stateList.delState("processID");
 				processID = _processID;
-				droolsProcessID = false;
+				modelProcessID = false;
 			}
 
 			// Set response jBPM Global Variable List
