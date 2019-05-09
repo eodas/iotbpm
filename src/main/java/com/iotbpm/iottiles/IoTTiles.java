@@ -2,9 +2,11 @@ package com.iotbpm.iottiles;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
+import javax.swing.JEditorPane;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 
@@ -16,6 +18,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import java.io.File;
+import java.io.IOException;
 
 /**
  * Main window implementation for the Arduino Tron IoT Tiles example
@@ -1062,7 +1065,8 @@ public class IoTTiles {
 
 	// Tron IoT Message
 	public void panel_13Clicked(MouseEvent e) {
-		com.iotbpm.server.AgentConnect.getInstance().sendPost("TronIoT", "/&message=*_IoT_Tiles_Message_*^^^^^^^^^^^^^^^^^^^^^&");
+		com.iotbpm.server.AgentConnect.getInstance().sendPost("TronIoT",
+				"/&message=*_IoT_Tiles_Message_*^^^^^^^^^^^^^^^^^^^^^&");
 	}
 
 	// DoorOpen, Chime-Tron IoT
@@ -1163,5 +1167,23 @@ public class IoTTiles {
 				"The little IoT ESP-01S Relay Expansion Module is a simple and easy-to-use expansion board that uses the ESP-01S breakout board to drive a relay and operate devices or machines wirelessly.",
 				"IoT ESP-01S WiFi Relay Expansion Module Board", JOptionPane.INFORMATION_MESSAGE);
 		lblIconLabel_19.setIcon(lightbulb_offIcon);
+	}
+
+	public void web_panel(String temp) {
+		JEditorPane website = null;
+		try {
+			website = new JEditorPane("http://www.iotbpm.com/");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		website.setEditable(false);
+
+		JFrame frame = new JFrame("Google");
+		frame.add(new JScrollPane(website));
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setSize(512, 342);
+		frame.setVisible(true);
+		// frame.pack();
 	}
 }

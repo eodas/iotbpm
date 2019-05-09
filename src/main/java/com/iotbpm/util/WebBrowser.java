@@ -2,7 +2,6 @@ package com.iotbpm.util;
 
 import java.awt.Desktop;
 import java.net.URI;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -10,7 +9,10 @@ public class WebBrowser {
 
 	private final Logger logger = LoggerFactory.getLogger(WebBrowser.class);
 
-	public static void url_(String url) {
+	public WebBrowser() {
+	}
+
+	public void url_(String url) {
 		try {
 			Runtime.getRuntime().exec("cmd.exe /c start iexplore -new \"" + url + "\"");
 		} catch (Exception e) {
@@ -18,8 +20,9 @@ public class WebBrowser {
 		}
 	}
 
-	public static void url(String url) {
+	public void url(String url) {
 		Desktop desktop = null;
+		// open default OS browser
 		if (Desktop.isDesktopSupported())
 			try {
 				desktop = Desktop.getDesktop();

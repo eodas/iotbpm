@@ -238,11 +238,8 @@ public class MainWindow {
 	}
 
 	void helpContentsAction(ActionEvent e) {
-		try {
-			WebBrowser.url("http://www.iotbpm.com/help/");
-		} catch (Exception ex) {
-			System.out.println(ex.toString());
-		}
+		WebBrowser wb = new WebBrowser();
+		wb.url("http://www.eospy.com/help/");
 	}
 
 	void aboutIoTBPMAction(ActionEvent e) {
