@@ -130,6 +130,15 @@ public class AgentConnect {
 		}
 	}
 
+	// get Agent URL
+	public String agentURL(String agentName) {
+		String agentIP = agentsList.getAgent(agentName);
+		if ((agentIP == "") || (agentIP.indexOf("0.0.0.0") != -1)) {
+			agentNotDefined(agentName);
+		}
+		return agentIP;
+	}
+	
 	public void agentNotDefined(String agentName) {
 		System.err.println("Note: Send Arduino Command " + agentName
 				+ " in agentDevice=[AgentName,http://10.0.0.2,...] defined in iotbpm.properties file.");
