@@ -57,7 +57,7 @@ public class IoTServerThread extends Thread {
 				DeviceEvent deviceEvent = new DeviceEvent();
 				String[] req = Pattern.compile(" ").split(request);
 
-				if (req[0].equals("GET")) {
+				if (req[0].equals("GET") || req[0].equals("POST")) {
 
 					String arg = req[1].substring(req[1].indexOf('?') + 1);
 					String[] tokens = arg.split("&");
