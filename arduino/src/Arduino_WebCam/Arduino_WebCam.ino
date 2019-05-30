@@ -326,9 +326,25 @@ static esp_err_t capture_handler(httpd_req_t *req) {
     }
 
     //// Here, we will examine the files
-    Serial.print("fb lengte=");
+    Serial.print("fb length = ");
     Serial.println( fb->len );//jpg filesize
-    const char * path = "/capture.jpg";
+
+    struct tm timeinfo;
+    if (!getLocalTime(&timeinfo)) {
+      Serial.println("Failed to obtain time");
+    }
+    char timeStringBuff[50]; //50 chars should be enough
+    strftime(timeStringBuff, sizeof(timeStringBuff), "%B %d %Y %H-%M-%S", &timeinfo);
+
+    //Optional: Construct String object
+    String asString(timeStringBuff);
+    String dateTimeString = timeStringBuff;
+    String dataFileName = "/" + dateTimeString + ".jpg";
+
+    char path[dataFileName.length() + 1];
+    dataFileName.toCharArray(path, sizeof(path));
+
+    // const char * path = "/capture.jpg";
     fs::FS &fs = SD_MMC;
     Serial.printf("Writing file: %s\n", path);
     File file = fs.open(path, FILE_WRITE);
@@ -337,7 +353,7 @@ static esp_err_t capture_handler(httpd_req_t *req) {
     }
     else
     {
-      file.write(fb->buf , fb->len); //payload , lengte vd payload
+      file.write(fb->buf , fb->len); //payload , length vd payload
       Serial.println("success to open file for SD");
     }
     writeFile(SD_MMC, "/info.txt",  "saved 1 jpgfile");
@@ -345,7 +361,7 @@ static esp_err_t capture_handler(httpd_req_t *req) {
     ///einde SD
     esp_camera_fb_return(fb);
     int64_t fr_end = esp_timer_get_time();
-    Serial.println(res);// is 1 if jpg convertion worked
+    // Serial.println(res); // is 1 if jpg convertion worked
     Serial.printf("JPG: %uB %ums\n\n\n\n", (uint32_t)(fb_len), (uint32_t)((fr_end - fr_start) / 1000));
     return res;
   }

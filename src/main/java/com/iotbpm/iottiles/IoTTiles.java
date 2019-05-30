@@ -4,6 +4,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
@@ -16,8 +17,11 @@ import java.awt.BorderLayout;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 /**
  * Main window implementation for the Arduino Tron IoT Tiles example
@@ -160,6 +164,12 @@ public class IoTTiles {
 	private JLabel lblBottomLabel_19;
 	private JLabel lblIconLabel_19;
 
+	private JPanel panel_20;
+	private JLabel lblIconLabel_20;
+
+	private JPanel panel_21;
+	private JLabel lblIconLabel_21;
+
 	public IoTTiles(IoTEvents iotEvents, boolean exitOnClose) {
 		this.iotEvents = iotEvents;
 		this.frameIoT = buildFrame(exitOnClose);
@@ -178,7 +188,7 @@ public class IoTTiles {
 		frame.getContentPane().setBackground(Color.BLACK);
 		frame.setTitle(
 				"Arduino Tron AI-IoTBPM :: IoT Tiles Internet of Things Drools-jBPM using Arduino Tron AI-IoTBPM");
-		frame.setBounds(100, 100, 745, 455);
+		frame.setBounds(100, 100, 955, 455);
 		frame.setDefaultCloseOperation(exitOnClose ? JFrame.EXIT_ON_CLOSE : WindowConstants.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.setLocationRelativeTo(null); // Center in screen
@@ -243,7 +253,7 @@ public class IoTTiles {
 
 		panel_1 = new JPanel();
 		panel_1.setToolTipText(
-				"IoT Tiles is a control panel (dashboard) for Arduino Tron IoT Things, like the Arduino Tron IoT Camera.");
+				"Arduino Tron IoT Tiles control smart office automation and monitoring is a control panel (dashboard) for Arduino Tron IoT Things, like the Arduino Tron IoT Web Camera.");
 		panel_1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -343,7 +353,7 @@ public class IoTTiles {
 			}
 		});
 		panel_4.setBackground(Color.RED);
-		panel_4.setBounds(530, 5, 205, 100);
+		panel_4.setBounds(740, 5, 205, 100);
 		frame.getContentPane().add(panel_4);
 		panel_4.setLayout(new BorderLayout(0, 0));
 
@@ -495,7 +505,7 @@ public class IoTTiles {
 			}
 		});
 		panel_9.setBackground(Color.BLUE);
-		panel_9.setBounds(530, 110, 100, 100);
+		panel_9.setBounds(740, 110, 100, 100);
 		frame.getContentPane().add(panel_9);
 		panel_9.setLayout(new BorderLayout(0, 0));
 
@@ -525,7 +535,7 @@ public class IoTTiles {
 			}
 		});
 		panel_10.setBackground(new Color(0, 128, 0));
-		panel_10.setBounds(635, 110, 100, 205);
+		panel_10.setBounds(845, 110, 100, 205);
 		frame.getContentPane().add(panel_10);
 		panel_10.setLayout(new BorderLayout(0, 0));
 
@@ -675,7 +685,7 @@ public class IoTTiles {
 			}
 		});
 		panel_15.setBackground(Color.DARK_GRAY);
-		panel_15.setBounds(530, 215, 100, 205);
+		panel_15.setBounds(740, 215, 100, 205);
 		frame.getContentPane().add(panel_15);
 		panel_15.setLayout(new BorderLayout(0, 0));
 
@@ -796,7 +806,7 @@ public class IoTTiles {
 			}
 		});
 		panel_19.setBackground(new Color(0, 191, 255));
-		panel_19.setBounds(635, 320, 100, 100);
+		panel_19.setBounds(845, 320, 100, 100);
 		frame.getContentPane().add(panel_19);
 		panel_19.setLayout(new BorderLayout(0, 0));
 
@@ -816,6 +826,36 @@ public class IoTTiles {
 		panel_19.add(lblIconLabel_19, BorderLayout.CENTER);
 		lblIconLabel_19.setIcon(lightbulb_offIcon);
 
+		panel_20 = new JPanel();
+		panel_20.setToolTipText(
+				"Arduino Tron IoT Tiles control smart office automation and monitoring is a control panel (dashboard) for Arduino Tron IoT Things, like the Arduino Tron IoT Web Camera.");
+		panel_20.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				panel_20Clicked(e);
+			}
+		});
+		panel_20.setBackground(Color.LIGHT_GRAY);
+		panel_20.setBounds(530, 5, 205, 205);
+		frame.getContentPane().add(panel_20);
+		panel_20.setLayout(new BorderLayout(0, 0));
+		panel_20Clicked(null);
+
+		panel_21 = new JPanel();
+		panel_21.setToolTipText(
+				"Arduino Tron IoT Tiles control smart office automation and monitoring is a control panel (dashboard) for Arduino Tron IoT Things, like the Arduino Tron IoT Web Camera.");
+		panel_21.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				panel_21Clicked(e);
+			}
+		});
+		panel_21.setBackground(Color.LIGHT_GRAY);
+		panel_21.setBounds(530, 215, 205, 205);
+		frame.getContentPane().add(panel_21);
+		panel_21.setLayout(new BorderLayout(0, 0));
+		panel_21Clicked(null);
+
 		return frame;
 	}
 
@@ -825,7 +865,7 @@ public class IoTTiles {
 
 	// Arduino Tron IoT Tiles
 	public void panel_1Clicked(MouseEvent e) {
-		String webCamURL = com.iotbpm.server.AgentConnect.getInstance().agentURL("WebCam");
+		String webCamURL = com.iotbpm.server.AgentConnect.getInstance().agentURL("WebCam1");
 		if ((webCamURL == "") || (webCamURL.indexOf("0.0.0.0") != -1)) {
 			lblIconLabel_1.setIcon(camera_errorIcon);
 			return;
@@ -1186,20 +1226,69 @@ public class IoTTiles {
 		lblIconLabel_19.setIcon(lightbulb_offIcon);
 	}
 
-	public void web_panel(String weburl) {
-//		JEditorPane website = null;
-//		try {
-//			website = new JEditorPane("http://www.iotbpm.com/");
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-//		website.setEditable(false);
+	public void panel_20Clicked(MouseEvent e) {
+		String webCamURL = com.iotbpm.server.AgentConnect.getInstance().agentURL("WebCam2");
+		if ((webCamURL == "") || (webCamURL.indexOf("0.0.0.0") != -1)) {
+			panel_20.setBackground(Color.RED);
+			return;
+		}
 
-//		JFrame frame = new JFrame("Google");
-//		frame.add(new JScrollPane(website));
-//		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//		frame.setSize(512, 342);
-//		frame.setVisible(true);
-		// frame.pack();
+		URL camURL = null;
+		try {
+			camURL = new URL(webCamURL);
+		} catch (MalformedURLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		BufferedImage image = null;
+		try {
+			image = ImageIO.read(camURL);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+
+		if (e == null) {
+			lblIconLabel_20 = new JLabel(new ImageIcon(image));
+			lblIconLabel_20.setFont(new Font("Tahoma", Font.BOLD, 11));
+			lblIconLabel_20.setForeground(Color.WHITE);
+			lblIconLabel_20.setHorizontalAlignment(SwingConstants.CENTER);
+			panel_20.add(lblIconLabel_20, BorderLayout.CENTER);
+		} else {
+			lblIconLabel_20.setIcon(new ImageIcon(image));
+		}
+	}
+
+	public void panel_21Clicked(MouseEvent e) {
+		String webCamURL = com.iotbpm.server.AgentConnect.getInstance().agentURL("WebCam3");
+		if ((webCamURL == "") || (webCamURL.indexOf("0.0.0.0") != -1)) {
+			panel_21.setBackground(Color.RED);
+			return;
+		}
+
+		URL camURL = null;
+		try {
+			camURL = new URL(webCamURL);
+		} catch (MalformedURLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		BufferedImage image = null;
+		try {
+			image = ImageIO.read(camURL);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+
+		if (e == null) {
+			lblIconLabel_21 = new JLabel(new ImageIcon(image));
+			lblIconLabel_21.setFont(new Font("Tahoma", Font.BOLD, 11));
+			lblIconLabel_21.setForeground(Color.WHITE);
+			lblIconLabel_21.setHorizontalAlignment(SwingConstants.CENTER);
+			panel_21.add(lblIconLabel_21, BorderLayout.CENTER);
+		} else {
+			lblIconLabel_21.setIcon(new ImageIcon(image));
+		}
 	}
 }
