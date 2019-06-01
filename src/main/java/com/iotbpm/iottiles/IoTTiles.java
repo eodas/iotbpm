@@ -167,9 +167,11 @@ public class IoTTiles {
 
 	private JPanel panel_20;
 	private JLabel lblIconLabel_20;
+	private Boolean initpanel_20 = true;
 
 	private JPanel panel_21;
 	private JLabel lblIconLabel_21;
+	private Boolean initpanel_21 = true;
 
 	public IoTTiles(IoTEvents iotEvents, boolean exitOnClose) {
 		this.iotEvents = iotEvents;
@@ -1232,7 +1234,12 @@ public class IoTTiles {
 		BufferedImage image = null;
 		String webCamURL = com.iotbpm.server.AgentConnect.getInstance().agentURL("WebCam2");
 		if ((webCamURL == "") || (webCamURL.indexOf("0.0.0.0") != -1)) {
-			e = null;
+			try {
+				image = ImageIO.read(new File("images" + File.separator + "pic1.jpg"));
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		} else {
 			try {
 				camURL = new URL(webCamURL);
@@ -1240,18 +1247,15 @@ public class IoTTiles {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-		}
-		try {
-			if (e == null) {
-				image = ImageIO.read(new File("images" + File.separator + "pic1.jpg"));
-			} else {
+			try {
 				image = ImageIO.read(camURL);
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
 			}
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
 		}
-		if (e == null) {
+		if (initpanel_20) {
+			initpanel_20 = false;
 			lblIconLabel_20 = new JLabel(new ImageIcon(image));
 			lblIconLabel_20.setFont(new Font("Tahoma", Font.BOLD, 11));
 			lblIconLabel_20.setForeground(Color.WHITE);
@@ -1267,7 +1271,12 @@ public class IoTTiles {
 		BufferedImage image = null;
 		String webCamURL = com.iotbpm.server.AgentConnect.getInstance().agentURL("WebCam3");
 		if ((webCamURL == "") || (webCamURL.indexOf("0.0.0.0") != -1)) {
-			e = null;
+			try {
+				image = ImageIO.read(new File("images" + File.separator + "pic2.jpg"));
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		} else {
 			try {
 				camURL = new URL(webCamURL);
@@ -1275,18 +1284,15 @@ public class IoTTiles {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-		}
-		try {
-			if (e == null) {
-				image = ImageIO.read(new File("images" + File.separator + "pic2.jpg"));
-			} else {
+			try {
 				image = ImageIO.read(camURL);
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
 			}
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
 		}
-		if (e == null) {
+		if (initpanel_21) {
+			initpanel_21 = false;
 			lblIconLabel_21 = new JLabel(new ImageIcon(image));
 			lblIconLabel_21.setFont(new Font("Tahoma", Font.BOLD, 11));
 			lblIconLabel_21.setForeground(Color.WHITE);
