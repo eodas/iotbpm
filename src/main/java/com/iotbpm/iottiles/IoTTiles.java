@@ -1228,39 +1228,29 @@ public class IoTTiles {
 	}
 
 	public void panel_20Clicked(MouseEvent e) {
+		URL camURL = null;
+		BufferedImage image = null;
 		String webCamURL = com.iotbpm.server.AgentConnect.getInstance().agentURL("WebCam2");
 		if ((webCamURL == "") || (webCamURL.indexOf("0.0.0.0") != -1)) {
-			BufferedImage image = null;
+			e = null;
+		} else {
 			try {
-				image = ImageIO.read(new File("images" + File.separator + "pic1.jpg"));
-
-			} catch (Exception e1) {
+				camURL = new URL(webCamURL);
+			} catch (MalformedURLException e1) {
+				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-
-			lblIconLabel_20 = new JLabel(new ImageIcon(image));
-			lblIconLabel_20.setFont(new Font("Tahoma", Font.BOLD, 11));
-			lblIconLabel_20.setForeground(Color.WHITE);
-			lblIconLabel_20.setHorizontalAlignment(SwingConstants.CENTER);
-			panel_20.add(lblIconLabel_20, BorderLayout.CENTER);
-			return;
 		}
-
-		URL camURL = null;
 		try {
-			camURL = new URL(webCamURL);
-		} catch (MalformedURLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		BufferedImage image = null;
-		try {
-			image = ImageIO.read(camURL);
+			if (e == null) {
+				image = ImageIO.read(new File("images" + File.separator + "pic1.jpg"));
+			} else {
+				image = ImageIO.read(camURL);
+			}
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-
 		if (e == null) {
 			lblIconLabel_20 = new JLabel(new ImageIcon(image));
 			lblIconLabel_20.setFont(new Font("Tahoma", Font.BOLD, 11));
@@ -1273,39 +1263,29 @@ public class IoTTiles {
 	}
 
 	public void panel_21Clicked(MouseEvent e) {
+		URL camURL = null;
+		BufferedImage image = null;
 		String webCamURL = com.iotbpm.server.AgentConnect.getInstance().agentURL("WebCam3");
 		if ((webCamURL == "") || (webCamURL.indexOf("0.0.0.0") != -1)) {
-			BufferedImage image = null;
+			e = null;
+		} else {
 			try {
-				image = ImageIO.read(new File("images" + File.separator + "pic2.jpg"));
-
-			} catch (Exception e1) {
+				camURL = new URL(webCamURL);
+			} catch (MalformedURLException e1) {
+				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-
-			lblIconLabel_21 = new JLabel(new ImageIcon(image));
-			lblIconLabel_21.setFont(new Font("Tahoma", Font.BOLD, 11));
-			lblIconLabel_21.setForeground(Color.WHITE);
-			lblIconLabel_21.setHorizontalAlignment(SwingConstants.CENTER);
-			panel_21.add(lblIconLabel_21, BorderLayout.CENTER);
-			return;
 		}
-
-		URL camURL = null;
 		try {
-			camURL = new URL(webCamURL);
-		} catch (MalformedURLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		BufferedImage image = null;
-		try {
-			image = ImageIO.read(camURL);
+			if (e == null) {
+				image = ImageIO.read(new File("images" + File.separator + "pic2.jpg"));
+			} else {
+				image = ImageIO.read(camURL);
+			}
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-
 		if (e == null) {
 			lblIconLabel_21 = new JLabel(new ImageIcon(image));
 			lblIconLabel_21.setFont(new Font("Tahoma", Font.BOLD, 11));
