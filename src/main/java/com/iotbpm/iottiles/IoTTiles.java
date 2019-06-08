@@ -8,8 +8,6 @@ import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 
-import com.iotbpm.util.WebBrowser;
-
 import java.awt.Font;
 import java.awt.Color;
 import java.awt.BorderLayout;
@@ -17,12 +15,14 @@ import java.awt.BorderLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
+
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
-import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.MalformedURLException;
+import com.iotbpm.util.WebBrowser;
 
 /**
  * Main window implementation for the Arduino Tron IoT Tiles example
@@ -1254,15 +1254,17 @@ public class IoTTiles {
 				e1.printStackTrace();
 			}
 		}
-		if (initpanel_20) {
-			initpanel_20 = false;
-			lblIconLabel_20 = new JLabel(new ImageIcon(image));
-			lblIconLabel_20.setFont(new Font("Tahoma", Font.BOLD, 11));
-			lblIconLabel_20.setForeground(Color.WHITE);
-			lblIconLabel_20.setHorizontalAlignment(SwingConstants.CENTER);
-			panel_20.add(lblIconLabel_20, BorderLayout.CENTER);
-		} else {
-			lblIconLabel_20.setIcon(new ImageIcon(image));
+		if (image != null) {
+			if (initpanel_20) {
+				initpanel_20 = false;
+				lblIconLabel_20 = new JLabel(new ImageIcon(image));
+				lblIconLabel_20.setFont(new Font("Tahoma", Font.BOLD, 11));
+				lblIconLabel_20.setForeground(Color.WHITE);
+				lblIconLabel_20.setHorizontalAlignment(SwingConstants.CENTER);
+				panel_20.add(lblIconLabel_20, BorderLayout.CENTER);
+			} else {
+				lblIconLabel_20.setIcon(new ImageIcon(image));
+			}
 		}
 	}
 
@@ -1291,15 +1293,17 @@ public class IoTTiles {
 				e1.printStackTrace();
 			}
 		}
-		if (initpanel_21) {
-			initpanel_21 = false;
-			lblIconLabel_21 = new JLabel(new ImageIcon(image));
-			lblIconLabel_21.setFont(new Font("Tahoma", Font.BOLD, 11));
-			lblIconLabel_21.setForeground(Color.WHITE);
-			lblIconLabel_21.setHorizontalAlignment(SwingConstants.CENTER);
-			panel_21.add(lblIconLabel_21, BorderLayout.CENTER);
-		} else {
-			lblIconLabel_21.setIcon(new ImageIcon(image));
+		if (image != null) {
+			if (initpanel_21) {
+				initpanel_21 = false;
+				lblIconLabel_21 = new JLabel(new ImageIcon(image));
+				lblIconLabel_21.setFont(new Font("Tahoma", Font.BOLD, 11));
+				lblIconLabel_21.setForeground(Color.WHITE);
+				lblIconLabel_21.setHorizontalAlignment(SwingConstants.CENTER);
+				panel_21.add(lblIconLabel_21, BorderLayout.CENTER);
+			} else {
+				lblIconLabel_21.setIcon(new ImageIcon(image));
+			}
 		}
 	}
 }
