@@ -129,6 +129,7 @@ public class IoTTiles {
 	private JLabel lblIconLabel_10;
 
 	private JPanel panel_11;
+	private JLabel lblTopLabel_11;
 	private JLabel lblBottomLabel_11;
 	private JLabel lblIconLabel_11;
 
@@ -560,7 +561,7 @@ public class IoTTiles {
 
 		panel_11 = new JPanel();
 		panel_11.setToolTipText(
-				"The Arduino Tron Web Server is a cloud-connected complete SoC System on a Chip architecture that integrates all components of a computer.");
+				"The IoT Kiosk is a complete cloud-connected Kiosk architecture that integrates all your IoT Device and enterprise computer systems.");
 		panel_11.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -572,12 +573,12 @@ public class IoTTiles {
 		frame.getContentPane().add(panel_11);
 		panel_11.setLayout(new BorderLayout(0, 0));
 
-		JLabel lblTopLabel_11 = new JLabel("Cloud Connect");
+		lblTopLabel_11 = new JLabel("IoT Kiosk Cloud");
 		lblTopLabel_11.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblTopLabel_11.setForeground(Color.WHITE);
 		panel_11.add(lblTopLabel_11, BorderLayout.NORTH);
 
-		lblBottomLabel_11 = new JLabel("IoT Control");
+		lblBottomLabel_11 = new JLabel("IoT Kiosk Status");
 		lblBottomLabel_11.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblBottomLabel_11.setForeground(Color.WHITE);
 		panel_11.add(lblBottomLabel_11, BorderLayout.SOUTH);
@@ -586,7 +587,7 @@ public class IoTTiles {
 		lblIconLabel_11.setForeground(Color.WHITE);
 		lblIconLabel_11.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_11.add(lblIconLabel_11, BorderLayout.CENTER);
-		lblIconLabel_11.setIcon(autosIcon);
+		lblIconLabel_11.setIcon(informationIcon);
 
 		panel_12 = new JPanel();
 		panel_12.setToolTipText(
@@ -1109,13 +1110,28 @@ public class IoTTiles {
 	}
 
 	public void panel_11Clicked(MouseEvent e) {
+		lblBottomLabel_11 = new JLabel("IoT Kiosk Status");
+		lblIconLabel_11.setIcon(informationIcon);
+		
+		panel_11.setBackground(new Color(244, 164, 96));
+		lblTopLabel_11 = new JLabel("IoT Kiosk Cloud");
+		lblBottomLabel_11 = new JLabel("IoT Kiosk Status");
+		lblIconLabel_11.setIcon(informationIcon);
+		
 		JOptionPane.showMessageDialog(null,
-				"The Arduino Tron Web Server is a cloud-connected complete SoC System on a Chip architecture that integrates all components of a computer, "
-						+ "WiFi and Web Server application software on an ESP-01 WiFi chip for complete control of IoT Internet of things devices from the cloud.",
-				"Arduino Tron Web Server Getting Your IoT Project working in the Cloud",
+				"The IoT Kiosk is a complete cloud-connected Kiosk architecture that integrates all your IoT Device and enterprise computer systems. "
+						+ "The IoT Kiosk has WiFi and Web Server software for complete control of IoT Internet of things devices from the cloud.",
+				"IoT Kiosk Web Services is getting your IoT project working in the Cloud",
 				JOptionPane.INFORMATION_MESSAGE);
 	}
 
+	public void panel_11IoTKiosk(String IoTKiosk) {
+		lblIconLabel_11.setIcon(autosIcon);
+		lblBottomLabel_11.setText(IoTKiosk);
+		panel_11.setBackground(new Color(0, 191, 255));
+		// panel_9.setBackground(Color.BLUE);
+	}
+	
 	public void panel_12Clicked(MouseEvent e) {
 		JOptionPane.showMessageDialog(null,
 				"The Arduino Tron IoT is used connect to Office Door Locks, Activate Security Alarms, Turn Office Lights: ON, Control Thermostats, Answer Doorbell, "
