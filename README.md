@@ -27,8 +27,8 @@ You can have an unlimited number and combination of Arduino Tron IoT Devices and
 
 (1) Arduino Tron AI-IoTBPM - To install the Arduino Tron AI-IoTBPM program on your windows computer, download and install the "Eclipse IDE for Java Developers."
 Use the Eclipse feature to add new software, available on the Eclipse menu "Help -> Install New Software". Select the "Add" option and install these packages:
-1. Drools + jBPM Update Site 7.20.0 - http://downloads.jboss.org/jbpm/release/7.20.0.Final/updatesite/
-2. BPMN2-Modeler 1.5.0 - http://download.eclipse.org/bpmn2-modeler/updates/photon/1.5.0/
+1. Drools + jBPM Update Site 7.23.0 - http://downloads.jboss.org/jbpm/release/7.23.0.Final/updatesite/
+2. BPMN2-Modeler 1.5.1 - http://download.eclipse.org/bpmn2-modeler/updates/photon/1.5.1/
 3. GIT the Arduino Tron from the source code repository, and Import Existing Maven project.
 
 (2) Arduino Tron Sensor - To install the Arduino Tron application on your Arduino device, download the Arduino Tron Sensor application from GIT.
