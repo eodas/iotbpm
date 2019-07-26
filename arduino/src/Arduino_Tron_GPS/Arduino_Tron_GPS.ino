@@ -42,13 +42,13 @@
 #define BUTTON10 D10 // NodeMCU pin GPIO1 (D10-TXD0)
 
 // Update these with WiFi network values
-const char* ssid     = "Executive Order"; //  your network SSID (name)
-const char* password = "SL550eodas"; // your network password
+const char* ssid     = "your-ssid"; //  your network SSID (name)
+const char* password = "your-password"; // your network password
 
 WiFiClient client;
 
 // Update these with Arduino Tron service IP address and unique unit id values
-byte server[] = { 10, 0, 0, 222 }; // Set EOSpy server IP address as bytes
+byte server[] = { 10, 0, 0, 2 }; // Set EOSpy server IP address as bytes
 String id = "100111"; // Arduino Tron Device unique unit id
 
 TinyGPSPlus gps; // Uses TinyGPS++ (TinyGPSPlus) object.
