@@ -9,7 +9,7 @@
 //#include <SimpleDHT.h> // <-- uncommit for dht11
 //#include <IRrecv.h> // <-- uncommit for IR VS1838
 
-#include <TinyGPS++.h>
+#include <TinyGPS++.h>  // <-- gy-gps6mv2
 #include <SoftwareSerial.h>
 
 #include <ESP8266WiFi.h>
