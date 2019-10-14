@@ -7,15 +7,15 @@ import com.iotbpm.model.DeviceEvent;
 // default dialect for the semantic code will be MVEL
 dialect "mvel"
 
-rule "GPS Device Distance"
+rule "GPS Device Fix"
 no-loop  
 	when
-        $event : DeviceEvent( $eventId : id, $lat : lat, $lon : lon, $altitude : altitude, $distance : distance, $totalDistance : totalDistance )
+        $event : DeviceEvent( $eventId : id, $lat : lat, $lon : lon, $altitude : altitude, $distance : distance )
       	$device : Devices( $deviceId : id,  $eventId == id )
 	then
 		$device.action = "GPS";
 		$device.status = $event.getEvent();
-		com.iotbpm.ui.MainWindow.getInstance().log($event.getName() + " GPS Distance:" + $distance + " Total:" + $totalDistance + " Altitude:" + $altitude);
+		com.iotbpm.ui.MainWindow.getInstance().log($event.getName() + " GPS Fix lat:" + $lat + " lon:" + $lon + " Altitude:" + $altitude);
 		modify( $device )
 end
 
