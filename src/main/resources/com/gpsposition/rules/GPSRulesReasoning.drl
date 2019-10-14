@@ -8,6 +8,7 @@ import com.iotbpm.model.DeviceEvent;
 dialect "mvel"
 
 rule "GPS Device Distance"
+no-loop  
 	when
         $event : DeviceEvent( $eventId : id, $lat : lat, $lon : lon, $altitude : altitude, $distance : distance, $totalDistance : totalDistance )
       	$device : Devices( $deviceId : id,  $eventId == id )
