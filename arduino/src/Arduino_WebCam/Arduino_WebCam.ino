@@ -19,7 +19,7 @@
 #include "soc/soc.h" // disable brownour problems
 #include "soc/rtc_cntl_reg.h"  // disable brownour problems
 #include <WiFi.h> // used for internet time
-#include "dl_lib.h"
+// #include "dl_lib.h"
 #include "esp_http_server.h"
 #define CAMERA_MODEL_AI_THINKER
 #define PART_BOUNDARY "123456789000000000000987654321"
