@@ -34,7 +34,7 @@ const int httpPort = 5055; // Arduino Tron server is running on default port 505
 // OpenStreetMap Automated Navigation Directions is a map and navigation app for Android default port 5055
 
 // Values to send in &textMessage= filed
-String textMessage = "text_message";
+String textMessage = "ESP32_Face_Recognition";
 
 // Values to send in &keypress= field
 const String TYPE_ALLEVENTS = "allEvents"; // allEvents
@@ -86,7 +86,7 @@ String ver = "1.03E";
 String irkey = "1.0";
 int loopCounter = 1; // loop counter
 int clientAvail = 0; // client.available() count
-int t_matched_id = -9;
+int t_matched_id = -1;
 
 // Set response jBPM Global Variable List
 // kcontext.getKnowledgeRuntime().setGlobal("response", "");
@@ -100,7 +100,7 @@ void setup(void) {
   Serial.println();
 
   // Connect to WiFi network
-  Serial.println("Executive Order Corporation - Arduino Tron ESP8266 MQTT Telemetry Transport Machine-to-Machine(M2M)/Internet of Things(IoT)");
+  Serial.println("Executive Order Corporation - Arduino Tron ESP32 Face Recognition Telemetry Machine-to-Machine(M2M)/Internet of Things(IoT)");
   Serial.println("Arduino Tron Drools-jBPM :: Executive Order Arduino Tron Sensor Processor MQTT AI-IoTBPM Client using AI-IoTBPM Drools-jBPM");
   Serial.println("- Arduino Tron WebCam ver " + ver);
   Serial.println("Copyright © 1978, 2019: Executive Order Corporation, All Rights Reserved");
@@ -185,11 +185,12 @@ void setup(void) {
 }
 
 void loop() {
-  if (t_matched_id != -9)  {
+  if (t_matched_id != -1)  {
+    irkey = String(t_matched_id);
     arduinoTronSend();
   }
 
-  t_matched_id = -9;
+  t_matched_id = -1;
   delay(1000);
 }
 
@@ -209,7 +210,9 @@ void arduinoTronSend()
   agentCount = String(loopCounter);
 
   client.print("&agentCount=" + agentCount);
-  client.print("&keypress=" + irkey); // keypress=irkey
+  client.print("&textMessage=" + textMessage);
+  client.print("&keypress=" + TYPE_KEYPRESS_1);
+  client.print("&event=" + irkey); // irkey=t_matched_id
 
   client.println(" HTTP/1.1");
 
