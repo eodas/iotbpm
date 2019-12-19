@@ -73,7 +73,7 @@ public class AboutDialog extends JDialog {
 							+ "This Software is Provided “As Is” And Any Expressed or Implied Warranties, Including, But Not Limited to, The Implied Warranties of "
 							+ "Merchantability And Fitness For A Particular Purpose Are Disclaimed.\r\n\r\nVisit the www.IoTBPM.com website for additional information "
 							+ "and documentation on Drools-jBPM Expert Systems, Arduino Tron and other Arduino projects, android projects and AI-IoTBPM Processing.\r\n\r\n"
-							+ "Thank You! -Executive Order Custom Software Development Team");
+							+ " -- Executive Order Custom Software Development Team");
 			getContentPane().add(txtIoTBPMSoftware, BorderLayout.CENTER);
 		}
 	}
