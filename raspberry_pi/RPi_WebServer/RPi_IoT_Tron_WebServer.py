@@ -7,11 +7,11 @@ Executive Order Corporation
 Copyright © 1978, 2020: Executive Order Corporation, All Rights Reserved
 """
 import time
-import requests
 import http.server
 import socketserver
 import RPi.GPIO as GPIO
 # importing the requests library
+import requests
 from urllib.parse import urlparse
 from urllib.parse import parse_qs
 
@@ -22,6 +22,28 @@ id = "100111"  # Raspberry Pi Tron Device unique unit id
 # Above are all the fields you need to provide values, the remaining fields are used in the RPi Tron application
 setup = True  # Init setup GPIO.setmode() once
 
+#     Raspberry Pi Pinout
+#      3V3  (1)  (2) 5V
+#    GPIO2  (3)  (4) 5V
+#    GPIO3  (5)  (6) GND
+#    GPIO4  (7)  (8) GPIO14
+#      GND  (9) (10) GPIO15
+#   GPIO17 (11) (12) GPIO18
+#   GPIO27 (13) (14) GND
+#   GPIO22 (15) (16) GPIO23
+#      3V3 (17) (18) GPIO24
+#   GPIO10 (19) (20) GND
+#    GPIO9 (21) (22) GPIO25
+#   GPIO11 (23) (24) GPIO8
+#      GND (25) (26) GPIO7
+#    GPIO0 (27) (28) GPIO1
+#    GPIO5 (29) (30) GND
+#    GPIO6 (31) (32) GPIO12
+#   GPIO13 (33) (34) GND
+#   GPIO19 (35) (36) GPIO16
+#   GPIO26 (37) (38) GPIO20
+#      GND (39) (40) GPIO21
+
 LED0 = 'OFF'  # Init state GPIO17
 LED1 = 'OFF'  # Init state GPIO27
 LED2 = 'OFF'  # Init state GPIO22
@@ -29,6 +51,7 @@ LED2 = 'OFF'  # Init state GPIO22
 LedPin0 = 11  # GPIO pin GPIO17 (LED pin11)
 LedPin1 = 13  # GPIO pin GPIO27 (LED pin13)
 LedPin2 = 15  # GPIO pin GPIO22 (LED pin15)
+
 
 # $GPGGA GPS Log header
 utc = "0"  # UTC time status of position (hours/minutes/seconds/decimal seconds)
@@ -166,6 +189,7 @@ class MyHttpRequestHandler(http.server.SimpleHTTPRequestHandler):
         global LED2
 
         global setup
+        global keypress
         global textMessage
 
         if setup:
@@ -188,29 +212,38 @@ class MyHttpRequestHandler(http.server.SimpleHTTPRequestHandler):
         command = urlparse(self.path).path
         if '/DEV0' in query_components:
             textMessage = "dev0_" + command[6:]
-            serverSendPost()
             LED0 = query_components["/DEV0"][0]
             if 'ON' in LED0:
+                keypress = "1.0"
+                serverSendPost()
                 GPIO.output(LedPin0, GPIO.HIGH)  # LED pin11 on
             else:
+                keypress = "2.0"
+                serverSendPost()
                 GPIO.output(LedPin0, GPIO.LOW)  # LED pin11 off
 
         if '/DEV1' in query_components:
             textMessage = "dev1_" + command[6:]
-            serverSendPost()
             LED1 = query_components["/DEV1"][0]
             if 'ON' in LED1:
+                keypress = "3.0"
+                serverSendPost()
                 GPIO.output(LedPin1, GPIO.HIGH)  # LED pin13 on
             else:
+                keypress = "4.0"
+                serverSendPost()
                 GPIO.output(LedPin1, GPIO.LOW)  # LED pin13 off
 
         if '/DEV2' in query_components:
             textMessage = "dev2_" + command[6:]
-            serverSendPost()
             LED2 = query_components["/DEV2"][0]
             if 'ON' in LED2:
+                keypress = "5.0"
+                serverSendPost()
                 GPIO.output(LedPin2, GPIO.HIGH)  # LED pin15 on
             else:
+                keypress = "6.0"
+                serverSendPost()
                 GPIO.output(LedPin2, GPIO.LOW)  # LED pin15 off
 
         # Pi IoT Tron custom HTML code to generate GPIO functions
