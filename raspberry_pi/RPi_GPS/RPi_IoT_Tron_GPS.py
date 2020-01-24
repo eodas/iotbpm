@@ -357,10 +357,10 @@ if __name__ == '__main__':
                     printGGA(lines)
                     pass
                 elif lines[0] == "GPGSA":
-                    printGSA(lines)
+                    # printGSA(lines)
                     pass
                 elif lines[0] == "GPGSV":
-                    printGSV(lines)
+                    # printGSV(lines)
                     pass
                 elif lines[0] == "GPGLL":
                     printGLL(lines)
