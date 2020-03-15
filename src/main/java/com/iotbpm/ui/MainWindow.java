@@ -31,6 +31,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.awt.event.ActionEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 /**
  * Main window implementation for the Arduino Tron AI-IoTBPM example
@@ -72,6 +74,12 @@ public class MainWindow {
 		contentPanel.add(banner, BorderLayout.SOUTH);
 
 		JFrame frame = new JFrame();
+		frame.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				windowClosingAction(e);
+			}
+		});
 
 		JMenuBar menuBar = new JMenuBar();
 		frame.setJMenuBar(menuBar);
@@ -104,8 +112,7 @@ public class MainWindow {
 		mntmExitIoTBPM.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				IoTBPM.stopIoTServer();
-				System.exit(0);
+				windowCloseAction(e);
 			}
 		});
 		mnFileMenu.add(mntmExitIoTBPM);
@@ -250,6 +257,15 @@ public class MainWindow {
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
+	}
+
+	void windowClosingAction(WindowEvent e) {
+		windowCloseAction(null);
+	}
+
+	void windowCloseAction(ActionEvent e) {
+		IoTBPM.stopIoTServer();
+		System.exit(0);
 	}
 
 	public void show() {

@@ -11,7 +11,6 @@ import javax.swing.WindowConstants;
 import java.awt.Font;
 import java.awt.Color;
 import java.awt.BorderLayout;
-
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
@@ -22,7 +21,11 @@ import javax.imageio.ImageIO;
 
 import java.net.URL;
 import java.net.MalformedURLException;
+
+import com.iotbpm.bpmrules.IoTBPM;
 import com.iotbpm.util.WebBrowser;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 /**
  * Main window implementation for the Arduino Tron IoT Tiles example
@@ -187,6 +190,12 @@ public class IoTTiles {
 	// Initialize the contents of the frame
 	private JFrame buildFrame(boolean exitOnClose) {
 		JFrame frame = new JFrame();
+		frame.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				windowClosingAction(e);
+			}
+		});
 		frame.setResizable(false);
 
 		frame.getContentPane().setBackground(Color.BLACK);
@@ -1112,12 +1121,12 @@ public class IoTTiles {
 	public void panel_11Clicked(MouseEvent e) {
 		lblBottomLabel_11 = new JLabel("IoT Kiosk Status");
 		lblIconLabel_11.setIcon(informationIcon);
-		
+
 		panel_11.setBackground(new Color(244, 164, 96));
 		lblTopLabel_11 = new JLabel("IoT Kiosk Cloud");
 		lblBottomLabel_11 = new JLabel("IoT Kiosk Status");
 		lblIconLabel_11.setIcon(informationIcon);
-		
+
 		JOptionPane.showMessageDialog(null,
 				"The IoT Kiosk is a complete cloud-connected Kiosk architecture that integrates all your IoT Device and enterprise computer systems. "
 						+ "The IoT Kiosk has WiFi and Web Server software for complete control of IoT Internet of things devices from the cloud.",
@@ -1131,7 +1140,7 @@ public class IoTTiles {
 		panel_11.setBackground(new Color(0, 191, 255));
 		// panel_9.setBackground(Color.BLUE);
 	}
-	
+
 	public void panel_12Clicked(MouseEvent e) {
 		JOptionPane.showMessageDialog(null,
 				"The Arduino Tron IoT is used connect to Office Door Locks, Activate Security Alarms, Turn Office Lights: ON, Control Thermostats, Answer Doorbell, "
@@ -1322,4 +1331,10 @@ public class IoTTiles {
 			}
 		}
 	}
+
+	void windowClosingAction(WindowEvent e) {
+		IoTBPM.stopIoTServer();
+		System.exit(0);
+	}
+
 }

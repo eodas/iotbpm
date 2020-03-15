@@ -6,6 +6,8 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.iotbpm.bpmrules.IoTBPM;
+
 /**
  * An event informing of a state change due to some operation
  */
@@ -100,7 +102,7 @@ public class DeviceEvent {
 	public void setMap(Map<String, String> map) {
 		this.map = map;
 	}
-	
+
 	public String getId() {
 		return id;
 	}
@@ -220,7 +222,7 @@ public class DeviceEvent {
 	public void setWifi(String wifi) {
 		this.wifi = wifi;
 	}
-	
+
 	public double getAltitude() {
 		return altitude;
 	}
@@ -606,11 +608,15 @@ public class DeviceEvent {
 
 	private String parseDate(String date) {
 		String sdate = "";
-		try {
-			long ldate = Long.parseLong(date);
-			sdate = new java.text.SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(new java.util.Date(ldate * 1000));
-		} catch (NumberFormatException e) {
-			e.printStackTrace();
+		if (IoTBPM.eospyFile == "") {
+			try {
+				long ldate = Long.parseLong(date);
+				sdate = new java.text.SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(new java.util.Date(ldate * 1000));
+			} catch (NumberFormatException e) {
+				e.printStackTrace();
+			}
+		} else {
+			sdate = date;
 		}
 		return sdate;
 	}

@@ -21,6 +21,7 @@ import com.iotbpm.model.DevicesList;
 import com.iotbpm.model.StateList;
 import com.iotbpm.server.AgentConnect;
 import com.iotbpm.server.IoTServer;
+import com.iotbpm.server.EOSpyServer;
 import com.iotbpm.ui.MainWindow;
 import com.iotbpm.iottiles.IoTEvents;
 import com.iotbpm.iottiles.IoTTiles;
@@ -44,6 +45,7 @@ public class IoTBPM {
 	AgentsList agentsList;
 	IoTBPM iotBPM;
 	private static IoTServer iotServer = null;
+	private static EOSpyServer eospyServer = null;
 
 	private String base_path = "";
 	private String appVer = "1.01A";
@@ -56,6 +58,7 @@ public class IoTBPM {
 	private String kSessionName = ""; // ksession-movement
 	private String processID = ""; // com.TrainMovement
 	private String iotTilesWindow = ""; // IoT Tiles window active
+	public static String eospyFile = ""; // eospy-server-event.log
 
 	private final Logger logger = LoggerFactory.getLogger(IoTBPM.class);
 
@@ -165,6 +168,9 @@ public class IoTBPM {
 					String portStr = value;
 					port = Integer.parseInt(portStr);
 				}
+				if (key.indexOf("EOSpyServer") != -1) {
+					eospyFile = value;
+				}
 				if (key.indexOf("knowledgeDebug") != -1) {
 					knowledgeDebug = value;
 				}
@@ -192,12 +198,21 @@ public class IoTBPM {
 	}
 
 	public void startIoTServer(jBPMRules jbpmRules) {
-		iotServer = new IoTServer(jbpmRules, port);
-		iotServer.start();
+		if (eospyFile == "") {
+			iotServer = new IoTServer(jbpmRules, port);
+			iotServer.start();
+		} else {
+			eospyServer = new EOSpyServer(jbpmRules, eospyFile);
+			eospyServer.start();
+		}
 	}
 
 	public static void stopIoTServer() {
-		iotServer.killServer();
+		if (eospyFile == "") {
+			iotServer.killServer();
+		} else {
+			eospyServer.killServer();
+		}
 	}
 
 	public void getIPAddress() {
