@@ -46,19 +46,19 @@ public class IoTBPM {
 	IoTBPM iotBPM;
 	private static IoTServer iotServer = null;
 	private static EOSpyServer eospyServer = null;
+	public static String eospyFile = ""; // eospy-server-event.log
 
 	private String base_path = "";
 	private String appVer = "1.01A";
 	private String buildDate = "0304";
 	private boolean is64bitJMV = false;
 
-	private int port = 5055;
+	private static int port = 0;
 	private String knowledgeDebug = "none"; // none, debug
 	private String kSessionType = ""; // createKieSession
 	private String kSessionName = ""; // ksession-movement
 	private String processID = ""; // com.TrainMovement
 	private String iotTilesWindow = ""; // IoT Tiles window active
-	public static String eospyFile = ""; // eospy-server-event.log
 
 	private final Logger logger = LoggerFactory.getLogger(IoTBPM.class);
 
@@ -198,19 +198,21 @@ public class IoTBPM {
 	}
 
 	public void startIoTServer(jBPMRules jbpmRules) {
-		if (eospyFile == "") {
+		if (port != 0) {
 			iotServer = new IoTServer(jbpmRules, port);
 			iotServer.start();
-		} else {
+		}
+		if (eospyFile != "") {
 			eospyServer = new EOSpyServer(jbpmRules, eospyFile);
 			eospyServer.start();
 		}
 	}
 
 	public static void stopIoTServer() {
-		if (eospyFile == "") {
+		if (port != 0) {
 			iotServer.killServer();
-		} else {
+		}
+		if (eospyFile != "") {
 			eospyServer.killServer();
 		}
 	}
