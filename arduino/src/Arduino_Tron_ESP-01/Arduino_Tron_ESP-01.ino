@@ -278,7 +278,7 @@ void arduinoAgentSend() {
     Serial.print(line);
     clientAvail++;
   }
-  // delay(10); //
+  delay(10); //
   client.stop();
 
   Serial.print("Connection Status: ");

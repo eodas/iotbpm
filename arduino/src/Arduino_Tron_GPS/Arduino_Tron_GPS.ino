@@ -423,7 +423,7 @@ void arduinoTronSend()
     clientAvail++;
   }
   delay(10); //
-  client.stop();
+  // client.stop();
 
   Serial.print("Connection Status: ");
   if (WiFi.status() == WL_CONNECTED) {
