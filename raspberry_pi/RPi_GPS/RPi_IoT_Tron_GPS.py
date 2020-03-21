@@ -188,7 +188,10 @@ def printRMC(lines):
     global speed
     global course
     print("========================================RMC========================================")
-    # print(lines, '\n')
+
+    if (len(lines[1]) == 0) or (len(lines[3]) == 0) or (len(lines[5]) == 0):
+       print(lines, '\n')
+       return
 
     print("Fix taken at:", getTime(lines[1], "%H%M%S.%f", "%H:%M:%S"), "UTC")
     print("Status (A=OK,V=KO):", lines[2])
@@ -219,7 +222,10 @@ def printRMC(lines):
 def printGGA(lines):
     global altitude
     print("========================================GGA========================================")
-    # print(lines, '\n')
+
+    if (len(lines[2]) == 0) or (len(lines[4]) == 0):
+       print(lines, '\n')
+       return
 
     print("Fix taken at:", getTime(lines[1], "%H%M%S.%f", "%H:%M:%S"), "UTC")
     lat = latitude2Decimal(lines[2], lines[3])
@@ -276,7 +282,10 @@ def printGSV(lines):
 # GPGLL - Geographic position
 def printGLL(lines):
     print("========================================GLL========================================")
-    # print(lines, '\n')
+
+    if (len(lines[1]) == 0) or (len(lines[3]) == 0):
+       print(lines, '\n')
+       return
 
     lat = latitude2Decimal(lines[1], lines[2])
     lng = longitude2Decimal(lines[3], lines[4])
