@@ -966,11 +966,34 @@ public class IoTTiles {
 
 	public void panel_5Temp(String temp) {
 		lblIconLabel_5.setText(temp);
+		panel_5Blink();
 	}
 
 	public void panel_5Temp(String topLabel, String temp) {
 		lblTopLabel_5.setText(topLabel);
 		panel_5Temp(temp);
+	}
+
+	public void panel_5Blink() {
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				boolean blink = true;
+				for (int i = 0; i < 4; i++) {
+					if (blink) {
+						panel_5.setBackground(new Color(0, 191, 255));
+					} else {
+						panel_5.setBackground(Color.RED);
+					}
+					blink = !blink;
+					try {
+						Thread.sleep(500L);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		}).start();
 	}
 
 	// Front Door Locked
@@ -1238,6 +1261,7 @@ public class IoTTiles {
 			lblIconLabel_18.setIcon(weather_cloudyIcon);
 		if (iTemp > 70)
 			lblIconLabel_18.setIcon(weather_sunIcon);
+		panel_18Blink();
 	}
 
 	public void panel_18Temp(String topLabel, String temp) {
@@ -1245,6 +1269,28 @@ public class IoTTiles {
 		panel_18Temp(temp);
 	}
 
+	public void panel_18Blink() {
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				boolean blink = true;
+				for (int i = 0; i < 4; i++) {
+					if (blink) {
+						panel_18.setBackground(new Color(0, 191, 255));
+					} else {
+						panel_18.setBackground(Color.RED);
+					}
+					blink = !blink;
+					try {
+						Thread.sleep(500L);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		}).start();
+	}
+	
 	// Device Control
 	public void panel_19Clicked(MouseEvent e) {
 		lblIconLabel_19.setIcon(lightbulb_addIcon);
