@@ -201,7 +201,7 @@ public class IoTTiles {
 		frame.getContentPane().setBackground(Color.BLACK);
 		frame.setTitle(
 				"Arduino Tron AI-IoTBPM :: IoT Tiles Internet of Things Drools-jBPM using Arduino Tron AI-IoTBPM");
-		frame.setBounds(100, 100, 955, 455);
+		frame.setBounds(100, 100, 953, 465);
 		frame.setDefaultCloseOperation(exitOnClose ? JFrame.EXIT_ON_CLOSE : WindowConstants.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.setLocationRelativeTo(null); // Center in screen
@@ -587,7 +587,7 @@ public class IoTTiles {
 		lblTopLabel_11.setForeground(Color.WHITE);
 		panel_11.add(lblTopLabel_11, BorderLayout.NORTH);
 
-		lblBottomLabel_11 = new JLabel("IoT Kiosk Status");
+		lblBottomLabel_11 = new JLabel("Kiosk Status");
 		lblBottomLabel_11.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblBottomLabel_11.setForeground(Color.WHITE);
 		panel_11.add(lblBottomLabel_11, BorderLayout.SOUTH);
@@ -702,7 +702,7 @@ public class IoTTiles {
 		frame.getContentPane().add(panel_15);
 		panel_15.setLayout(new BorderLayout(0, 0));
 
-		JLabel lblTopLabel_15 = new JLabel("IoT Dash Button");
+		JLabel lblTopLabel_15 = new JLabel("Dash Button");
 		lblTopLabel_15.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblTopLabel_15.setForeground(Color.WHITE);
 		panel_15.add(lblTopLabel_15, BorderLayout.NORTH);
