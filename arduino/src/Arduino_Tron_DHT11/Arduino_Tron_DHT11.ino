@@ -3,7 +3,7 @@
   - Arduino Tron Drools-jBPM :: Executive Order Arduino Tron Sensor Processor MQTT AI-IoTBPM Client using AI-IoTBPM Drools-jBPM
   - Arduino Tron AI-IoTBPM :: Internet of Things Drools-jBPM Expert System using Arduino Tron AI-IoTBPM Processing
   - Executive Order Corporation
-  - Copyright © 1978, 2019: Executive Order Corporation, All Rights Reserved
+  - Copyright © 1978, 2020: Executive Order Corporation, All Rights Reserved
 ********************/
 
 #include <SimpleDHT.h>
@@ -73,14 +73,16 @@ int clientAvail = 0; // client.available() count
 //      VCC: 5V or 3V
 //      GND: GND
 //      DATA: 2
-int pinDHT11 = 2; // GPIO2
+int pinDHT11 = 2; // 2-GPIO2 for IoTDHT11
 SimpleDHT11 dht11; // <-- for DHT11
 
-// Values for the DHT11 digital temperature/humidity sensor; &temp= and &humidity= fields
-byte temp = 0;
+// Values for the DHT11 digital temperature/humidity sensor; &celsius= and &humidity= fields
+byte celsius = 0;
+byte fahrenheit = 0;
 byte humidity = 0;
-byte temp_prev = 0;
+byte celsius_prev = 0;
 byte humidity_prev = 0;
+int err = 0;
 
 String irkey = "1.0";
 
@@ -110,7 +112,7 @@ void setup(void) {
   Serial.println("Executive Order Corporation - Arduino Tron ESP8266 MQTT Telemetry Transport Machine-to-Machine(M2M)/Internet of Things(IoT)");
   Serial.println("Arduino Tron Drools-jBPM :: Executive Order Arduino Tron Sensor Processor MQTT AI-IoTBPM Client using AI-IoTBPM Drools-jBPM");
   Serial.println("- Arduino Tron Web Automation DHT11 ver " + ver);
-  Serial.println("Copyright © 1978, 2019: Executive Order Corporation, All Rights Reserved");
+  Serial.println("Copyright © 1978, 2020: Executive Order Corporation, All Rights Reserved");
   Serial.println();
   Serial.print("Connecting to ");
   Serial.println(ssid);
@@ -142,11 +144,13 @@ void loop(void) {
     timeCounter = 0;
     readDHT11(); // read DHT11 digital temperature and humidity sensor
 
-    if ((temp != temp_prev) || (humidity != humidity_prev)) {
-      arduinoTronSend(); // <-- arduinoTronSend for dht11
+    if ((celsius != 0) && (humidity != 0)) {
+      if ((celsius != celsius_prev) || (humidity != humidity_prev)) {
+        arduinoTronSend(); // <-- arduinoTronSend for dht11
+      }
+      Serial.print((int)celsius); Serial.print(" *C, ");
+      Serial.print((int)humidity); Serial.println(" H");
     }
-    Serial.print((int)temp); Serial.print(" *C, ");
-    Serial.print((int)humidity); Serial.println(" H");
   }
 
   // DHT11 sampling rate is 1HZ.
@@ -179,7 +183,7 @@ void loop(void) {
 void arduinoTronSend()
 {
   //digitalWrite(LED2, LOW); // turn the LED on
-  temp_prev = temp;
+  celsius_prev = celsius;
   humidity_prev = humidity;
 
   // Explicitly set the ESP8266 to be a WiFi-client
@@ -216,8 +220,8 @@ void arduinoTronSend()
   // switchState NodeMCU gpio pinMode()
   client.print("&keypress=" + TYPE_KEYPRESS_1);
 
-  int tempF = (temp * 9 / 5) + 32;
-  client.print("&temp=" + String(tempF));
+  // int fahrenheit = (celsius * 9 / 5) + 32;
+  client.print("&temp=" + String(fahrenheit));
   client.print("&humidity=" + String(humidity));
 
   // digitalRead GPIO15(D8) send values for web server DHT11
@@ -253,7 +257,8 @@ void arduinoTronSend()
     Serial.print(line);
     clientAvail++;
   }
-  client.stop();
+  delay(10); //
+  //client.stop();
 
   Serial.print("Connection Status: ");
   if (WiFi.status() == WL_CONNECTED) {
@@ -277,20 +282,21 @@ void arduinoTronSend()
   Serial.println("");
 }
 
-// Arduino values for the DHT11 digital temperature/humidity sensor; &temp= and &humidity= fields
+// Arduino values for the DHT11 digital temperature/humidity sensor; &celsius= and &humidity= fields
 // DHT11 digital temperature and humidity sensor pin Vout (sense)
 void readDHT11() {
-  temp = 0;
-  humidity = 0;
-  int err = SimpleDHTErrSuccess; // DHT11 error wait for start low signal
-
-  if ((err = dht11.read(pinDHT11, &temp, &humidity, NULL)) != SimpleDHTErrSuccess) {
+  byte t_celsius = 0;
+  byte t_humidity = 0;
+  err = SimpleDHTErrSuccess; // DHT11 error wait for start low signal
+  if ((err = dht11.read(pinDHT11, &t_celsius, &t_humidity, NULL)) != SimpleDHTErrSuccess) {
     Serial.print("Read DHT11 failed, error = ");
     Serial.println(err);
     return;
   }
+  celsius = t_celsius;
+  humidity = t_humidity;
   // convert to Fahrenheit
-  // tempF = (temp * 9 / 5) + 32;
+  fahrenheit = (celsius * 9 / 5) + 32;
 }
 
 void arduinoWebserver() {
@@ -317,6 +323,10 @@ void arduinoWebserver() {
           if (header.indexOf("/DEV0=ON") >= 0) {
           }
 
+          if (header.indexOf("favicon") >= 0) {
+            Serial.print("Google Chrome crap");
+          }
+
           // Display the HTML web page
           client.println("<!DOCTYPE html><html>");
           client.println("<head><title>Arduino Tron IoT Agent DHT11</title>");
@@ -326,10 +336,9 @@ void arduinoWebserver() {
           client.println("<br>DHT11 temperature / humidity<br>");
 
           // values for the DHT11 digital temperature/humidity sensor
-          client.print((int)temp); client.print(" *C, ");
-          // convert to Fahrenheit
-          int tempF = (temp * 9 / 5) + 32;
-          client.print((int)tempF); client.print(" *F, ");
+          client.print((int)celsius); client.print(" *C, ");
+          // convert to Fahrenheit = (celsius * 9 / 5) + 32;
+          client.print((int)fahrenheit); client.print(" *F, ");
           client.print((int)humidity); client.println(" H");
 
           client.println("</body></html>");

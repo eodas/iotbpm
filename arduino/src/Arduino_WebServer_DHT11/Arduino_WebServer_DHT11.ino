@@ -51,7 +51,6 @@ String lat = "38.888160"; // position LAT National Air Space Museum
 String lon = "-77.019868"; // position LON
 
 // Above are all the fields you need to provide values, the remaining fields are used in the Arduino Tron application
-const bool sendArduinoTron = false; // Arduino Tron transmit values to IoTBPM Server
 const int httpPort = 5055; // Arduino Tron server is running on default port 5055
 // OpenStreetMap Automated Navigation Directions is a map and navigation app for Android default port 5055
 
@@ -138,7 +137,7 @@ int clientAvail = 0; // client.available() count
 int pinDHT11 = 2; // 2-GPIO2 for IoTDHT11
 SimpleDHT11 dht11; // <-- for DHT11
 
-// Values for the DHT11 digital temperature/humidity sensor; &temp= and &humidity= fields
+// Values for the DHT11 digital temperature/humidity sensor; &celsius= and &humidity= fields
 byte celsius = 0;
 byte fahrenheit = 0;
 byte humidity = 0;
@@ -254,10 +253,6 @@ void arduinoTronSend()
   celsius_prev = celsius;
   humidity_prev = humidity;
 
-  if (!sendArduinoTron) {
-    return;
-  }
-
   // Explicitly set the ESP8266 to be a WiFi-client
   WiFi.mode(WIFI_STA);
 
@@ -292,7 +287,7 @@ void arduinoTronSend()
   // switchState NodeMCU gpio pinMode()
   client.print("&keypress=" + TYPE_KEYPRESS_1);
 
-  // int tempF = (temp * 9 / 5) + 32;
+  // int fahrenheit = (celsius * 9 / 5) + 32;
   client.print("&temp=" + String(fahrenheit));
   client.print("&humidity=" + String(humidity));
 
@@ -330,7 +325,7 @@ void arduinoTronSend()
     clientAvail++;
   }
   delay(10); //
-  // client.stop();
+  //client.stop();
 
   Serial.print("Connection Status: ");
   if (WiFi.status() == WL_CONNECTED) {
@@ -354,7 +349,7 @@ void arduinoTronSend()
   Serial.println("");
 }
 
-// Arduino values for the DHT11 digital temperature/humidity sensor; &temp= and &humidity= fields
+// Arduino values for the DHT11 digital temperature/humidity sensor; &celsius= and &humidity= fields
 // DHT11 digital temperature and humidity sensor pin Vout (sense)
 void readDHT11() {
   byte t_celsius = 0;
@@ -412,7 +407,7 @@ void arduinoWebserver() {
           client.println("<br><br>DHT11 Temperature ");
           client.print((int)celsius); client.print(" *C, &nbsp; ");
 
-          // convert to Fahrenheit - tempF = (temp * 9 / 5) + 32;
+          // convert to Fahrenheit = (celsius * 9 / 5) + 32;
           client.print((int)fahrenheit);
           client.println(" *F &nbsp; /  &nbsp; Humidity ");
           client.print((int)humidity); client.println(" H");
@@ -431,23 +426,9 @@ void arduinoWebserver() {
     }
   }
   header = ""; // Clear the header variable
-  // client.stop(); // Close the connection
+  //client.stop(); // Close the connection
   delay(1);
   Serial.println("Client disconnected");
-  Serial.println("");
-}
-
-// Gets date/time info for an specific timezone
-void configureTime() {
-  configTime(timezone * 3600, 0, "pool.ntp.org", "time.nist.gov");
-  Serial.print("\nWaiting for time");
-
-  while (!time(nullptr)) {
-    Serial.print(".");
-    delay(500);
-  }
-  Serial.println("");
-  Serial.println("Time configured.");
   Serial.println("");
 }
 
@@ -473,3 +454,18 @@ String buildDateTime(time_t now) {
   }
   return datetime;
 }
+
+// Gets date/time info for an specific timezone
+void configureTime() {
+  configTime(timezone * 3600, 0, "pool.ntp.org", "time.nist.gov");
+  Serial.print("\nWaiting for time");
+
+  while (!time(nullptr)) {
+    Serial.print(".");
+    delay(500);
+  }
+  Serial.println("");
+  Serial.println("Time configured.");
+  Serial.println("");
+}
+
