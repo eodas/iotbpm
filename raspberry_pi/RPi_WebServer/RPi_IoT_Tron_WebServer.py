@@ -44,13 +44,41 @@ setup = True  # Init setup GPIO.setmode() once
 #   GPIO26 (37) (38) GPIO20
 #      GND (39) (40) GPIO21
 
-LED0 = 'OFF'  # Init state GPIO17
-LED1 = 'OFF'  # Init state GPIO27
-LED2 = 'OFF'  # Init state GPIO22
+# BerryClip+ - 6 LED - 2 Switch - 1 Buzzer Board
+# Hardware Reference
+# =============================
+# The components are connected to the main Pi GPIO header (P1)
+# LED 1    - P1-07 - GPIO4
+# LED 2    - P1-11 - GPIO17
+# LED 3    - P1-15 - GPIO22
+# LED 4    - P1-19 - GPIO10
+# LED 5    - P1-21 - GPIO9
+# LED 6    - P1-23 - GPIO11
+# Buzzer   - P1-24 - GPIO8
+# Switch 1 - P1-26 - GPIO7
+# Swtich 2 - P1-22 - GPIO25
 
-LedPin0 = 11  # GPIO pin GPIO17 (LED pin11)
-LedPin1 = 13  # GPIO pin GPIO27 (LED pin13)
-LedPin2 = 15  # GPIO pin GPIO22 (LED pin15)
+# Jam HAT - 6 LED - 2 Switch - 1 Buzzer Board
+# The table below shows the pin numbers for BCM, Board and the matching GPIO Zero objects.
+# |Component |GPIO.BCM | BOARD  |GPIO Zero object | Notes |
+# |----------|---------|--------|-----------------|-------|
+# | LED1     | GPIO 5  | Pin 29 | lights_1.red    |   |
+# | LED2     | GPIO 6  | Pin 31 | lights_2.red    |   |
+# | LED3     | GPIO 12 | Pin 32 | lights_1.yellow |   |
+# | LED4     | GPIO 13 | Pin 33 | lights_2.yellow |   |
+# | LED5     | GPIO 16 | Pin 36 | lights_1.green  |   |
+# | LED6     | GPIO 17 | Pin 11 | lights_2.green  |   |
+# | Button 1 | GPIO 19 | Pin 35 | button_1        | Connected to R8/R10 |
+# | Button 2 | GPIO 18 | Pin 12 | button_2        | Connected to R7/R9 |
+# | Buzzer   | GPIO 20 | Pin 38 | buzzer          |   |
+
+LED0 = 'OFF'  # Init state GPIO05 LED0
+LED1 = 'OFF'  # Init state GPIO12 LED1
+LED2 = 'OFF'  # Init state GPIO16 LED2
+
+LedPin0 = 29  # GPIO pin GPIO05 (LED pin29)
+LedPin1 = 32  # GPIO pin GPIO12 (LED pin32)
+LedPin2 = 36  # GPIO pin GPIO16 (LED pin36)
 
 
 # $GPGGA GPS Log header
