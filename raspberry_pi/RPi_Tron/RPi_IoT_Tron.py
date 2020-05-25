@@ -68,9 +68,21 @@ setup = True  # Init setup GPIO.setmode() once
 # | Button 2 | GPIO 18 | Pin 12 | button_2        | Connected to R7/R9 |
 # | Buzzer   | GPIO 20 | Pin 38 | buzzer          |   |
 
-LedPin0 = 29  # GPIO pin GPIO05 (LED pin29)
-SwitchPin0 = 35  # GPIO pin GPIO07 (Switch pin26)
-SwitchPin1 = 12  # GPIO pin GPIO25 (Switch pin22)
+LedPin0 = 5  # GPIO pin GPIO05 (LED pin29)
+
+SwitchPin0 = 19  # GPIO pin GPIO19 (Switch pin12)
+SwitchPin1 = 18  # GPIO pin GPIO18 (Switch pin38)
+
+
+# def do_SETUP():
+# void setup(void) 
+GPIO.setmode(GPIO.BCM) # Tell GPIO library to use GPIO references
+GPIO.setup(LedPin0, GPIO.OUT)  # Set pin mode as output
+GPIO.output(LedPin0, GPIO.LOW)  # Set pin to high(+3.3V) to off the led
+GPIO.setup(SwitchPin0, GPIO.IN)  # Set pin mode as input
+GPIO.setup(SwitchPin1, GPIO.IN)  # Set pin mode as input
+print("Setup GPIO pins as inputs and outputs")
+
 
 # $GPGGA GPS Log header
 utc = "0"  # UTC time status of position (hours/minutes/seconds/decimal seconds)
@@ -157,7 +169,7 @@ ALARM_REMOVING = "removing"
 
 def serverSendPost():
     global utc
-    # GPIO.output(LedPin0, GPIO.HIGH)  # LED pin11 on
+    GPIO.output(LedPin0, GPIO.HIGH)  # LED pin11 on
     # utc = int(string)
     utc = int(time.time())
 
@@ -188,18 +200,9 @@ def serverSendPost():
     resp = requests.get(url=URL, params=PARAMS)
 
     print(">>> Connection Status:", resp.status_code)
-    # GPIO.output(LedPin0, GPIO.LOW)  # LED pin11 off
+    GPIO.output(LedPin0, GPIO.LOW)  # LED pin11 off
     return
 
-
-# def do_SETUP():
-# void setup(void) 
-GPIO.setmode(GPIO.BOARD)  # Numbers pins by physical location
-# GPIO.setup(LedPin0, GPIO.OUT)  # Set pin mode as output
-# GPIO.output(LedPin0, GPIO.LOW)  # Set pin to high(+3.3V) to off the led
-GPIO.setup(SwitchPin0, GPIO.IN)  # Set pin mode as input
-GPIO.setup(SwitchPin1, GPIO.IN)  # Set pin mode as input
-print("Setup GPIO pins as inputs and outputs")
 
 # Wrap main content in a try block so we can catch the user pressing CTRL-C and run the GPIO cleanup function.
 # This will also prevent the user seeing lots of unnecessary error messages.

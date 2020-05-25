@@ -76,9 +76,9 @@ LED0 = 'OFF'  # Init state GPIO05 LED0
 LED1 = 'OFF'  # Init state GPIO12 LED1
 LED2 = 'OFF'  # Init state GPIO16 LED2
 
-LedPin0 = 29  # GPIO pin GPIO05 (LED pin29)
-LedPin1 = 32  # GPIO pin GPIO12 (LED pin32)
-LedPin2 = 36  # GPIO pin GPIO16 (LED pin36)
+LedPin0 = 5  # GPIO pin GPIO05 (LED pin29)
+LedPin1 = 12  # GPIO pin GPIO12 (LED pin32)
+LedPin2 = 16  # GPIO pin GPIO16 (LED pin36)
 
 
 # $GPGGA GPS Log header
@@ -165,7 +165,7 @@ ALARM_REMOVING = "removing"
 
 
 def do_SETUP():
-    GPIO.setmode(GPIO.BOARD)  # Numbers pins by physical location
+    GPIO.setmode(GPIO.BCM) # Tell GPIO library to use GPIO references
     GPIO.setup(LedPin0, GPIO.OUT)  # Set pin mode as output
     GPIO.output(LedPin0, GPIO.LOW)  # Set pin to high(+3.3V) to off the led
     GPIO.setup(LedPin1, GPIO.OUT)  # Set pin mode as output
