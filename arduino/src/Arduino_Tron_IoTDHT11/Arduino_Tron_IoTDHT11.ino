@@ -3,7 +3,7 @@
   - Arduino Tron Drools-jBPM :: Executive Order Arduino Tron Sensor Processor MQTT AI-IoTBPM Client using AI-IoTBPM Drools-jBPM
   - Arduino Tron AI-IoTBPM :: Internet of Things Drools-jBPM Expert System using Arduino Tron AI-IoTBPM Processing
   - Executive Order Corporation
-  - Copyright © 1978, 2019: Executive Order Corporation, All Rights Reserved
+  - Copyright © 1978, 2021: Executive Order Corporation, All Rights Reserved
 ********************/
 /*********************************************************************
   This is an example for our Monochrome OLEDs based on SSD1306 drivers
@@ -138,7 +138,7 @@ void setup() {
   //Serial.println("Executive Order Corporation - Arduino Tron ESP8266 MQTT Telemetry Transport Machine-to-Machine(M2M)/Internet of Things(IoT)");
   //Serial.println("Arduino Tron Drools-jBPM :: Executive Order Arduino Tron Sensor Processor MQTT AI-IoTBPM Client using AI-IoTBPM Drools-jBPM");
   //Serial.println("- Arduino Tron IoT ver " + ver);
-  //Serial.println("Copyright © 1978, 2019: Executive Order Corporation, All Rights Reserved");
+  //Serial.println("Copyright © 1978, 2021: Executive Order Corporation, All Rights Reserved");
 
   Wire.begin(2, 0); // set I2C pins (SDA = GPIO2, SCL = GPIO0), default clock is 100kHz
   // by default, we'll generate the high voltage from the 3.3v line internally! (neat!)

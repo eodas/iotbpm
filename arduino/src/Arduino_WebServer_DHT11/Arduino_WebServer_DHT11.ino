@@ -3,7 +3,7 @@
   - Arduino Tron Drools-jBPM :: Executive Order Arduino Tron Sensor Processor MQTT AI-IoTBPM Client using AI-IoTBPM Drools-jBPM
   - Arduino Tron AI-IoTBPM :: Internet of Things Drools-jBPM Expert System using Arduino Tron AI-IoTBPM Processing
   - Executive Order Corporation
-  - Copyright © 1978, 2020: Executive Order Corporation, All Rights Reserved
+  - Copyright © 1978, 2021: Executive Order Corporation, All Rights Reserved
 ********************/
 
 #include <SimpleDHT.h> // Temperature sensor DHT Library
@@ -173,7 +173,7 @@ void setup(void) {
   Serial.println("Executive Order Corporation - Arduino Tron ESP8266 MQTT Telemetry Transport Machine-to-Machine(M2M)/Internet of Things(IoT)");
   Serial.println("Arduino Tron Drools-jBPM :: Executive Order Arduino Tron Sensor Processor MQTT AI-IoTBPM Client using AI-IoTBPM Drools-jBPM");
   Serial.println("- Arduino Tron Web Automation DHT11 ver " + ver);
-  Serial.println("Copyright © 1978, 2020: Executive Order Corporation, All Rights Reserved");
+  Serial.println("Copyright © 1978, 2021: Executive Order Corporation, All Rights Reserved");
   Serial.println();
   Serial.print("Connecting to ");
   Serial.println(ssid);
