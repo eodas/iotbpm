@@ -3,7 +3,7 @@
   - Arduino Tron Drools-jBPM :: Executive Order Arduino Tron Sensor Processor MQTT AI-IoTBPM Client using AI-IoTBPM Drools-jBPM
   - Arduino Tron AI-IoTBPM :: Internet of Things Drools-jBPM Expert System using Arduino Tron AI-IoTBPM Processing
   - Executive Order Corporation
-  - Copyright © 1978, 2021: Executive Order Corporation, All Rights Reserved
+  - Copyright (c) 1978, 2021: Executive Order Corporation, All Rights Reserved
 ********************/
 
 #include <ESP8266WiFi.h>
@@ -50,7 +50,7 @@ void setup() {
   Serial.println("Executive Order Corporation - Arduino Tron ESP8266 MQTT Telemetry Transport Machine-to-Machine(M2M)/Internet of Things(IoT)");
   Serial.println("Arduino Tron Drools-jBPM :: Executive Order Arduino Tron Sensor Processor MQTT AI-IoTBPM Client using AI-IoTBPM Drools-jBPM");
   Serial.println("- Arduino Tron Agent ver " + ver);
-  Serial.println("Copyright © 1978, 2021: Executive Order Corporation, All Rights Reserved");
+  Serial.println("Copyright (c) 1978, 2021: Executive Order Corporation, All Rights Reserved");
 
   Serial.println();
   Serial.print("Connecting to ");
@@ -181,7 +181,7 @@ void arduinoWebserver()
   client.println("<a href=\"/LED3=OFF\"\"><button>Turn LED-3 Off </button></a><br>");
   client.println("<a href=\"/LED4=ON\"\"><button>Turn LED-4 On </button></a>");
   client.println("<a href=\"/LED4=OFF\"\"><button>Turn LED-4 Off </button></a><br>");
-  client.println("<img src=""http://www.iotbpm.com/wp-content/uploads/2021/05/Arduino_Logotype-763x354.jpg"" alt=""Arduino Tron"">");
+  client.println("<img src=""http://www.iotbpm.com/wp-content/uploads/2018/05/Arduino_Logotype-763x354.jpg"" alt=""Arduino Tron"">");
   client.println("</html>");
 
   delay(1);

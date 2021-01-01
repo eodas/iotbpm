@@ -4,7 +4,7 @@ Executive Order Corporation - Raspberry Pi Tron MQTT Telemetry Transport Machine
 Raspberry Pi Tron Drools-jBPM :: Executive Order Raspberry Pi Tron Sensor AI-IoTBPM Client using AI-IoTBPM Drools-jBPM
 Raspberry Pi Tron AI-IoTBPM :: Internet of Things Drools-jBPM Expert System using Raspberry Pi Tron AI-IoTBPM Processing
 Executive Order Corporation
-Copyright © 1978, 2021: Executive Order Corporation, All Rights Reserved
+Copyright (c) 1978, 2021: Executive Order Corporation, All Rights Reserved
 """
 import time
 import http.server
@@ -284,7 +284,7 @@ class MyHttpRequestHandler(http.server.SimpleHTTPRequestHandler):
                         <title>Raspberry Pi IoT Tron</title>\
                         <style type = ""text/css"">\
                         \
-                        body {background-image : url(""http://www.iotbpm.com/wp-content/uploads/2021/01/RaspberryPi_IoT_Tron.png""); background-repeat : no-repeat; background-color : powderblue;}\
+                        body {background-image : url(""http://www.iotbpm.com/wp-content/uploads/2020/01/RaspberryPi_IoT_Tron.png""); background-repeat : no-repeat; background-color : powderblue;}\
                         h1{color:black; font-family : arial;}\
                         p{color:red; font-family : verdana;}\
                         </style>\

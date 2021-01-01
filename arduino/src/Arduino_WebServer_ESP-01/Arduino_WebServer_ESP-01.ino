@@ -3,7 +3,7 @@
   - Arduino Tron Drools-jBPM :: Executive Order Arduino Tron Sensor Processor MQTT AI-IoTBPM Client using AI-IoTBPM Drools-jBPM
   - Arduino Tron AI-IoTBPM :: Internet of Things Drools-jBPM Expert System using Arduino Tron AI-IoTBPM Processing
   - Executive Order Corporation
-  - Copyright © 1978, 2021: Executive Order Corporation, All Rights Reserved
+  - Copyright (c) 1978, 2021: Executive Order Corporation, All Rights Reserved
 ********************/
 
 //#include <SimpleDHT.h> // <-- uncommit for dht11
@@ -199,7 +199,7 @@ void setup(void) {
   Serial.println("Executive Order Corporation - Arduino Tron ESP8266 MQTT Telemetry Transport Machine-to-Machine(M2M)/Internet of Things(IoT)");
   Serial.println("Arduino Tron Drools-jBPM :: Executive Order Arduino Tron Sensor Processor MQTT AI-IoTBPM Client using AI-IoTBPM Drools-jBPM");
   Serial.println("- Arduino Tron Web Server ESP-01 ver " + ver);
-  Serial.println("Copyright © 1978, 2021: Executive Order Corporation, All Rights Reserved");
+  Serial.println("Copyright (c) 1978, 2021: Executive Order Corporation, All Rights Reserved");
   Serial.println();
   Serial.print("Connecting to ");
   Serial.println(ssid);
@@ -375,7 +375,7 @@ void arduinoWebserver() {
   client.println("<html><head><title>Arduino Tron ESP-01</title><style type = ""text/css"">");
 
   //client.println("body{background-color : powderblue;}");
-  client.println("body {background-image : url(""http://www.iotbpm.com/wp-content/uploads/2021/05/Arduino_Logotype-763x354.jpg"");");
+  client.println("body {background-image : url(""http://www.iotbpm.com/wp-content/uploads/2018/05/Arduino_Logotype-763x354.jpg"");");
   client.println("background-repeat : no-repeat;");
   client.println("background-color : powderblue;}");
   client.println("h1{color:black; font-family : arial;}");
@@ -431,7 +431,7 @@ void arduinoWebserver() {
   client.println("<br><br><br><br>");
 
   client.println("Send Arduino Tron Server Message <input type=submit value=Send><br><br>");
-  //client.println("<img src=""http://www.iotbpm.com/wp-content/uploads/2021/05/Arduino_Logotype-763x354.jpg"" alt=""Arduino Tron"">");
+  //client.println("<img src=""http://www.iotbpm.com/wp-content/uploads/2018/05/Arduino_Logotype-763x354.jpg"" alt=""Arduino Tron"">");
   client.println("</form></body></html>");
 
   delay(1);
