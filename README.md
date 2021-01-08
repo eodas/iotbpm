@@ -75,7 +75,7 @@ then
 end 
 </code></pre>
 
-For testing messages syntax to the IoTBPM server, use the cURL command line tool for transferring data specified with URL. Read the curl MANUAL document for command syntax, and how to install Curl. <pre><code> c:\curl\bin\curl -X GET "http://localhost:5055/?id=100111&timestamp=1521212240&event=keypress1.0&protocol=osmand&outdated=false&valid=true&textMessage=Message_Sent&light=91.0&alarm=Temperature&motion=false" -H "accept: application/xml"
+For testing messages syntax to the IoTBPM server, use the cURL command line tool for transferring data specified with URL. Read the curl MANUAL document for command syntax, and how to install Curl. <pre><code> \curl\bin\curl -X GET "http://localhost:5055/?id=100111&timestamp=1521212240&event=keypress1.0&protocol=osmand&outdated=false&valid=true&textMessage=Message_Sent&light=91.0&alarm=Temperature&motion=false" -H "accept: application/xml"
 </code></pre>
 
 - Executive Order Corporation

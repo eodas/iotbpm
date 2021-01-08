@@ -1,1 +1,1 @@
-c:\curl\bin\curl -X GET "http://localhost:5055/?id=100111&timestamp=1521212240&event=keypress1.0&protocol=osmand&outdated=false&valid=true&textMessage=Light_Sensor&name=Light_Sensor&light=81.0&alarm=Light_Sensor&motion=false" -H "accept: application/xml"
+\curl\bin\curl -X GET "http://localhost:5055/?id=100111&timestamp=1521212240&event=keypress1.0&protocol=osmand&outdated=false&valid=true&textMessage=Light_Sensor&name=Light_Sensor&light=81.0&alarm=Light_Sensor&motion=false" -H "accept: application/xml"
