@@ -552,7 +552,7 @@ public class IoTTiles {
 		frame.getContentPane().add(panel_10);
 		panel_10.setLayout(new BorderLayout(0, 0));
 
-		JLabel lblTopLabel_10 = new JLabel("Lobby Light");
+		JLabel lblTopLabel_10 = new JLabel("Device Control");
 		lblTopLabel_10.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblTopLabel_10.setForeground(Color.WHITE);
 		panel_10.add(lblTopLabel_10, BorderLayout.NORTH);
@@ -823,7 +823,7 @@ public class IoTTiles {
 		frame.getContentPane().add(panel_19);
 		panel_19.setLayout(new BorderLayout(0, 0));
 
-		JLabel lblTopLabel_19 = new JLabel("Device Control");
+		JLabel lblTopLabel_19 = new JLabel("Lobby Light");
 		lblTopLabel_19.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblTopLabel_19.setForeground(Color.WHITE);
 		panel_19.add(lblTopLabel_19, BorderLayout.NORTH);
