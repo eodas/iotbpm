@@ -3,8 +3,8 @@
 ![alt tag](http://iotbpm.com/wp-content/uploads/2018/03/preview-42-768x449.jpg "AI-IoTBPM")
 
 Executive Order Corp – AI-IoTBPM server is IoT Internet of Things Drools-BPM (Business Process Management) engine for IoT Device Orchestration and IoT device ontology (AI-IoT device awareness, state of being, knowledge of real-world objects, events, situations, and abstract concepts).
-Executive Order Corp - AI-IoTBPM MQTT Telemetry Transport Machine-to-Machine(M2M) / Internet of Things (IoT)
-AI-IoTBPM :: Executive Order AI-IoTBPM Tron Sensor Processor MQTT AI-IoTBPM Client using EOSpy AI-IoTBPM Drools-jBPM
+Executive Order Corp - AI-IoTBPM MQTT Telemetry Transport Machine-to-Machine(M2M) / Internet of Things (IoT).
+AI-IoTBPM :: Executive Order AI-IoTBPM Tron Sensor Processor MQTT AI-IoTBPM Client using EOSpy AI-IoTBPM Drools-jBPM.
 
 The power of the IoT (Internet of Things) device increases greatly when business process (jBPM) can use them to provide information
 about our real-world as well as execute IoT devices as part of our business process. The jBPM-BPMN modular allow us to define 
