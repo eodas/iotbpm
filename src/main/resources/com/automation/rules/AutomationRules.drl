@@ -24,7 +24,7 @@ rule "Rules for device ID: 100222 - Temperature-Humidity"
 		$event : DeviceEvent( $eventId : id, $eventId == "100222", $temp : temp, $humidity : humidity )
        	$device : Devices( $deviceId : id, $eventId == id )
 	then
-		$device.action = "DHT11 Temp";
+		$device.action = "DHT11 Temp Office";
 		$device.status = "Temp " + $temp; 
 		String results = $event.getName() + " Temp:" + $temp + "  Humidity:" + $humidity;
 		com.iotbpm.ui.MainWindow.getInstance().log(results);
@@ -32,11 +32,26 @@ rule "Rules for device ID: 100222 - Temperature-Humidity"
 		update( $device );
 end
 
-rule "processID rule for device ID: 100223 - Temperature-Humidity"
+rule "processID rule for device ID: 100223 - Temperature-Humidity Outside"
 	when
 		$event : DeviceEvent( $eventId : id, $eventId == "100223" )
 	then
 		com.iotbpm.model.StateList.getInstance().putState("processID", "com.TemperatureOutside");
+end
+
+rule "Rules for device ID: 100223 - Temperature-Humidity Outside"
+ 	no-loop
+    when
+    	// event used to change update Temperature-Humidity Outside
+		$event : DeviceEvent( $eventId : id, $eventId == "100223", $temp : temp, $humidity : humidity )
+       	$device : Devices( $deviceId : id, $eventId == id )
+	then
+		$device.action = "DHT11 Temp Outside";
+		$device.status = "Temp " + $temp; 
+		String results = $event.getName() + " Temp:" + $temp + "  Humidity:" + $humidity;
+		com.iotbpm.ui.MainWindow.getInstance().log(results);
+		modify( $device )
+		update( $device );
 end
 
 rule "processID rule for device ID: 100333 - Door Lock IoT-MCU"
@@ -141,7 +156,7 @@ rule "Rules for device ID: 100888 - Arduino Tron IoT Display - Temperature-Humid
 		$event : DeviceEvent( $eventId : id, $eventId == "100888", $temp : temp, $humidity : humidity )
        	$device : Devices( $deviceId : id, $eventId == id )
 	then
-		$device.action = "Tron IoT";
+		$device.action = "Arduino Tron IoT";
 		$device.status = "Temp " + $temp; 
 		String results = $event.getName() + " Temp:" + $temp + "  Humidity:" + $humidity;
 		com.iotbpm.ui.MainWindow.getInstance().log(results);

@@ -78,7 +78,7 @@ public class IoTServerThread extends Thread {
 						out.println(response);
 						System.out.println("> TRACE RSP " + response);
 					}
-					sendHttpTextResp(200, "OK");
+					sendHttpTextResp(200, "STATUS 1");
 				}
 			}
 
@@ -87,7 +87,7 @@ public class IoTServerThread extends Thread {
 		}
 	}
 
-	private void sendHttpTextResp(int status, String response) throws IOException {
+	private void sendHttpTextResp(int status, String trailer) throws IOException {
 		String headerText = "OK";
 
 		switch (status) {
@@ -106,6 +106,11 @@ public class IoTServerThread extends Thread {
 
 		out.println("HTTP/1.1 " + status + " " + headerText);
 		out.println("Content-Length: 0");
+		if(trailer == null || trailer.length() == 0) {
+			// No trailer
+		} else {
+			out.println("Trailer: " + trailer); 
+		}
 		out.println(""); // do not forget this one
 
 		out.flush();
