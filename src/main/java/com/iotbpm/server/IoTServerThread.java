@@ -113,7 +113,7 @@ public class IoTServerThread extends Thread {
 		if(response == null || response.length() == 0) {
 			// No trailer
 		} else {
-			out.println("Trailer: " + response); 
+			out.println(response); 
 		}
 		out.println(""); // do not forget this one
 
