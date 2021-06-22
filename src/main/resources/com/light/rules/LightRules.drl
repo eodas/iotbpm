@@ -4,18 +4,18 @@ package com_light
 import com.iotbpm.model.Devices;
 import com.iotbpm.model.DeviceEvent;
 
-// default dialect for the semantic code will be MVEL
-dialect "mvel"
+// default dialect for the semantic code will be JAVA
+dialect "java"
 
 rule "event=allEvents Rule"
     when
         $event : DeviceEvent( $eventId : id, event == "allEvents" )
       	$device : Devices( $deviceId : id,  $eventId == id )
     then
-		$device.action = "allEvents"; 
-		$device.status = "Light " + $event.getLight();
+		$device.setAction( "allEvents" ); 
+		$device.setStatus( "Light " + $event.getLight() );
 		com.iotbpm.ui.MainWindow.getInstance().log("Rule event=allEvents: " + $event.getEvent() + " - " + $event.getName() + " - " + " Light Value: " + $event.getLight());
-		modify( $device );
+		//modify( $device );
 end
 
 rule "keypress1.0 Rule"
@@ -23,10 +23,10 @@ rule "keypress1.0 Rule"
         $event : DeviceEvent( $eventId : id, event == "keypress1.0" )
       	$device : Devices( $deviceId : id,  $eventId == id )
     then
-		$device.action = "keypress1.0"; 
-		$device.status = "Light " + $event.getLight();
+		$device.setAction( "keypress1.0" ); 
+		$device.setStatus( "Light " + $event.getLight() );
 		com.iotbpm.ui.MainWindow.getInstance().log("Rule keypress1.0: " + $event.getEvent() + " - " + $event.getName() + " - " + " Light Value: " + $event.getLight());
-		modify( $device );
+		//modify( $device );
 end
 
 rule "keypress2.0 Rule"
@@ -34,10 +34,10 @@ rule "keypress2.0 Rule"
         $event : DeviceEvent( $eventId : id, event == "keypress2.0" )
       	$device : Devices( $deviceId : id,  $eventId == id )
     then
-		$device.action = "keypress2.0"; 
-		$device.status = "Light " + $event.getLight();
+		$device.setAction( "keypress2.0" ); 
+		$device.setStatus( "Light " + $event.getLight() );
 		com.iotbpm.ui.MainWindow.getInstance().log("Rule keypress2.0: " + $event.getEvent() + " - " + $event.getName() + " - " + " Light Value: " + $event.getLight());
-		modify( $device );
+		//modify( $device );
 end
 
 rule "keypress4.0 reedRelay"
@@ -45,10 +45,10 @@ rule "keypress4.0 reedRelay"
         $event : DeviceEvent( $eventId : id, event == "keypress4.0")
       	$device : Devices( $deviceId : id,  $eventId == id )
     then
-		$device.action = "reedRelay"; 
-		$device.status = "Light " + $event.getLight();
+		$device.setAction( "reedRelay" ); 
+		$device.setStatus( "Light " + $event.getLight() );
 		com.iotbpm.ui.MainWindow.getInstance().log("Rule keypress4.0 reedRelay: " + $event.getEvent() + " - " + $event.getName() + " - " + " Light Value: " + $event.getLight());
-		modify( $device );
+		//modify( $device );
 end
 
 rule "keypress8.0 proximity"
@@ -56,10 +56,10 @@ rule "keypress8.0 proximity"
         $event : DeviceEvent( $eventId : id, event == "keypress8.0") 
       	$device : Devices( $deviceId : id,  $eventId == id )
     then
-		$device.action = "proximity"; 
-		$device.status = "Light " + $event.getLight();
+		$device.setAction( "proximity" ); 
+		$device.setStatus( "Light " + $event.getLight() );
 		com.iotbpm.ui.MainWindow.getInstance().log("Rule keypress8.0 proximity: " + $event.getEvent() + " - " + $event.getName() + " - " + " Light Value: " + $event.getLight());
-		modify( $device );
+		//modify( $device );
 end
 
 //declare any ruleflow-group rules to fire in the jBPM com.Light process

@@ -4,8 +4,8 @@ package com_gpsposition
 import com.iotbpm.model.Devices;
 import com.iotbpm.model.DeviceEvent;
 
-// default dialect for the semantic code will be MVEL
-dialect "mvel"
+// default dialect for the semantic code will be JAVA
+dialect "java"
 
 rule "GPS Device Fix"
 no-loop  
@@ -13,10 +13,10 @@ no-loop
         $event : DeviceEvent( $eventId : id, $lat : lat, $lon : lon, $altitude : altitude, $distance : distance )
       	$device : Devices( $deviceId : id,  $eventId == id )
 	then
-		$device.action = "GPS";
-		$device.status = $event.getEvent();
+		$device.setAction(  "GPS" );
+		$device.setStatus(  $event.getEvent() );
 		com.iotbpm.ui.MainWindow.getInstance().log($event.getName() + " GPS Fix lat:" + $lat + " lon:" + $lon + " Altitude:" + $altitude);
-		modify( $device )
+		//modify( $device );
 end
 
 //declare rule to fire when Device speed is over 60
@@ -25,10 +25,10 @@ rule "GPS Device Speed Alert"
         $event : DeviceEvent( $eventId : id, $lat : lat, $lon : lon, $altitude : altitude, $speed : speed, $speed > "60" )
       	$device : Devices( $deviceId : id,  $eventId == id )
 	then
-		$device.action = "Alert";
-		$device.status = $event.getEvent();
+		$device.setAction( "Alert" );
+		$device.setStatus( $event.getEvent() );
 		com.iotbpm.ui.MainWindow.getInstance().log($event.getName() + " GPS Speed Alert lat:" + $lat + " lon:" + $lon + " speed:" + $speed);
-		modify( $device )
+		//modify( $device );
 end
 
 rule "GPS Device Fix Information"

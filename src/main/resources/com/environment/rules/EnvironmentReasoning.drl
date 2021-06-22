@@ -4,20 +4,20 @@ package com_environment
 import com.iotbpm.model.Devices;
 import com.iotbpm.model.DeviceEvent;
 
-// default dialect for the semantic code will be MVEL
-dialect "mvel"
+// default dialect for the semantic code will be JAVA
+dialect "java"
 
 rule "IoT Device Environment Conditions Readings"
 	when
         $event : DeviceEvent( $eventId : id, $temp : temp, $ir_temp : ir_temp, $humidity : humidity, $mbar : mbar, $light : light )
       	$device : Devices( $deviceId : id, $eventId == id )
 	then
-		$device.action = $event.getEvent();
+		$device.setAction( $event.getEvent() );
 		String result = ($temp == "0.0") ? "Mbar " + $mbar : "Temp " + $temp; 
-		$device.status = result;
+		$device.setStatus( result );
 		String results = $event.getName() + " Temp:" + $temp + "  IR_Temp:" + $ir_temp + "  Humidity:" + $humidity + "  Mbar:" + $mbar + "  Light:" + $light
 		com.iotbpm.ui.MainWindow.getInstance().log(results);
-		modify( $device )
+		//modify( $device );
 end
 
 rule "IoT Device Event Readings"
@@ -27,7 +27,7 @@ rule "IoT Device Event Readings"
 	then
 		String results = $event.getName() + " Device Time " + $event.getDeviceTime() + " " + $event.getEvent();
 		com.iotbpm.ui.MainWindow.getInstance().log(results);
-		modify( $device )
+		//modify( $device );
 end
 
 //declare rule to fire when Temp is over 75
@@ -36,10 +36,10 @@ rule "Temp Raise alarm - Too Warm at Location"
         $event : DeviceEvent( $eventId : id, $temp : temp, $temp > "75" )
       	$device : Devices( $deviceId : id,  $eventId == id )
 	then
-		$device.action = "Alert"; 
-		$device.status = "Temp " + $temp;
+		$device.setAction( "Alert" ); 
+		$device.setStatus( "Temp " + $temp );
 		com.iotbpm.ui.MainWindow.getInstance().log(">>Raise Temp Alarm " + $event.getName() + " Temperature:" + $temp);
-		modify( $device );
+		//modify( $device );
 end
 
 rule "IoT Device Sent Text Message"

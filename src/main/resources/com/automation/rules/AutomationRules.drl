@@ -5,8 +5,8 @@ import com.iotbpm.model.Devices;
 import com.iotbpm.model.DeviceEvent;
 import com.iotbpm.model.StateList;
 
-// default dialect for the semantic code will be MVEL
-dialect "mvel"
+// default dialect for the semantic code will be JAVA
+dialect "java"
 
 // 100111 - Arduino Tron IoT
 
@@ -24,12 +24,12 @@ rule "Rules for device ID: 100222 - Temperature-Humidity"
 		$event : DeviceEvent( $eventId : id, $eventId == "100222", $temp : temp, $humidity : humidity )
        	$device : Devices( $deviceId : id, $eventId == id )
 	then
-		$device.action = "DHT11 Temp Office";
-		$device.status = "Temp " + $temp; 
+		$device.setAction("DHT11 Temp Office");
+		$device.setStatus("Temp " + $temp); 
 		String results = $event.getName() + " Temp:" + $temp + "  Humidity:" + $humidity;
 		com.iotbpm.ui.MainWindow.getInstance().log(results);
-		modify( $device )
-		update( $device );
+		//modify( $device );
+		//update( $device );
 end
 
 rule "processID rule for device ID: 100223 - Temperature-Humidity Outside"
@@ -46,12 +46,12 @@ rule "Rules for device ID: 100223 - Temperature-Humidity Outside"
 		$event : DeviceEvent( $eventId : id, $eventId == "100223", $temp : temp, $humidity : humidity )
        	$device : Devices( $deviceId : id, $eventId == id )
 	then
-		$device.action = "DHT11 Temp Outside";
-		$device.status = "Temp " + $temp; 
+		$device.setAction("DHT11 Temp Outside");
+		$device.setStatus("Temp " + $temp); 
 		String results = $event.getName() + " Temp:" + $temp + "  Humidity:" + $humidity;
 		com.iotbpm.ui.MainWindow.getInstance().log(results);
-		modify( $device )
-		update( $device );
+		//modify( $device );
+		//update( $device );
 end
 
 rule "processID rule for device ID: 100333 - Door Lock IoT-MCU"
@@ -69,11 +69,11 @@ rule "Rules for device ID: 100333 - Door Lock IoT-MCU"
       	$device : Devices( $deviceId : id,  $eventId == id )
     then
     	String result = (com.iotbpm.model.StateList.getInstance().getState("DoorLock") == "Locked") ? "Unlocked" : "Locked";
-    	$device.status = result;
-		$device.action = "Door Status";
+    	$device.setStatus(result);
+		$device.setAction("Door Status");
 		com.iotbpm.ui.MainWindow.getInstance().log($device.getName() + " " + result);
-		modify( $device );
-		update( $device );
+		//modify( $device );
+		//update( $device );
 end
 
 // 100444 - Arduino IoT-SensorTag
@@ -92,11 +92,11 @@ rule "Rules for device ID: 100555 - Arduino Dash Button"
     	$event : DeviceEvent( $eventId : id, $eventId == "100555", $alarm : alarm )
       	$device : Devices( $deviceId : id,  $eventId == id )
     then
-		$device.status = $alarm;
-		$device.action = "Dash Button";
+		$device.setStatus( $alarm );
+		$device.setAction("Dash Button");
 		com.iotbpm.ui.MainWindow.getInstance().log($device.getName());
-		modify( $device );
-		update( $device );
+		//modify( $device );
+		//update( $device );
 end
 
 rule "processID rule for device ID: 100666 - Door Open Sensor ESP01"
@@ -113,11 +113,11 @@ rule "Rules for device ID: 100666 - Door Open Sensor ESP01"
 		$event : DeviceEvent( $eventId : id, $eventId == "100666" )
       	$device : Devices( $deviceId : id,  $eventId == id )
     then
-		$device.status = "Opened";
-		$device.action = "Sensor";
+		$device.setStatus("Opened");
+		$device.setAction("Sensor");
 		com.iotbpm.ui.MainWindow.getInstance().log($device.getName());
-		modify( $device );
-		update( $device );
+		//modify( $device );
+		//update( $device );
 end
 
 rule "processID rule for device ID: 100777 - Light Module IoT-MCU"
@@ -135,11 +135,11 @@ rule "Rules for device ID: 100777 - Light Module IoT-MCU"
       	$device : Devices( $deviceId : id,  $eventId == id )
     then
     	String result = (com.iotbpm.model.StateList.getInstance().getState("LightModule") == "On") ? "Off" : "On";
-    	$device.status = result;
-		$device.action = "Light Module";
+    	$device.setStatus( result );
+		$device.setAction("Light Module");
 		com.iotbpm.ui.MainWindow.getInstance().log($device.getName() + " " + result);
-		modify( $device );
-		update( $device );
+		//modify( $device );
+		//update( $device );
 end
 
 rule "processID rule for device ID: 100888 - Arduino Tron IoT Display"
@@ -156,11 +156,11 @@ rule "Rules for device ID: 100888 - Arduino Tron IoT Display - Temperature-Humid
 		$event : DeviceEvent( $eventId : id, $eventId == "100888", $temp : temp, $humidity : humidity )
        	$device : Devices( $deviceId : id, $eventId == id )
 	then
-		$device.action = "Arduino Tron IoT";
-		$device.status = "Temp " + $temp; 
+		$device.setAction("Arduino Tron IoT");
+		$device.setStatus("Temp " + $temp); 
 		String results = $event.getName() + " Temp:" + $temp + "  Humidity:" + $humidity;
 		com.iotbpm.ui.MainWindow.getInstance().log(results);
-		modify( $device )
-		update( $device );
+		//modify( $device )
+		//update( $device );
 end
 

@@ -4,17 +4,17 @@ package com_gyroscope
 import com.iotbpm.model.Devices;
 import com.iotbpm.model.DeviceEvent;
 
-// default dialect for the semantic code will be MVEL
-dialect "mvel"
+// default dialect for the semantic code will be JAVA
+dialect "java"
 
 rule "Device Gyroscope Readings"
 	when
         $event : DeviceEvent( $eventId : id, $accel_x : accel_x, $accel_y : accel_y, $accel_z : accel_z, $gyro_x : gyro_x, $gyro_y : gyro_y, $gyro_z : gyro_z, $magnet_x : magnet_x, $magnet_y : magnet_y, $magnet_z : magnet_z )
       	$device : Devices( $deviceId : id,  $eventId == id )
 	then
-		$device.action = $event.getEvent(); 
+		$device.setAction( $event.getEvent() ); 
 		com.iotbpm.ui.MainWindow.getInstance().log($event.getName() + "  accel " + $accel_x + " " + $accel_y + " " + $accel_z + " " + "  gyro " + $gyro_x + " " + $gyro_y + " " + $gyro_z + " " + "  magnet " + $magnet_x + " " + $magnet_y + " " + $magnet_z );
-		modify( $device );
+		//modify( $device );
 end
 
 rule "Device Gyroscope Positive zBias"
@@ -22,9 +22,9 @@ rule "Device Gyroscope Positive zBias"
         $event : DeviceEvent( $eventId : id, $magnet_z : magnet_z, $magnet_z > 0 )
       	$device : Devices( $deviceId : id,  $eventId == id )
 	then
-		$device.action = $event.getEvent(); 
-		$device.status = "Face Up";
-		modify( $device );
+		$device.setAction( $event.getEvent() ); 
+		$device.setStatus( "Face Up" );
+		//modify( $device );
 end
 
 rule "Device Gyroscope Negative zBias"
@@ -32,9 +32,9 @@ rule "Device Gyroscope Negative zBias"
         $event : DeviceEvent( $eventId : id, $magnet_z : magnet_z, $magnet_z < 0 )
       	$device : Devices( $deviceId : id,  $eventId == id )
 	then
-		$device.action = $event.getEvent(); 
-		$device.status = "Face Down";
-		modify( $device );
+		$device.setAction( $event.getEvent() ); 
+		$device.setStatus( "Face Down" );
+		//modify( $device );
 end
 
 rule "Device Address Location"

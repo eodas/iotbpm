@@ -4,8 +4,8 @@ package com_movement
 import com.iotbpm.model.Devices;
 import com.iotbpm.model.DeviceEvent;
 
-// default dialect for the semantic code will be MVEL
-dialect "mvel"
+// default dialect for the semantic code will be JAVA
+dialect "java"
 
 rule "Move-Stop Train Motion Rule"
  	no-loop
@@ -14,31 +14,31 @@ rule "Move-Stop Train Motion Rule"
 		$event : DeviceEvent( $eventId : id, (event == "keypress1.0" || event == "keypress2.0") )
       	$device : Devices( $deviceId : id,  $eventId == id )
     then
-		String result = ($device.status == "Move") ? "Stop" : "Move";
-  		$device.status = result;
-		$device.action = $event.getEvent();
+		String result = ($device.setStatus( == "Move") ? "Stop" : "Move";
+  		$device.setStatus( result );
+		$device.setAction( $event.getEvent() );
 		com.iotbpm.ui.MainWindow.getInstance().log("Train Device " + $device.getName() + " - " + result);
-		modify( $device );
-		update( $device );
+		//modify( $device );
+		//update( $device );
 end
 
 rule "No Trains Are Moving - Quite Rule"
 	when
-		accumulate ( $device : Devices( $deviceId : id, $device.status == "Move" ); $cnt : count(1) ; $cnt == 0 )
+		accumulate ( $device : Devices( $deviceId : id, $device.getStatus() == "Move" ); $cnt : count(1) ; $cnt == 0 )
 then
 		com.iotbpm.ui.MainWindow.getInstance().log("<Quite> No Trains Are Moving.");
 end
 
 rule "One Train is Moving - Safe Rule"
 	when
-		accumulate ( $device : Devices( $deviceId : id, $device.status == "Move" ); $cnt : count(1); $cnt == 1 )
+		accumulate ( $device : Devices( $deviceId : id, $device.getStatus() == "Move" ); $cnt : count(1); $cnt == 1 )
 then
 		com.iotbpm.ui.MainWindow.getInstance().log("<Safe> Only One Train is Moving.");
 end
 
 rule "More Than One Train is Moving - Slow Rule"
 	when
-		accumulate ( $device : Devices( $deviceId : id, $device.status == "Move" ); $cnt : count(1); $cnt > 1 )
+		accumulate ( $device : Devices( $deviceId : id, $device.getStatus() == "Move" ); $cnt : count(1); $cnt > 1 )
 then
 		com.iotbpm.ui.MainWindow.getInstance().log("<Slow> More Than One Train is Moving.");
 end
