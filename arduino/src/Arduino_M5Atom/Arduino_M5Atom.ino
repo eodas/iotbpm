@@ -1,5 +1,5 @@
 /********************
-  - Executive Order Corporation - Arduino Tron M5Atom MQTT Telemetry Transport Machine-to-Machine(M2M)/Internet of Things(IoT)
+  - Executive Order Corporation - Arduino M5Stack M5Atom LED Matrix Telemetry Transport Machine-to-Machine(M2M)/Internet of Things(IoT)
   - Arduino Tron Drools-jBPM :: Executive Order Arduino Tron Sensor Processor MQTT AI-IoTBPM Client using AI-IoTBPM Drools-jBPM
   - Arduino Tron AI-IoTBPM :: Internet of Things Drools-jBPM Expert System using Arduino Tron AI-IoTBPM Processing
   - Executive Order Corporation
@@ -10,14 +10,14 @@
 #include <WiFi.h> // Arduino WiFi Shield, this library
 
 // Update these with WiFi network values
-const char* ssid     = "your-ssid"; //  your network SSID (name)
-const char* password = "your-password"; // your network password
+const char* ssid     = "eodas2"; //  your network SSID (name)
+const char* password = "SL550eodas"; // your network password
 
 WiFiClient client;
 
 // Update these with Arduino Tron service IP address and unique unit id values
 byte server[] = { 10, 0, 0, 2 }; // Set EOSpy server IP address as bytes
-String id = "100111"; // Arduino Tron Device unique unit id
+String id = "100940"; // Arduino Tron Device unique unit id
 
 // Update these with your LAT/LON GPS position values
 // You can find LAT/LON from an address https://www.latlong.net/convert-address-to-lat-long.html
@@ -519,7 +519,7 @@ void setup(void) {
   delay(200);
 
   // Connect to WiFi network
-  Serial.println("Executive Order Corporation - Arduino Tron M5Atonm MQTT Telemetry Transport Machine-to-Machine(M2M)/Internet of Things(IoT)");
+  Serial.println("Executive Order Corporation - Arduino M5Stack M5Atom LED Matrix Telemetry Transport Machine-to-Machine(M2M)/Internet of Things(IoT)");
   Serial.println("Arduino Tron Drools-jBPM :: Executive Order Arduino Tron Sensor Processor MQTT AI-IoTBPM Client using AI-IoTBPM Drools-jBPM");
   Serial.println("- Arduino Tron Web Automation M5Atom ver " + ver);
   Serial.println("Copyright (c) 1978, 2021: Executive Order Corporation, All Rights Reserved");
@@ -530,8 +530,15 @@ void setup(void) {
 }
 
 void loop(void) {
-  switchState = 0;
   timeCounter++;
+  switchState = 0;
+
+  if (M5.Btn.wasPressed()) {
+    switchState = 1;
+    timeCounter = 901;
+    M5.dis.displaybuff((uint8_t *)image_lines);
+ // fillScreen(cBLACK);
+  }
 
   if (timeCounter == 450) {
     fillScreen(cBLACK);
@@ -549,15 +556,7 @@ void loop(void) {
     Serial.printf("%.2f,%.2f,%.2f mg\r\n", accX * 1000, accY * 1000, accZ * 1000);
     Serial.printf("Temperature: %.2f C \r\n", celsius);
 
-    arduinoTronSend();  // arduinoTronSend for tempture
-  }
-
-  if (M5.Btn.wasPressed()) {
-    switchState = 1;
-    timeCounter = 0;
-
-    fillScreen(cBLACK);
-    arduinoTronSend();  // arduinoTronSend for pushButton state
+    arduinoTronSend();  // arduinoTronSend for pushButton state and tempture
   }
 
   // loop sampling rate is 50HZ.
@@ -602,7 +601,7 @@ void arduinoTronSend()
   // client.print("&accuracy=" + accuracy);
   client.print("&batt=" + batt);
 
-  float _tempF = (celsius * 9.0 / 5.0) + 32.0;
+  float _tempF = (celsius * 9.0 / 5.0) + 1.0;
   client.print("&temp=" + String(_tempF));
   client.print("&humidity=" + String(humidity));
 
@@ -711,6 +710,9 @@ void arduinoTronAction() {
       fillScreen(cBLACK);
       delay(500);
     }
+  }
+    if(response.indexOf("RSP: 503") >= 0) {
+    display_stuff();
   }
 }
 
