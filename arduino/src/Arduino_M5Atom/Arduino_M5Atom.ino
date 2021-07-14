@@ -10,8 +10,8 @@
 #include <WiFi.h> // Arduino WiFi Shield, this library
 
 // Update these with WiFi network values
-const char* ssid     = "eodas2"; //  your network SSID (name)
-const char* password = "SL550eodas"; // your network password
+const char* ssid     = "your-ssid"; //  your network SSID (name)
+const char* password = "your-password"; // your network password
 
 WiFiClient client;
 
