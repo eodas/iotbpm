@@ -13,7 +13,7 @@
 	<description>Arduino Tron AI-IoTBPM :: AI-IoTBPM Application using the jBPM and Drools Rules Engine for EOSpy Arduino Tron and AI-IoTBPM Executive Order Corp</description>
 
 	<properties>
-		<runtime.version>7.48.0.Final</runtime.version>
+		<runtime.version>7.60.0.Final</runtime.version>
 		<maven.compiler.source>1.7</maven.compiler.source>
 		<maven.compiler.target>1.7</maven.compiler.target>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
